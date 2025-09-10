@@ -132,6 +132,11 @@ body {
 }
 
 /* About Content */
+.about-content {
+  max-width: 700px;   /* keeps text from stretching too wide */
+  margin: 0 auto;
+}
+
 .about-content h2 {
   font-size: 2rem;
   margin-bottom: 12px;
@@ -139,10 +144,49 @@ body {
 }
 
 .about-content p {
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--text);
   margin-bottom: 20px;
+  font-size: 1rem;
 }
+
+/* Tablet screens */
+@media(max-width: 1024px) {
+  .about-content h2 {
+    font-size: 1.8rem;
+  }
+  .about-content p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+}
+
+/* Mobile screens */
+@media(max-width: 768px) {
+  .about-content {
+    text-align: center; /* center-align for small screens */
+    padding: 0 16px;    /* give breathing space */
+  }
+  .about-content h2 {
+    font-size: 1.6rem;
+  }
+  .about-content p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+}
+
+/* Small phones */
+@media(max-width: 480px) {
+  .about-content h2 {
+    font-size: 1.4rem;
+  }
+  .about-content p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+}
+
 
 /* Education Section */
 .about-education h3 {
