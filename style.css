@@ -71,12 +71,50 @@ body {
 .btn { background: var(--text); color: #fff; padding: 10px 16px; border-radius: 10px; text-decoration: none; display: inline-block; border: 0; cursor: pointer; }
 .btn-ghost { background: transparent; border: 1px solid rgba(0,0,0,0.08); color: var(--text); }
 
-/* Profile Card */
-.profile-card { background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent); padding: 16px; border-radius: 14px; display: flex; gap: 12px; align-items: center; box-shadow: 0 6px 24px rgba(2,6,23,0.12); }
-.profile-img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.06); }
-.profile-info h3 { margin: 0; font-size: 1.1rem; }
-.profile-info p { margin: 6px 0; color: var(--muted); }
-.socials a { display: inline-block; margin-right: 8px; padding: 6px 9px; border-radius: 8px; background: var(--glass); text-decoration: none; color: var(--text); font-weight: 600; }
+/* HERO RIGHT IMAGE ONLY */
+.hero-right {
+  display: flex;
+  justify-content: center; /* centers the card horizontally */
+  align-items: center;     /* centers the card vertically */
+}
+
+.hero-right .profile-card {
+  background: transparent;  /* remove card background if not needed */
+  padding: 0;
+  box-shadow: none;         /* remove shadow if not needed */
+}
+
+.hero-right .profile-img {
+  width: 200px;     /* adjust size */
+  height: 210px;
+  border-radius: 5%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.hero-right .profile-img:hover {
+  transform: scale(1.05); /* slight zoom on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .hero-right {
+    margin-top: 30px;
+  }
+
+  .hero-right .profile-img {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-right .profile-img {
+    width: 140px;
+    height: 140px;
+  }
+}
+
 
 /* Sections */
 .section { padding: 60px 0; }
