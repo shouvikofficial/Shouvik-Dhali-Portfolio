@@ -85,8 +85,8 @@ body {
 }
 
 .hero-right .profile-img {
-  width: 200px;     /* adjust size */
-  height: 210px;
+  width: 143px;     /* adjust size */
+  height: 217px;
   border-radius: 5%;
   object-fit: cover;
   transition: transform 0.3s ease;
