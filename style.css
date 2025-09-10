@@ -84,76 +84,70 @@ body {
 .section h2 { margin-bottom: 12px; font-size: 1.35rem; }
 .section p { color: var(--muted); margin-bottom: 18px; }
 
-/* About layout */
+/* About Section */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.5fr 2fr; /* Video slightly larger */
   gap: 40px;
   align-items: center;
-  margin-top: 24px;
+  margin-top: 40px;
 }
 
-/* Profile Image */
-.about-image .profile-img-lg {
-  width: 100%;
-  max-width: 280px;
-  border-radius: var(--radius);
-  object-fit: cover;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  transition: transform 0.3s;
-}
-
-.about-image .profile-img-lg:hover {
-  transform: scale(1.05);
-}
-
-/* About Grid */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 40px;
-  align-items: center;
-  margin-top: 24px;
-}
-
-/* Profile Image */
 .about-image-wrapper {
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.profile-img-lg {
   width: 100%;
-  border-radius: var(--radius);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  transition: transform 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-.profile-img-lg:hover {
-  transform: scale(1.05);
+.resume-video {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 600px;      /* Desktop max width */
+  aspect-ratio: 16 / 9;  /* Keep perfect video ratio */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  object-fit: cover;     /* Makes video fill container without distortion */
 }
 
 /* About Content */
 .about-content {
-  max-width: 700px;   /* keeps text from stretching too wide */
-  margin: 0 auto;
+  max-width: 700px;
 }
 
 .about-content h2 {
   font-size: 2rem;
-  margin-bottom: 12px;
   color: var(--accent);
+  margin-bottom: 16px;
 }
 
 .about-content p {
+  font-size: 1rem;
   line-height: 1.75;
   color: var(--text);
   margin-bottom: 20px;
-  font-size: 1rem;
 }
 
-/* Tablet screens */
-@media(max-width: 1024px) {
+/* Education */
+.about-education h3 {
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.about-education p {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .resume-video {
+    max-width: 500px;
+    aspect-ratio: 16 / 9;
+  }
   .about-content h2 {
     font-size: 1.8rem;
   }
@@ -163,11 +157,19 @@ body {
   }
 }
 
-/* Mobile screens */
-@media(max-width: 768px) {
+/* Mobile */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
   .about-content {
-    text-align: center; /* center-align for small screens */
-    padding: 0 16px;    /* give breathing space */
+    max-width: 100%;
+    padding: 0 16px;
+  }
+  .resume-video {
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
   }
   .about-content h2 {
     font-size: 1.6rem;
@@ -179,7 +181,10 @@ body {
 }
 
 /* Small phones */
-@media(max-width: 480px) {
+@media (max-width: 480px) {
+  .resume-video {
+    aspect-ratio: 16 / 9;
+  }
   .about-content h2 {
     font-size: 1.4rem;
   }
@@ -188,31 +193,6 @@ body {
     line-height: 1.55;
   }
 }
-
-
-/* Education Section */
-.about-education h3 {
-  margin-bottom: 8px;
-  color: var(--accent);
-}
-
-.about-education p {
-  margin: 0;
-  color: var(--muted);
-}
-
-/* Responsive */
-@media(max-width:900px){
-  .about-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .about-image-wrapper {
-    margin-bottom: 24px;
-  }
-}
-
 
 
 
