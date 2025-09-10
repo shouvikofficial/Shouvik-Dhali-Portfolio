@@ -103,15 +103,15 @@ body {
   }
 
   .hero-right .profile-img {
-    width: 160px;
-    height: 160px;
+    width: 143px;     /* adjust size */
+    height: 217px;
   }
 }
 
 @media (max-width: 480px) {
   .hero-right .profile-img {
-    width: 140px;
-    height: 140px;
+    width: 143px;     /* adjust size */
+    height: 217px;
   }
 }
 
