@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shouvik — Blog</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- NAV -->
+  <header class="site-header">
+    <div class="container nav-row">
+      <div class="brand">Shouvik</div>
+      <nav class="nav" id="nav">
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#skills" class="nav-link">Skills</a>
+        <a href="index.html#projects" class="nav-link">Projects</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+      </nav>
+      <div class="controls">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <button id="hamburger" class="icon-btn hamburger" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOG HERO -->
+  <section class="hero blog-hero">
+    <div class="container">
+      <h1 class="hero-title">My Blog</h1>
+      <p class="hero-sub muted">Read my latest posts on web development, AI, and programming.</p>
+    </div>
+  </section>
+
+  <!-- BLOG POSTS GRID -->
+  <section class="section container" aria-label="Blog Posts">
+    <div class="posts-grid reveal">
+
+      <!-- Post 1 -->
+      <div class="post-card" data-post="1">
+        <img src="blog1.jpg" alt="Blog Post 1" class="post-img">
+        <div class="post-content">
+          <h3 class="post-title">Building Heart Disease Prediction System</h3>
+          <p class="post-excerpt">A detailed guide on creating a machine learning web app using Python, Flask, and HTML/CSS...</p>
+          <button class="btn btn-small read-more" data-post="1">Read More</button>
+        </div>
+      </div>
+
+      <!-- Post 2 -->
+      <div class="post-card" data-post="2">
+        <img src="blog2.jpg" alt="Blog Post 2" class="post-img">
+        <div class="post-content">
+          <h3 class="post-title">Sign Language Detection with AI</h3>
+          <p class="post-excerpt">Learn how I built a live sign language detection system using webcam, Flask, and ML models...</p>
+          <button class="btn btn-small read-more" data-post="2">Read More</button>
+        </div>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="post-card" data-post="3">
+        <img src="blog3.jpg" alt="Blog Post 3" class="post-img">
+        <div class="post-content">
+          <h3 class="post-title">AI Exam Proctoring System</h3>
+          <p class="post-excerpt">Step-by-step walkthrough of creating an AI-powered exam proctoring app with face detection and YOLO...</p>
+          <button class="btn btn-small read-more" data-post="3">Read More</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODAL FOR BLOG POSTS -->
+  <div id="post-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modal-post-content">
+        <!-- Dynamic content will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+
+      <div class="footer-card">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html#about">About Me</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-card">
+        <h4>Contact</h4>
+        <p>Email: <a href="mailto:shouvikdhali@gmail.com">shouvikdhali@gmail.com</a></p>
+        <p>Phone: <a href="tel:+8801676965293">+8801676965293</a></p>
+        <p>Location: Khulna, Bangladesh</p>
+      </div>
+
+      <div class="footer-card">
+        <h4>Follow Me</h4>
+        <div class="social-icons">
+          <a href="https://github.com/shouvikofficial" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/shouvik-dhali-67458b238/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://x.com/mehshouvik420" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Shouvik | All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // BLOG MODAL CONTENT
+    const postsContent = {
+      1: `<h2>Building Heart Disease Prediction System</h2>
+          <p>This project uses Python, Flask, HTML, CSS, and machine learning models to predict heart disease. The system includes automatic data saving, retraining, and interactive frontend.</p>
+          <img src="blog1.jpg" alt="Heart Disease App" style="width:100%;margin:1rem 0;">
+          <p>Check the full code on <a href="https://github.com/shouvikofficial/Heart-Disease-Prediction-System" target="_blank">GitHub</a>.</p>`,
+
+      2: `<h2>Sign Language Detection with AI</h2>
+          <p>A live sign language detection system built with webcam, Flask backend, and machine learning model. It detects individual letters and converts them into words on a dynamic web interface.</p>
+          <img src="blog2.jpg" alt="Sign Language App" style="width:100%;margin:1rem 0;">
+          <p>Check the full project on <a href="https://github.com/shouvikofficial/Sign-Language-Detection-System" target="_blank">GitHub</a>.</p>`,
+
+      3: `<h2>AI Exam Proctoring System</h2>
+          <p>This AI-powered exam proctoring system detects faces, multiple users, and phones in real-time using YOLOv5. The project includes attendance logging and live webcam monitoring integrated with Flask.</p>
+          <img src="blog3.jpg" alt="AI Proctoring" style="width:100%;margin:1rem 0;">
+          <p>Check the full project on <a href="https://github.com/shouvikofficial/AI-Exam-Proctoring-System" target="_blank">GitHub</a>.</p>`
+    };
+
+    const modal = document.getElementById('post-modal');
+    const modalContent = document.getElementById('modal-post-content');
+    const closeBtn = document.querySelector('.modal .close');
+
+    document.querySelectorAll('.read-more').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const postId = btn.dataset.post;
+        modalContent.innerHTML = postsContent[postId];
+        modal.style.display = 'block';
+      });
+    });
+
+    closeBtn.onclick = () => modal.style.display = 'none';
+    window.onclick = e => { if(e.target === modal) modal.style.display = 'none'; }
+  </script>
+</body>
+</html>
