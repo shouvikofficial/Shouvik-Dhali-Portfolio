@@ -57,6 +57,24 @@
     </div>
   </section>
 
+  <!-- Blog Management -->
+<section class="blog-section">
+  <h3>Blog Posts</h3>
+  <input type="text" id="blog-title" placeholder="Blog Title" />
+  <textarea id="blog-content" placeholder="Blog Content"></textarea>
+  <input type="file" id="blog-image" />
+  <button onclick="addBlog(
+    document.getElementById('blog-title').value,
+    document.getElementById('blog-content').value,
+    document.getElementById('blog-image').files[0]
+  )">Add Blog</button>
+
+  <div id="blog-container">
+    <p>Loading blogs...</p>
+  </div>
+</section>
+
+
   <script src="dashboard.js"></script>
 </body>
 </html>

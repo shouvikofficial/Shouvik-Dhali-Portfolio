@@ -130,6 +130,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+
+
 // Track visitor
 async function trackVisitor() {
   try {

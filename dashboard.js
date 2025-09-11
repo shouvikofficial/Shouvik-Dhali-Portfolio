@@ -13,23 +13,23 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Track active user in Firestore
+// Track active user
 function trackActiveUser(userId) {
   db.collection("activeUsers").doc(userId).set({
     lastActive: firebase.firestore.FieldValue.serverTimestamp()
   });
 }
 
+// Load active users
 async function loadActiveUsers() {
-  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000); // last 5 minutes
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
   const snapshot = await db.collection("activeUsers")
     .where("lastActive", ">=", fiveMinutesAgo)
     .get();
-
   document.getElementById("active-users").textContent = snapshot.size;
 }
 
-// --- NEW: Track visitor ---
+// Track visitor
 function trackVisitor() {
   const visitorId = localStorage.getItem("visitorId") || generateVisitorId();
   localStorage.setItem("visitorId", visitorId);
@@ -49,11 +49,10 @@ document.getElementById("logout-btn").addEventListener("click", () => {
   auth.signOut().then(() => window.location.href = "admin.html");
 });
 
-// Load messages and stats
+// Messages
 const messagesContainer = document.getElementById("messages-container");
 const totalMessages = document.getElementById("total-messages");
 const totalVisitors = document.getElementById("total-visitors");
-const activeUsers = document.getElementById("active-users");
 
 // Load messages
 async function loadMessages() {
@@ -84,7 +83,7 @@ async function deleteMessage(id){
   }
 }
 
-// Reply to a message (opens Gmail in new tab)
+// Reply to a message
 function replyMessage(email){
   window.open(`https://mail.google.com/mail/?view=cm&to=${email}`, "_blank");
 }
@@ -111,7 +110,7 @@ document.getElementById("search-msg").addEventListener("input", async (e)=>{
   });
 });
 
-// Chart - Messages over time
+// Charts
 async function loadCharts(){
   // Messages chart
   const msgSnapshot = await db.collection("messages").get();
@@ -159,9 +158,90 @@ async function loadCharts(){
     }
   });
 
-  // Total visitors
   totalVisitors.textContent = visSnapshot.size;
 }
+
+// --- BLOG MANAGEMENT START ---
+const blogContainer = document.getElementById("blog-container");
+
+// Load blogs
+async function loadBlogs() {
+  if(!blogContainer) return;
+  blogContainer.innerHTML = '';
+  const snapshot = await db.collection("blogs").orderBy("createdAt", "desc").get();
+  if(snapshot.empty) blogContainer.innerHTML = "<p>No blogs found.</p>";
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const div = document.createElement("div");
+    div.classList.add("message-item");
+    div.innerHTML = `
+      <p><strong>${data.title}</strong></p>
+      <img src="${data.imageURL}" alt="${data.title}" style="max-width:100px; border-radius:8px; margin-top:5px;">
+      <p>${data.content.substring(0,100)}...</p>
+      <div class="message-actions">
+        <button class="reply" onclick="editBlog('${doc.id}')">Edit</button>
+        <button class="delete" onclick="deleteBlog('${doc.id}')">Delete</button>
+        <button class="publish" onclick="togglePublish('${doc.id}', ${data.published})">
+          ${data.published ? "Unpublish" : "Publish"}
+        </button>
+      </div>
+    `;
+    blogContainer.appendChild(div);
+  });
+}
+
+// Add blog
+async function addBlog(title, content, imageFile) {
+  if(!title || !content || !imageFile) return alert("Fill all blog fields!");
+
+  const formData = new FormData();
+  formData.append("file", imageFile);
+  formData.append("upload_preset", "portfolio_blog"); // replace with your preset
+
+  const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", { // replace with your cloud name
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  const imageURL = data.secure_url;
+
+  await db.collection("blogs").add({
+    title,
+    content,
+    imageURL,
+    published: false,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  loadBlogs();
+}
+
+// Edit blog
+async function editBlog(id) {
+  const doc = await db.collection("blogs").doc(id).get();
+  const data = doc.data();
+  const newTitle = prompt("Edit Title", data.title);
+  const newContent = prompt("Edit Content", data.content);
+  if(!newTitle || !newContent) return;
+  await db.collection("blogs").doc(id).update({ title: newTitle, content: newContent });
+  loadBlogs();
+}
+
+// Delete blog
+async function deleteBlog(id){
+  if(confirm("Are you sure you want to delete this blog?")){
+    await db.collection("blogs").doc(id).delete();
+    loadBlogs();
+  }
+}
+
+// Publish/unpublish
+async function togglePublish(id, currentState){
+  await db.collection("blogs").doc(id).update({ published: !currentState });
+  loadBlogs();
+}
+// --- BLOG MANAGEMENT END ---
 
 // Initialize dashboard
 auth.onAuthStateChanged(user => {
@@ -171,8 +251,7 @@ auth.onAuthStateChanged(user => {
     loadMessages();
     loadCharts();
     loadActiveUsers();
-
-    // --- Track visitors here ---
     trackVisitor();
+    loadBlogs();
   }
 });
