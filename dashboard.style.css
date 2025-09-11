@@ -119,3 +119,151 @@ header button:hover {
 .message-actions .delete:hover {
   background: #e63946;
 }
+
+
+/* Blog Management Section */
+.blog-section {
+  padding: 20px;
+}
+
+.blog-section h3 {
+  color: #0077b6;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.blog-section input[type="text"],
+.blog-section textarea,
+.blog-section input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.blog-section input[type="text"]:focus,
+.blog-section textarea:focus,
+.blog-section input[type="file"]:focus {
+  outline: none;
+  border-color: #0077b6;
+  box-shadow: 0 0 8px rgba(0,119,182,0.2);
+}
+
+.blog-section textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.blog-section button {
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #0077b6, #00b4d8);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.blog-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,119,182,0.3);
+}
+
+/* Blog cards container */
+#blog-container {
+  margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Single blog card */
+.blog-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.blog-card img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.blog-card h4 {
+  margin: 8px 0;
+  color: #0077b6;
+}
+
+.blog-card p {
+  flex: 1;
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.blog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.blog-actions button {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.blog-actions .edit {
+  background: #00b4d8;
+  color: #fff;
+}
+
+.blog-actions .delete {
+  background: #ff4d6d;
+  color: #fff;
+}
+
+.blog-actions .publish {
+  background: #2a9d8f;
+  color: #fff;
+}
+
+.blog-actions .edit:hover {
+  background: #0077b6;
+}
+
+.blog-actions .delete:hover {
+  background: #e63946;
+}
+
+.blog-actions .publish:hover {
+  background: #21867a;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  #blog-container {
+    flex-direction: column;
+  }
+}

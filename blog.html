@@ -1,19 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blog | My Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Small modal styles -->
+  <style>
+    .blog-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .blog-modal.open { display: flex; }
+
+    .blog-modal .modal-wrap {
+      width: 100%;
+      max-width: 900px;
+      background: var(--card);
+      color: var(--text);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.4);
+      overflow: hidden;
+      position: relative;
+      animation: modalIn .18s ease;
+    }
+
+    @keyframes modalIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    .blog-modal .modal-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+    }
+
+    .blog-modal .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .blog-modal .modal-close {
+      margin-left: auto;
+      background: transparent;
+      border: 0;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 6px;
+      border-radius: 8px;
+    }
+
+    .blog-modal .modal-body {
+      padding: 18px 20px 26px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .blog-modal .modal-image {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .blog-modal .modal-content-wrapper {
+      display: grid;
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .blog-modal .modal-wrap { max-width: 100%; margin: 12px; }
+      .blog-modal .modal-title { font-size: 1.05rem; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Header (unchanged) -->
+  <!-- Header -->
   <header class="site-header" data-aos="fade-down">
     <div class="container nav-row">
       <div class="brand">Shouvik</div>
-
       <nav class="nav" id="nav">
         <a href="index.html#home" class="nav-link">Home</a>
         <a href="index.html#about" class="nav-link">About</a>
@@ -22,7 +103,6 @@
         <a href="index.html#contact" class="nav-link">Contact</a>
         <a href="blog.html#blog" class="nav-link">Blog</a>
       </nav>
-
       <div class="controls">
         <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
         <button id="hamburger" class="icon-btn hamburger" aria-label="Open menu">☰</button>
@@ -40,6 +120,11 @@
         <h2 class="featured-title">The Future of AI in Web Development</h2>
         <p class="featured-excerpt">AI is transforming how developers build websites, from smart code generation to automated testing...</p>
         <a href="#" class="read-more">Read More →</a>
+        <!-- full content hidden -->
+        <div class="full-content" style="display:none;">
+          <p>Artificial Intelligence is changing the way we design and develop websites. From automated code suggestions to predictive analytics, AI helps streamline workflows and improve user experiences.</p>
+          <p>In the future, AI-driven platforms may even handle complex UI/UX design automatically, letting developers focus on creativity and innovation.</p>
+        </div>
       </div>
     </section>
 
@@ -49,51 +134,62 @@
       <section class="blog-main">
         <h1 class="page-title reveal">Recent Posts</h1>
         <div class="blog-posts">
-          <article class="blog-post reveal">
+
+          <article class="blog-post reveal" data-category="Web Development" data-tags="JavaScript,Web">
             <img src="project2.jpg" alt="Blog 1 Image">
             <div class="post-content">
               <h2 class="post-title">Understanding JavaScript Closures</h2>
               <p class="post-excerpt">Closures are a fundamental concept in JS that allows functions to access outer scope variables...</p>
               <a href="#" class="read-more">Read More →</a>
+              <div class="full-content" style="display:none;">
+                <p>Closures are one of JavaScript’s most powerful features. They allow inner functions to remember the scope in which they were created, even after the outer function has executed.</p>
+                <p>This enables private variables, function factories, and powerful callback patterns widely used in modern JS.</p>
+              </div>
             </div>
           </article>
 
-          <article class="blog-post reveal">
+          <article class="blog-post reveal" data-category="Web Development" data-tags="CSS,Flexbox">
             <img src="project3.jpg" alt="Blog 2 Image">
             <div class="post-content">
               <h2 class="post-title">CSS Grid vs Flexbox</h2>
               <p class="post-excerpt">Learn how to decide between CSS Grid and Flexbox for responsive web layouts...</p>
               <a href="#" class="read-more">Read More →</a>
+              <div class="full-content" style="display:none;">
+                <p>CSS Grid is best suited for two-dimensional layouts, while Flexbox excels at one-dimensional layouts. Knowing when to use each can make your responsive designs more effective.</p>
+                <p>Modern web projects often combine both for maximum flexibility.</p>
+              </div>
             </div>
           </article>
 
-          <article class="blog-post reveal">
+          <article class="blog-post reveal" data-category="AI & ML" data-tags="AI,Python">
             <img src="project1.jpg" alt="Blog 3 Image">
             <div class="post-content">
               <h2 class="post-title">AI-Powered Tools for Developers</h2>
               <p class="post-excerpt">Explore the latest AI tools that help developers automate repetitive tasks and boost productivity...</p>
               <a href="#" class="read-more">Read More →</a>
+              <div class="full-content" style="display:none;">
+                <p>AI tools like GitHub Copilot, Tabnine, and ChatGPT assist developers by generating code, explaining errors, and suggesting optimizations.</p>
+                <p>These tools reduce repetitive work, enabling developers to focus on innovation and solving complex problems.</p>
+              </div>
             </div>
           </article>
 
-          <article class="blog-post reveal">
-            <img src="project2.jpg" alt="Blog 4 Image">
+          <article class="blog-post reveal" data-category="Programming Tips" data-tags="VS Code,Extensions">
+            <img src="project2.jpg" alt="Blog 5 Image">
             <div class="post-content">
               <h2 class="post-title">Top 10 VS Code Extensions</h2>
               <p class="post-excerpt">Enhance your coding workflow with these must-have VS Code extensions for web developers...</p>
               <a href="#" class="read-more">Read More →</a>
+              <div class="full-content" style="display:none;">
+                <p>Extensions like Prettier, ESLint, GitLens, and Live Server improve productivity and streamline development in VS Code.</p>
+                <p>These tools help enforce coding standards, track changes, and preview projects in real-time.</p>
+              </div>
             </div>
           </article>
         </div>
 
         <!-- Pagination -->
-        <div class="pagination reveal">
-          <a href="#" class="prev">&laquo; Previous</a>
-          <a href="#" class="page-number active">1</a>
-          <a href="#" class="page-number">2</a>
-          <a href="#" class="page-number">3</a>
-          <a href="#" class="next">Next &raquo;</a>
-        </div>
+        <div class="pagination reveal"></div>
       </section>
 
       <!-- Sidebar -->
@@ -117,24 +213,21 @@
             <a href="#">CSS</a>
             <a href="#">AI</a>
             <a href="#">Web</a>
+            <a href="#">VS Code</a>
+            <a href="#">Extensions</a>
           </div>
         </div>
 
         <div class="sidebar-widget">
           <h3>Recent Posts</h3>
-          <ul>
-            <li><a href="#">Understanding JavaScript Closures</a></li>
-            <li><a href="#">CSS Grid vs Flexbox</a></li>
-            <li><a href="#">AI-Powered Tools for Developers</a></li>
-            <li><a href="#">Top 10 VS Code Extensions</a></li>
-          </ul>
+          <ul class="recent-posts"></ul>
         </div>
       </aside>
 
     </div>
   </main>
 
-  <!-- Footer (unchanged) -->
+  <!-- Footer -->
   <footer class="site-footer" data-aos="fade-up">
     <div class="footer-container">
       <div class="footer-card">
@@ -148,7 +241,7 @@
       </div>
       <div class="footer-card">
         <h4>Contact</h4>
-        <p>Email: <a href="mailto:yourname@gmail.com">shouvikdhali@gmail.com</a></p>
+        <p>Email: <a href="mailto:shouvikdhali@gmail.com">shouvikdhali@gmail.com</a></p>
         <p>Phone: <a href="tel:+8801676965293">+8801676965293</a></p>
         <p>Location: Khulna, Bangladesh</p>
       </div>
@@ -165,6 +258,160 @@
       <p>© <span id="year"></span> Shouvik | All Rights Reserved.</p>
     </div>
   </footer>
+
   <script src="script.js"></script>
+
+  <!-- Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const postsContainer = document.querySelector('.blog-posts');
+      const allPosts = Array.from(postsContainer.querySelectorAll('.blog-post'));
+      const paginationContainer = document.querySelector('.pagination');
+      const postsPerPage = 4;
+      let currentPage = 1;
+      let filteredPosts = allPosts.slice();
+      const categoryLinks = document.querySelectorAll('.sidebar-widget:nth-child(1) ul li a');
+      const tagLinks = document.querySelectorAll('.tags a');
+      const recentPostsContainer = document.querySelector('.recent-posts');
+
+      allPosts.forEach((p, idx) => { if (!p.id) p.id = 'post-' + (idx + 1); });
+
+      function createModal() {
+        if (document.querySelector('.blog-modal')) return;
+        const modal = document.createElement('div');
+        modal.className = 'blog-modal';
+        modal.setAttribute('aria-hidden', 'true');
+        modal.innerHTML = `
+          <div class="modal-wrap" role="dialog" aria-modal="true">
+            <div class="modal-header">
+              <div class="modal-title"></div>
+              <button class="modal-close" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-content-wrapper">
+              <img class="modal-image" src="" alt="" style="display:none;">
+              <div class="modal-body"></div>
+            </div>
+          </div>`;
+        document.body.appendChild(modal);
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+      }
+
+      function openModal() {
+        const modal = document.querySelector('.blog-modal');
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        const modal = document.querySelector('.blog-modal');
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function populateModalFromPost(post) {
+        createModal();
+        const modal = document.querySelector('.blog-modal');
+        const titleEl = modal.querySelector('.modal-title');
+        const bodyEl = modal.querySelector('.modal-body');
+        const imgEl = modal.querySelector('.modal-image');
+        const titleNode = post.querySelector('.post-title') || post.querySelector('.featured-title');
+        titleEl.textContent = titleNode ? titleNode.textContent : '';
+        const imgNode = post.querySelector('img');
+        if (imgNode) {
+          imgEl.src = imgNode.src;
+          imgEl.alt = imgNode.alt || titleEl.textContent;
+          imgEl.style.display = 'block';
+        }
+        const fullNode = post.querySelector('.full-content');
+        bodyEl.innerHTML = fullNode ? fullNode.innerHTML : post.innerHTML;
+        openModal();
+      }
+
+      function showPage(page) {
+        currentPage = page;
+        const start = (page - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        allPosts.forEach(p => p.style.display = 'none');
+        filteredPosts.slice(start, end).forEach(p => p.style.display = 'block');
+        updatePagination();
+        updateRecentPosts();
+      }
+
+      function updatePagination() {
+        paginationContainer.innerHTML = '';
+        const totalPages = Math.max(1, Math.ceil(filteredPosts.length / postsPerPage));
+        const prev = document.createElement('a');
+        prev.href = '#'; prev.textContent = '« Previous';
+        prev.addEventListener('click', e => { e.preventDefault(); if (currentPage > 1) showPage(currentPage - 1); });
+        paginationContainer.appendChild(prev);
+        for (let i = 1; i <= totalPages; i++) {
+          const pageLink = document.createElement('a');
+          pageLink.href = '#'; pageLink.textContent = i;
+          if (i === currentPage) pageLink.classList.add('active');
+          pageLink.addEventListener('click', e => { e.preventDefault(); showPage(i); });
+          paginationContainer.appendChild(pageLink);
+        }
+        const next = document.createElement('a');
+        next.href = '#'; next.textContent = 'Next »';
+        next.addEventListener('click', e => { e.preventDefault(); if (currentPage < totalPages) showPage(currentPage + 1); });
+        paginationContainer.appendChild(next);
+      }
+
+      function filterPosts(type, value) {
+        filteredPosts = allPosts.filter(post => {
+          const cats = post.dataset.category ? post.dataset.category.split(',').map(s => s.trim()) : [];
+          const tags = post.dataset.tags ? post.dataset.tags.split(',').map(s => s.trim()) : [];
+          if (type === 'category') return cats.includes(value);
+          if (type === 'tag') return tags.includes(value);
+          return true;
+        });
+        showPage(1);
+      }
+
+      function updateRecentPosts() {
+        recentPostsContainer.innerHTML = '';
+        const recent = filteredPosts.slice(0, 5);
+        recent.forEach(post => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#' + post.id;
+          a.textContent = post.querySelector('.post-title')?.textContent || post.querySelector('.featured-title')?.textContent;
+          a.addEventListener('click', e => {
+            e.preventDefault();
+            const idx = filteredPosts.indexOf(post);
+            if (idx !== -1) {
+              const page = Math.floor(idx / postsPerPage) + 1;
+              showPage(page);
+              setTimeout(() => document.getElementById(post.id).scrollIntoView({ behavior: 'smooth' }), 120);
+            }
+          });
+          li.appendChild(a);
+          recentPostsContainer.appendChild(li);
+        });
+      }
+
+      categoryLinks.forEach(link => link.addEventListener('click', e => { e.preventDefault(); filterPosts('category', link.textContent.trim()); }));
+      tagLinks.forEach(link => link.addEventListener('click', e => { e.preventDefault(); filterPosts('tag', link.textContent.trim()); }));
+
+      document.body.addEventListener('click', e => {
+        const rm = e.target.closest('.read-more');
+        if (!rm) return;
+        e.preventDefault();
+        const post = rm.closest('.blog-post') || rm.closest('.featured-post');
+        if (post) populateModalFromPost(post);
+      });
+
+      showPage(1);
+
+      // Footer year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+
+
 </body>
 </html>
