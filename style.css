@@ -115,6 +115,47 @@ body {
   }
 }
 
+/* Neon multi-color glowing effect behind profile image */
+.hero-right .profile-card {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-right .profile-card::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;   /* slightly bigger than profile image */
+  height: 260px;  /* match profile image height */
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #00d4ff,
+    #6a8cff,
+    #ff00ff,
+    #00ff99,
+    #00d4ff
+  );
+  filter: blur(40px);
+  opacity: 0.7;
+  z-index: -1;
+  animation: neonPulse 3s linear infinite, neonRotate 6s linear infinite;
+}
+
+/* Soft pulsing */
+@keyframes neonPulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Slow rotation of colors */
+@keyframes neonRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 
 /* Sections */
 .section { padding: 60px 0; }
