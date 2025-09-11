@@ -7,10 +7,13 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 </head>
 <body>
   <!-- NAV -->
-  <header class="site-header">
+  <header class="site-header" data-aos="fade-down" data-aos-duration="1000">
     <div class="container nav-row">
       <div class="brand">Shouvik</div>
       <nav class="nav" id="nav">
@@ -19,7 +22,7 @@
         <a href="index.html#skills" class="nav-link">Skills</a>
         <a href="index.html#projects" class="nav-link">Projects</a>
         <a href="index.html#contact" class="nav-link">Contact</a>
-        <a href="blog.html" class="nav-link">Contact</a>
+        <a href="blog.html" class="nav-link">Blog</a>
       </nav>
       <div class="controls">
         <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
@@ -29,15 +32,15 @@
   </header>
 
  <!-- DETAILS SECTION -->
-<section class="section container reveal">
-  <div class="details-intro">
+<section class="section container">
+  <div class="details-intro" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
     <h1>My Details</h1>
     <p>Here’s a more in-depth look at my profile, education, skills, and achievements.</p>
   </div>
 
   <div class="details-grid">
     <!-- Personal Info -->
-    <div class="detail-card">
+    <div class="detail-card" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
       <h3><i class="fa-solid fa-user"></i> Personal Info</h3>
       <ul>
         <li><strong>Name:</strong> Shouvik Dhali</li>
@@ -48,14 +51,14 @@
     </div>
 
     <!-- Education -->
-    <div class="detail-card">
+    <div class="detail-card" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="300">
       <h3><i class="fa-solid fa-graduation-cap"></i> Education</h3>
       <p>B.Sc in Computer Science & Engineering</p>
       <p><strong>Daffodil International University</strong> — Ongoing</p>
     </div>
 
     <!-- Skills -->
-    <div class="detail-card">
+    <div class="detail-card" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="400">
       <h3><i class="fa-solid fa-code"></i> Skills & Expertise</h3>
       <p>✔ Web Development (HTML, CSS, JavaScript, React, Flask)</p>
       <p>✔ Python & Machine Learning</p>
@@ -64,7 +67,7 @@
     </div>
 
     <!-- Achievements -->
-    <div class="detail-card">
+    <div class="detail-card" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="500">
       <h3><i class="fa-solid fa-trophy"></i> Achievements</h3>
       <ul>
         <li>🏆 Built <strong>HeartCare Prediction System</strong> (ML-powered web app)</li>
@@ -75,14 +78,13 @@
     </div>
   </div>
 
-  <div class="back-btn">
+  <div class="back-btn" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="600">
     <a href="index.html" class="btn">← Back to Home</a>
   </div>
 </section>
 
-
   <!-- FOOTER -->
-  <footer class="site-footer">
+  <footer class="site-footer" data-aos="fade-up" data-aos-duration="500">
     <div class="footer-container">
       <div class="footer-card">
         <h4>Quick Links</h4>
@@ -115,6 +117,16 @@
       <p>© <span id="year"></span> Shouvik | All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true, // animation happens only once while scrolling down
+      duration: 1000, // default duration
+      easing: 'ease-in-out',
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
