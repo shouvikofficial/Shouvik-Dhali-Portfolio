@@ -14,7 +14,7 @@
 </head>
 <body>
   <!-- NAV -->
-  <header class="site-header" data-aos="fade-down">
+  <header class="site-header" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
     <div class="container nav-row">
       <div class="brand">Shouvik</div>
 
@@ -36,7 +36,9 @@
   <!-- HERO -->
   <section class="hero" id="home" aria-label="Hero">
     <div class="container hero-grid">
-      <div class="hero-left" data-aos="fade-right">
+      <div class="hero-left" 
+           data-aos="fade-right" 
+           data-aos-anchor-placement="top-bottom">
         <h1 class="hero-title">Hi, I’m <span class="accent">Shouvik</span></h1>
         <h2 class="hero-sub">I’m a <span id="typing">Web Developer</span></h2>
         <p class="hero-desc">
@@ -48,7 +50,9 @@
         </div>
       </div>
 
-      <div class="hero-right" data-aos="fade-left">
+      <div class="hero-right" 
+           data-aos="fade-left" 
+           data-aos-anchor-placement="top-bottom">
         <div class="profile-card">
           <img src="profile.jpg" alt="Shouvik profile photo" class="profile-img" />
         </div>
@@ -60,7 +64,11 @@
   <section id="about" class="section container" aria-label="About">
   <div class="section-inner about-grid">
     <!-- Left: Video Resume -->
-    <div class="about-image-wrapper" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100">
+    <div class="about-image-wrapper" 
+         data-aos="fade-right" 
+         data-aos-duration="1000" 
+         data-aos-delay="100" 
+         data-aos-anchor-placement="top-bottom">
       <div class="video-wrapper">
         <iframe class="resume-video"
                 src="https://www.youtube.com/embed/EZgFSNZTBgw?rel=0"
@@ -73,7 +81,11 @@
     </div>
 
     <!-- Right: About Content -->
-    <div class="about-content" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+    <div class="about-content" 
+         data-aos="fade-left" 
+         data-aos-duration="1000" 
+         data-aos-delay="200" 
+         data-aos-anchor-placement="top-bottom">
       <h2>About Me</h2>
       <p>
         I am <strong>Shouvik</strong>, a Computer Science & Engineering student passionate about building interactive web applications and AI/ML solutions.
@@ -82,194 +94,191 @@
 
       <!-- Details -->
       <div class="about-text">
-        <a href="details.html" class="btn" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Details</a>
+        <a href="details.html" class="btn" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" data-aos-anchor-placement="top-bottom">Details</a>
       </div>
     </div>
   </div>
 </section>
 
-
-  <!-- SKILLS -->
-  <section id="skills" class="section alt-bg" aria-label="Skills">
-    <div class="container section-inner reveal" data-aos="fade-up">
-      <h2>Skills</h2>
-      <div class="skills-grid">
-        <div class="skill" data-aos="fade-right">
-          <div class="skill-head"><span>HTML / CSS / JS</span><span class="skill-percent">90%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div>
-        </div>
-        <div class="skill" data-aos="fade-right">
-          <div class="skill-head"><span>React / Flask</span><span class="skill-percent">82%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="--w:82%"></div></div>
-        </div>
-        <div class="skill" data-aos="fade-right">
-          <div class="skill-head"><span>Python / ML</span><span class="skill-percent">85%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="--w:85%"></div></div>
-        </div>
-        <div class="skill" data-aos="fade-right">
-          <div class="skill-head"><span>Databases</span><span class="skill-percent">75%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div>
-        </div>
+<!-- SKILLS -->
+<section id="skills" class="section alt-bg" aria-label="Skills">
+  <div class="container section-inner reveal" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+        <div class="skill-head"><span>HTML / CSS / JS</span><span class="skill-percent">90%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div>
+      </div>
+      <div class="skill" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+        <div class="skill-head"><span>React / Flask</span><span class="skill-percent">82%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="--w:82%"></div></div>
+      </div>
+      <div class="skill" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+        <div class="skill-head"><span>Python / ML</span><span class="skill-percent">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="--w:85%"></div></div>
+      </div>
+      <div class="skill" data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+        <div class="skill-head"><span>Databases</span><span class="skill-percent">75%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="section" aria-label="Projects">
-    <div class="container section-inner reveal" data-aos="fade-up">
-      <h2>Recent Projects</h2>
-      <p class="muted">Hover over the cards to explore projects.</p>
-      <div class="projects-grid">
-        <!-- Project Card 1 -->
-        <div class="project-card" data-aos="zoom-in">
-          <div class="project-img-wrapper">
-            <img src="project1.jpg" alt="Project" class="project-img">
-            <div class="project-overlay">
-              <div class="project-actions">
-                <a href="https://github.com/shouvikofficial/Heart-Disease-Prediction-System" target="_blank" class="btn-small">Details</a>
-                <a href="https://github.com/shouvikofficial/Heart-Disease-Prediction-System" target="_blank" class="btn-small">Live Demo</a>
-              </div>
+<!-- PROJECTS -->
+<section id="projects" class="section" aria-label="Projects">
+  <div class="container section-inner reveal" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <h2>Recent Projects</h2>
+    <p class="muted">Hover over the cards to explore projects.</p>
+    <div class="projects-grid">
+      <!-- Project Cards unchanged -->
+      <div class="project-card" data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
+        <div class="project-img-wrapper">
+          <img src="project1.jpg" alt="Project" class="project-img">
+          <div class="project-overlay">
+            <div class="project-actions">
+              <a href="https://github.com/shouvikofficial/Heart-Disease-Prediction-System" target="_blank" class="btn-small">Details</a>
+              <a href="https://github.com/shouvikofficial/Heart-Disease-Prediction-System" target="_blank" class="btn-small">Live Demo</a>
             </div>
           </div>
-          <div class="project-name">Heart Disease Prediction System</div>
-          <div class="project-meta">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>javascript</span>
-            <span>Flask</span>
-          </div>
         </div>
+        <div class="project-name">Heart Disease Prediction System</div>
+        <div class="project-meta">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>javascript</span>
+          <span>Flask</span>
+        </div>
+      </div>
 
-        <!-- Project Card 2 -->
-        <div class="project-card" data-aos="zoom-in">
-          <div class="project-img-wrapper">
-            <img src="project2.jpg" alt="Project" class="project-img">
-            <div class="project-overlay">
-              <div class="project-actions">
-                <a href="https://github.com/shouvikofficial/Blood-Bank-Management-System" target="_blank" class="btn-small">Details</a>
-                <a href="https://github.com/shouvikofficial/Blood-Bank-Management-System" target="_blank" class="btn-small">Live Demo</a>
-              </div>
+      <div class="project-card" data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
+        <div class="project-img-wrapper">
+          <img src="project2.jpg" alt="Project" class="project-img">
+          <div class="project-overlay">
+            <div class="project-actions">
+              <a href="https://github.com/shouvikofficial/Blood-Bank-Management-System" target="_blank" class="btn-small">Details</a>
+              <a href="https://github.com/shouvikofficial/Blood-Bank-Management-System" target="_blank" class="btn-small">Live Demo</a>
             </div>
           </div>
-          <div class="project-name">Blood Bank Management System</div>
-          <div class="project-meta">
-            <span>HTML</span>
-            <span>CSS</span>
-          </div>
         </div>
+        <div class="project-name">Blood Bank Management System</div>
+        <div class="project-meta">
+          <span>HTML</span>
+          <span>CSS</span>
+        </div>
+      </div>
 
-        <!-- Project Card 3 -->
-        <div class="project-card" data-aos="zoom-in">
-          <div class="project-img-wrapper">
-            <img src="project3.jpg" alt="Project" class="project-img">
-            <div class="project-overlay">
-              <div class="project-actions">
-                <a href="https://github.com/shouvikofficial/Documents-Formator" target="_blank" class="btn-small">Details</a>
-                <a href="https://github.com/shouvikofficial/Documents-Formator" target="_blank" class="btn-small">Live Demo</a>
-              </div>
+      <div class="project-card" data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
+        <div class="project-img-wrapper">
+          <img src="project3.jpg" alt="Project" class="project-img">
+          <div class="project-overlay">
+            <div class="project-actions">
+              <a href="https://github.com/shouvikofficial/Documents-Formator" target="_blank" class="btn-small">Details</a>
+              <a href="https://github.com/shouvikofficial/Documents-Formator" target="_blank" class="btn-small">Live Demo</a>
             </div>
           </div>
-          <div class="project-name">Documents Formator</div>
-          <div class="project-meta">
-            <span>React</span>
-            <span>Flask</span>
-          </div>
+        </div>
+        <div class="project-name">Documents Formator</div>
+        <div class="project-meta">
+          <span>React</span>
+          <span>Flask</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section" aria-label="Contact">
-    <div class="container section-inner reveal" data-aos="fade-up">
-      <h2>Get in Touch</h2>
-      <p class="muted">Have an idea or project? Send me a message and let's collaborate!</p>
-      <div class="contact-card" data-aos="zoom-in-up">
-        <form id="contact-form" class="contact-form" novalidate>
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder=" " required>
-          </div>
-          <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder=" " required>
-          </div>
-          <div class="form-group">
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" rows="6" placeholder=" " required></textarea>
-          </div>
-          <button type="submit" class="btn btn-gradient">Send Message</button>
-          <p id="form-msg" class="form-msg" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer" data-aos="fade-up">
-    <div class="footer-container">
-      <div class="footer-card">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#about">About Me</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-card">
-        <h4>Contact</h4>
-        <p>Email: <a href="mailto:yourname@gmail.com">shouvikdhali@gmail.com</a></p>
-        <p>Phone: <a href="tel:+8801676965293">+8801676965293</a></p>
-        <p>Location: Khulna, Bangladesh</p>
-      </div>
-      <div class="footer-card">
-        <h4>Follow Me</h4>
-        <div class="social-icons">
-          <a href="https://github.com/shouvikofficial" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/shouvik-dhali-67458b238/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://x.com/mehshouvik420" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+<!-- CONTACT -->
+<section id="contact" class="section" aria-label="Contact">
+  <div class="container section-inner reveal" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <h2>Get in Touch</h2>
+    <p class="muted">Have an idea or project? Send me a message and let's collaborate!</p>
+    <div class="contact-card" data-aos="zoom-in-up" data-aos-anchor-placement="top-bottom">
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder=" " required>
         </div>
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" name="email" placeholder=" " required>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" rows="6" placeholder=" " required></textarea>
+        </div>
+        <button type="submit" class="btn btn-gradient">Send Message</button>
+        <p id="form-msg" class="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+  <div class="footer-container">
+    <div class="footer-card">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-card">
+      <h4>Contact</h4>
+      <p>Email: <a href="mailto:yourname@gmail.com">shouvikdhali@gmail.com</a></p>
+      <p>Phone: <a href="tel:+8801676965293">+8801676965293</a></p>
+      <p>Location: Khulna, Bangladesh</p>
+    </div>
+    <div class="footer-card">
+      <h4>Follow Me</h4>
+      <div class="social-icons">
+        <a href="https://github.com/shouvikofficial" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/shouvik-dhali-67458b238/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://x.com/mehshouvik420" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© <span id="year"></span> Shouvik | All Rights Reserved.</p>
-    </div>
-  </footer>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Shouvik | All Rights Reserved.</p>
+  </div>
+</footer>
 
-  <!-- EmailJS -->
-  <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-      emailjs.init("yeyPN_iez0Mz4bPTY");
-    })();
-  </script>
-  <script>
-  document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    emailjs.sendForm('service_72erv0t', 'template_hwy7igl', this)
-      .then(function() {
-        alert('Message sent successfully!');
-      }, function(error) {
-        alert('Failed to send message: ' + JSON.stringify(error));
-      });
-  });
-  </script>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <script src="script.js"></script>
-
-  <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 1000,
-      once: true,
-      offset: 100
+<!-- EmailJS -->
+<script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+    emailjs.init("yeyPN_iez0Mz4bPTY");
+  })();
+</script>
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  emailjs.sendForm('service_72erv0t', 'template_hwy7igl', this)
+    .then(function() {
+      alert('Message sent successfully!');
+    }, function(error) {
+      alert('Failed to send message: ' + JSON.stringify(error));
     });
-  </script>
+});
+</script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script src="script.js"></script>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100
+  });
+</script>
 </body>
 </html>
