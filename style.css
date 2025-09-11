@@ -150,25 +150,6 @@ body {
   object-fit: cover;     /* Makes video fill container without distortion */
 }
 
-/* Video Wrapper for Responsive Video */
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
-  overflow: hidden;
-}
-
-.video-wrapper .resume-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  border: 0;
-  border-radius: 12px; /* optional to match your design */
-  object-fit: cover;
-}
 
 
 /* About Content */
