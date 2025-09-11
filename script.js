@@ -96,37 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.25 });
   skills.forEach(s => skillObserver.observe(s));
 
-  // 8) Contact form (front-end demo)
-  const form = document.getElementById('contact-form');
-  const formMsg = document.getElementById('form-msg');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
-      if (!name || !email || !message) {
-        showMsg('Please fill all fields.', true);
-        return;
-      }
-      const emailRE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRE.test(email)) {
-        showMsg('Enter a valid email address.', true);
-        return;
-      }
-      showMsg('Sending message...', false);
-      setTimeout(() => {
-        showMsg('Thanks — your message was sent (demo).', false);
-        form.reset();
-      }, 900);
-    });
-  }
-  function showMsg(txt, isError = false) {
-    if (!formMsg) return;
-    formMsg.textContent = txt;
-    formMsg.style.color = isError ? '#ff7a7a' : 'var(--accent)';
-  }
-
   // 9) Respect reduced motion
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (reduce.matches) {
