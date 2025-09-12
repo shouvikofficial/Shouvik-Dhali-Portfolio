@@ -225,3 +225,31 @@ async function loadBlogsFromFirestore() {
 }
 
 
+const tags = document.querySelectorAll('.tags a');
+
+tags.forEach(tag => {
+  tag.addEventListener('click', (e) => {
+    e.preventDefault(); // prevent default link behavior
+    
+    // Remove 'selected' from all tags
+    tags.forEach(t => t.classList.remove('selected'));
+    
+    // Add 'selected' to the clicked tag
+    tag.classList.add('selected');
+  });
+});
+
+
+const categoryLinks = document.querySelectorAll('.sidebar-widget ul li a');
+
+categoryLinks.forEach(cat => {
+  cat.addEventListener('click', (e) => {
+    e.preventDefault(); // prevent default link behavior
+
+      // Remove selected from all categories, then select this one
+      categoryLinks.forEach(c => c.classList.remove('selected'));
+      // Add 'selected' to the clicked tag
+      cat.classList.add('selected');
+  });
+});
+

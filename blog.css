@@ -49,7 +49,7 @@ body {
 
 /* NAV */
 .site-header { backdrop-filter: blur(6px); position: sticky; top: 0; z-index: 80; border-bottom: 1px solid rgba(0,0,0,0.06); }
-.nav-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 12; }
+.nav-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 12px; }
 .brand { font-weight: 700; font-size: 1.15rem; color: var(--accent); }
 .nav { display: flex; gap: 18px; }
 .nav-link { color: var(--text); text-decoration: none; padding: 8px 10px; border-radius: 8px; transition: all .18s; }
@@ -261,12 +261,14 @@ body {
 }
 
 .read-more {
-  text-decoration: none;
-  color: var(--accent); /* normal color */
+   display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: var(--accent);
+  color: #fff;
   font-weight: 600;
-  transition: color 0.3s ease, background 0.3s ease;
-  padding: 0.5rem 1rem;
+  text-decoration: none;
   border-radius: var(--radius);
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 /* Hover with contrasting background and text */
@@ -322,8 +324,10 @@ body {
   transition: color 0.3s ease;
 }
 
-.sidebar-widget ul li a:hover {
+.sidebar-widget ul li a:hover,
+.sidebar-widget ul li a.selected {
   color: var(--accent);
+  
 }
 
 /* Tags */
@@ -341,12 +345,21 @@ body {
   font-size: 0.85rem;
   color: #fff;
   font-weight: 500;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .tags a:hover {
   transform: scale(1.05);
   opacity: 0.85;
+}
+
+/* Selected Tag */
+.tags a.selected {
+  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transform: scale(1.05);
+  opacity: 1;
 }
 
 /* Pagination */
