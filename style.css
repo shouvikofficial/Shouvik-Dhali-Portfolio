@@ -937,19 +937,3 @@ body {
 }
 
 
-/* Prevent small horizontal overflow */
-html, body {
-  overflow-x: hidden;
-}
-
-/* Optional: fix mobile nav overflow */
-.nav.show {
-  max-width: calc(100vw - 40px);
-  box-sizing: border-box;
-}
-
-/* Scale neon behind profile */
-.hero-right .profile-card::before {
-  width: min(180px, 80%);
-  height: min(260px, 120%);
-}
