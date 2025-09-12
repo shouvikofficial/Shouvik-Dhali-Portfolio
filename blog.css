@@ -49,7 +49,7 @@ body {
 
 /* NAV */
 .site-header { backdrop-filter: blur(6px); position: sticky; top: 0; z-index: 80; border-bottom: 1px solid rgba(0,0,0,0.06); }
-.nav-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+.nav-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 12; }
 .brand { font-weight: 700; font-size: 1.15rem; color: var(--accent); }
 .nav { display: flex; gap: 18px; }
 .nav-link { color: var(--text); text-decoration: none; padding: 8px 10px; border-radius: 8px; transition: all .18s; }
