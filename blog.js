@@ -151,8 +151,8 @@ async function loadBlogsFromFirestore() {
       document.body.appendChild(modal);
 
       modal.querySelector('.modal-close').addEventListener('click', closeModal);
-      modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
-      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
     }
 
     function openModal() {
@@ -180,7 +180,7 @@ async function loadBlogsFromFirestore() {
       titleEl.textContent = titleNode ? titleNode.textContent : '';
 
       const imgNode = post.querySelector('img');
-      if(imgNode){
+      if (imgNode) {
         imgEl.src = imgNode.src;
         imgEl.alt = imgNode.alt || titleEl.textContent;
         imgEl.style.display = 'block';
@@ -195,10 +195,10 @@ async function loadBlogsFromFirestore() {
     function initBlogModals() {
       document.body.addEventListener('click', e => {
         const rm = e.target.closest('.read-more');
-        if(!rm) return;
+        if (!rm) return;
         e.preventDefault();
         const post = rm.closest('.blog-post') || rm.closest('.featured-post');
-        if(post){
+        if (post) {
           populateModalFromPost(post);
         }
       });
@@ -214,10 +214,14 @@ async function loadBlogsFromFirestore() {
       filterPosts('tag', link.textContent.trim());
     }));
 
+    // Start blog with first page and modal enabled
     showPage(1);
+    initBlogModals();
 
   } catch (err) {
     console.error("Error fetching blogs:", err);
     postsContainer.innerHTML = "<p>Error loading blogs.</p>";
   }
 }
+
+
