@@ -755,10 +755,6 @@ body {
   }
 }
 
-
-
-
-
 /* Reveal animation helper */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
 .reveal.visible { opacity: 1; transform: none; }
@@ -938,4 +934,22 @@ body {
   .hero-cta {
     gap: 0.5rem; /* reduce gap on very small screens */
   }
+}
+
+
+/* Prevent small horizontal overflow */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Optional: fix mobile nav overflow */
+.nav.show {
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+}
+
+/* Scale neon behind profile */
+.hero-right .profile-card::before {
+  width: min(180px, 80%);
+  height: min(260px, 120%);
 }
