@@ -60,15 +60,35 @@
   <!-- Blog Management -->
 <section class="blog-section">
   <h3>Blog Posts</h3>
-  <input type="text" id="blog-title" placeholder="Blog Title" />
-  <textarea id="blog-content" placeholder="Blog Content"></textarea>
-  <input type="file" id="blog-image" />
-  <button onclick="addBlog(
-    document.getElementById('blog-title').value,
-    document.getElementById('blog-content').value,
-    document.getElementById('blog-image').files[0]
-  )">Add Blog</button>
 
+  <!-- Blog Input Fields -->
+  <div class="blog-inputs">
+    <input type="text" id="blog-title" placeholder="Blog Title" />
+    <textarea id="blog-content" placeholder="Blog Content"></textarea>
+    <input type="file" id="blog-image" />
+
+    <!-- Category Dropdown -->
+    <select id="blog-category">
+      <option value="">Select Category</option>
+      <option value="Web Development">Web Development</option>
+      <option value="AI & ML">AI & ML</option>
+      <option value="Programming Tips">Programming Tips</option>
+      <option value="Tech News">Tech News</option>
+    </select>
+
+    <!-- Tags -->
+    <input type="text" id="blog-tags" placeholder="Tags (comma separated)" />
+
+    <button onclick="addBlog(
+      document.getElementById('blog-title').value,
+      document.getElementById('blog-content').value,
+      document.getElementById('blog-image').files[0],
+      document.getElementById('blog-category').value,
+      document.getElementById('blog-tags').value
+    )">Add Blog</button>
+  </div>
+
+  <!-- Blog Container -->
   <div id="blog-container">
     <p>Loading blogs...</p>
   </div>

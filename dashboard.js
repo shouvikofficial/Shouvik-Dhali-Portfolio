@@ -166,56 +166,104 @@ const blogContainer = document.getElementById("blog-container");
 
 // Load blogs
 async function loadBlogs() {
-  if(!blogContainer) return;
+  if (!blogContainer) return;
   blogContainer.innerHTML = '';
-  const snapshot = await db.collection("blogs").orderBy("createdAt", "desc").get();
-  if(snapshot.empty) blogContainer.innerHTML = "<p>No blogs found.</p>";
-  snapshot.forEach(doc => {
-    const data = doc.data();
-    const div = document.createElement("div");
-    div.classList.add("message-item");
-    div.innerHTML = `
-      <p><strong>${data.title}</strong></p>
-      <img src="${data.imageURL}" alt="${data.title}" style="max-width:100px; border-radius:8px; margin-top:5px;">
-      <p>${data.content.substring(0,100)}...</p>
-      <div class="message-actions">
-        <button class="reply" onclick="editBlog('${doc.id}')">Edit</button>
-        <button class="delete" onclick="deleteBlog('${doc.id}')">Delete</button>
-        <button class="publish" onclick="togglePublish('${doc.id}', ${data.published})">
-          ${data.published ? "Unpublish" : "Publish"}
-        </button>
-      </div>
-    `;
-    blogContainer.appendChild(div);
-  });
+
+  try {
+    const snapshot = await db.collection("blogs").orderBy("createdAt", "desc").get();
+    if (snapshot.empty) {
+      blogContainer.innerHTML = "<p>No blogs found.</p>";
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+
+      // Convert tags array to string
+      const tags = Array.isArray(data.tags) ? data.tags.join(', ') : data.tags || '';
+
+      const div = document.createElement("div");
+      div.classList.add("blog-item");
+      div.innerHTML = `
+        <p><strong>${data.title}</strong></p>
+        <img src="${data.imageURL}" alt="${data.title}" style="max-width:100px; border-radius:8px; margin-top:5px;">
+        <p>${data.content.substring(0, 100)}...</p>
+        <p><strong>Category:</strong> ${data.category || 'Uncategorized'}</p>
+        <p><strong>Tags:</strong> ${tags}</p>
+        <div class="message-actions">
+          <button class="reply" onclick="editBlog('${doc.id}')">Edit</button>
+          <button class="delete" onclick="deleteBlog('${doc.id}')">Delete</button>
+          <button class="publish" onclick="togglePublish('${doc.id}', ${data.published})">
+            ${data.published ? "Unpublish" : "Publish"}
+          </button>
+        </div>
+      `;
+      blogContainer.appendChild(div);
+    });
+
+  } catch (err) {
+    console.error("Error loading blogs:", err);
+    blogContainer.innerHTML = "<p>Error loading blogs.</p>";
+  }
 }
 
-// Add blog
-async function addBlog(title, content, imageFile) {
-  if(!title || !content || !imageFile) return alert("Fill all blog fields!");
 
+// Add blog
+async function addBlog(title, content, imageFile, category, tags) {
+  if (!title || !content || !imageFile || !category) {
+    return alert("Fill all blog fields!");
+  }
+
+  // Convert tags string to array, trim whitespace
+  const tagsArray = tags
+    ? tags.split(",").map(tag => tag.trim()).filter(tag => tag.length > 0)
+    : [];
+
+  // Upload image to Cloudinary
   const formData = new FormData();
   formData.append("file", imageFile);
   formData.append("upload_preset", "portfolio_blog"); // replace with your preset
 
-  const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", { // replace with your cloud name
-    method: "POST",
-    body: formData
-  });
+  try {
+    const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", { // replace with your cloud name
+      method: "POST",
+      body: formData
+    });
 
-  const data = await res.json();
-  const imageURL = data.secure_url;
+    if (!res.ok) throw new Error("Image upload failed");
 
-  await db.collection("blogs").add({
-    title,
-    content,
-    imageURL,
-    published: false,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  });
+    const data = await res.json();
+    const imageURL = data.secure_url;
 
-  loadBlogs();
+    // Add blog to Firestore
+    await db.collection("blogs").add({
+      title,
+      content,
+      imageURL,
+      category,
+      tags: tagsArray,
+      published: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    alert("Blog added successfully!");
+
+    // Reload blogs
+    loadBlogs();
+
+    // Clear input fields
+    document.getElementById("blog-title").value = "";
+    document.getElementById("blog-content").value = "";
+    document.getElementById("blog-image").value = "";
+    document.getElementById("blog-category").value = "";
+    document.getElementById("blog-tags").value = "";
+
+  } catch (err) {
+    console.error("Error adding blog:", err);
+    alert("Failed to add blog. Please try again.");
+  }
 }
+
 
 // Edit blog
 async function editBlog(id) {
