@@ -58,7 +58,7 @@ header button:hover {
 
 .chart-container {
   flex: 1;
-  min-width: 300px;
+  min-width: 150px;
   background: #fff;
   padding: 20px;
   border-radius: 12px;
@@ -71,10 +71,12 @@ header button:hover {
 
 .messages-section input {
   width: 100%;
+  max-width: 100%; /* Ensures it doesn’t overflow */
   padding: 10px 12px;
   margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  box-sizing: border-box; /* Includes padding and border in width */
 }
 
 .message-item {
