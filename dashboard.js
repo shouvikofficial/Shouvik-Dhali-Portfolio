@@ -291,9 +291,146 @@ async function togglePublish(id, currentState){
 }
 // --- BLOG MANAGEMENT END ---
 
-// Initialize dashboard
+
+
+const projectContainer = document.getElementById("project-container");
+
+// --- LOAD PROJECTS ---
+async function loadProjects() {
+  if (!projectContainer) return;
+
+  // Clear container first to avoid duplicates
+  projectContainer.innerHTML = '';
+
+  try {
+    const snapshot = await db.collection("projects").orderBy("createdAt", "desc").get();
+    if (snapshot.empty) {
+      projectContainer.innerHTML = "<p>No projects found.</p>";
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const tags = Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []);
+
+      const div = document.createElement("div");
+      div.classList.add("blog-item");
+      div.innerHTML = `
+        <p><strong>${data.title}</strong></p>
+        <img src="${data.imageURL}" alt="${data.title}" style="max-width:100%; border-radius:8px; margin-top:5px;">
+        <p>${data.description.substring(0,100)}...</p>
+        <p><strong>Tags:</strong> ${tags.join(', ')}</p>
+        <div class="project-links">
+          ${data.liveURL ? `<a href="${data.liveURL}" target="_blank" class="btn-small">Live Demo</a>` : ''}
+          ${data.githubURL ? `<a href="${data.githubURL}" target="_blank" class="btn-small">Details</a>` : ''}
+        </div>
+        <div class="message-actions">
+          <button class="reply" onclick="editProject('${doc.id}')">Edit</button>
+          <button class="delete" onclick="deleteProject('${doc.id}')">Delete</button>
+          <button class="publish" onclick="toggleProjectPublish('${doc.id}', ${data.published})">
+            ${data.published ? "Unpublish" : "Publish"}
+          </button>
+        </div>
+      `;
+      projectContainer.appendChild(div);
+    });
+
+  } catch (err) {
+    console.error(err);
+    projectContainer.innerHTML = "<p>Error loading projects.</p>";
+  }
+}
+
+// --- ADD PROJECT ---
+async function addProject(title, description, imageFile, liveURL, githubURL, tags) {
+  if (!title || !description || !imageFile || !liveURL || !githubURL) {
+    return alert("Please fill all project fields, including Live URL and GitHub URL!");
+  }
+
+  const tagsArray = tags ? tags.split(",").map(t => t.trim()).filter(t => t) : [];
+  const formData = new FormData();
+  formData.append("file", imageFile);
+  formData.append("upload_preset", "portfolio_projects");
+
+  try {
+    const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", {
+      method: "POST",
+      body: formData
+    });
+    if (!res.ok) throw new Error("Image upload failed");
+
+    const data = await res.json();
+    const imageURL = data.secure_url;
+
+    await db.collection("projects").add({
+      title,
+      description,
+      imageURL,
+      liveURL,
+      githubURL,
+      tags: tagsArray,
+      published: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    alert("Project added successfully!");
+    loadProjects();
+
+    // Clear input fields
+    document.getElementById("project-title").value = "";
+    document.getElementById("project-desc").value = "";
+    document.getElementById("project-image").value = "";
+    document.getElementById("project-live").value = "";
+    document.getElementById("project-github").value = "";
+    document.getElementById("project-tags").value = "";
+
+  } catch (err) {
+    console.error(err);
+    alert("Failed to add project. Error: " + err.message);
+  }
+}
+
+// --- EDIT PROJECT ---
+async function editProject(id) {
+  const doc = await db.collection("projects").doc(id).get();
+  const data = doc.data();
+
+  const newTitle = prompt("Edit Title", data.title);
+  const newDesc = prompt("Edit Description", data.description);
+  const newLiveURL = prompt("Edit Live URL", data.liveURL || "");
+  const newGithubURL = prompt("Edit Details URL", data.githubURL || "");
+  const newTags = prompt("Edit Tags (comma separated)", Array.isArray(data.tags) ? data.tags.join(", ") : data.tags || "");
+
+  if (!newTitle || !newDesc || !newLiveURL || !newGithubURL || !newTags) return;
+
+  await db.collection("projects").doc(id).update({
+    title: newTitle,
+    description: newDesc,
+    liveURL: newLiveURL,
+    githubURL: newGithubURL,
+    tags: newTags.split(",").map(t => t.trim())
+  });
+
+  loadProjects();
+}
+
+// --- DELETE PROJECT ---
+async function deleteProject(id) {
+  if (confirm("Are you sure you want to delete this project?")) {
+    await db.collection("projects").doc(id).delete();
+    loadProjects();
+  }
+}
+
+// --- PUBLISH / UNPUBLISH PROJECT ---
+async function toggleProjectPublish(id, currentState) {
+  await db.collection("projects").doc(id).update({ published: !currentState });
+  loadProjects();
+}
+
+// Call after Firebase initialized
 auth.onAuthStateChanged(user => {
-  if(!user) window.location.href = "admin.html";
+  if (!user) window.location.href = "admin.html";
   else {
     trackActiveUser(user.uid);
     loadMessages();
@@ -301,5 +438,6 @@ auth.onAuthStateChanged(user => {
     loadActiveUsers();
     trackVisitor();
     loadBlogs();
+    loadProjects();
   }
 });

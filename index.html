@@ -124,70 +124,24 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="section" aria-label="Projects">
-    <div class="container section-inner reveal" data-aos="fade-up">
-      <h2>Recent Projects</h2>
-      <p class="muted">Hover over the cards to explore projects.</p>
-      <div class="projects-grid">
-        <!-- Project Card 1 -->
-        <div class="project-card" data-aos="zoom-in">
-          <div class="project-img-wrapper">
-            <img src="project1.jpg" alt="Project" class="project-img">
-            <div class="project-overlay">
-              <div class="project-actions">
-                <a href="https://github.com/shouvikofficial/Heart-Disease-Prediction-System" target="_blank" class="btn-small">Details</a>
-                <a href="https://github.com/shouvikofficial/Heart-Disease-Prediction-System" target="_blank" class="btn-small">Live Demo</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-name">Heart Disease Prediction System</div>
-          <div class="project-meta">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>javascript</span>
-            <span>Flask</span>
-          </div>
-        </div>
+<!-- PROJECTS -->
+<section id="projects" class="section" aria-label="Projects">
+  <div class="container section-inner reveal" data-aos="fade-up">
+    <h2>Recent Projects</h2>
+    <p class="muted">Hover over the cards to explore projects.</p>
 
-        <!-- Project Card 2 -->
-        <div class="project-card" data-aos="zoom-in">
-          <div class="project-img-wrapper">
-            <img src="project2.jpg" alt="Project" class="project-img">
-            <div class="project-overlay">
-              <div class="project-actions">
-                <a href="https://github.com/shouvikofficial/Blood-Bank-Management-System" target="_blank" class="btn-small">Details</a>
-                <a href="https://github.com/shouvikofficial/Blood-Bank-Management-System" target="_blank" class="btn-small">Live Demo</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-name">Blood Bank Management System</div>
-          <div class="project-meta">
-            <span>HTML</span>
-            <span>CSS</span>
-          </div>
-        </div>
+    <!-- Main 3 projects -->
+    <div id="projects-grid" class="projects-grid"></div>
 
-        <!-- Project Card 3 -->
-        <div class="project-card" data-aos="zoom-in">
-          <div class="project-img-wrapper">
-            <img src="project3.jpg" alt="Project" class="project-img">
-            <div class="project-overlay">
-              <div class="project-actions">
-                <a href="https://github.com/shouvikofficial/Documents-Formator" target="_blank" class="btn-small">Details</a>
-                <a href="https://github.com/shouvikofficial/Documents-Formator" target="_blank" class="btn-small">Live Demo</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-name">Documents Formator</div>
-          <div class="project-meta">
-            <span>React</span>
-            <span>Flask</span>
-          </div>
-        </div>
-      </div>
+    <!-- Scrollable extra projects with arrows -->
+    <div class="projects-scroll-container">
+      <button class="projects-scroll-arrow projects-scroll-arrow-left" onclick="scrollProjects(-300)">&#10094;</button>
+      <div id="projects-scroll" class="projects-scroll"></div>
+      <button class="projects-scroll-arrow projects-scroll-arrow-right" onclick="scrollProjects(300)">&#10095;</button>
     </div>
-  </section>
+
+  </div>
+</section>
 
   <!-- CONTACT -->
   <section id="contact" class="section" aria-label="Contact">
@@ -271,6 +225,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <script src="script.js"></script>
+  <script src="project.js"></script>
 
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

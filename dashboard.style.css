@@ -392,3 +392,234 @@ header button:hover {
     font-size: 0.9rem;
   }
 }
+
+
+/* Projects Section */
+.project-section {
+  padding: 30px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.project-section h3 {
+  text-align: center;
+  color: #0077b6;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* Project Inputs */
+.project-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.project-inputs input[type="text"],
+.project-inputs textarea,
+.project-inputs input[type="file"],
+.project-inputs select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  background: #f4f7f9;
+  color: #333;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.project-inputs input[type="text"]:focus,
+.project-inputs textarea:focus,
+.project-inputs select:focus {
+  border-color: #0077b6;
+  box-shadow: 0 0 8px rgba(0,119,182,0.3);
+  outline: none;
+}
+
+.project-inputs select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #f4f7f9 url('data:image/svg+xml;utf8,<svg fill="%23777" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+  background-size: 18px;
+}
+
+.project-inputs textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Add Project Button */
+.project-inputs button {
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(90deg, #0077b6, #00b4d8);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.project-inputs button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,119,182,0.3);
+}
+
+/* Project List Container */
+#project-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Single Project Card */
+.project-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+}
+
+.project-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.project-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+  word-wrap: break-word;
+}
+
+/* Project Image */
+.project-item img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+/* Category, Tags, Links */
+.project-item strong {
+  color: #0077b6;
+}
+
+.project-item p:nth-child(4),
+.project-item p:nth-child(5),
+.project-item p:nth-child(6),
+.project-item p:nth-child(7) {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.project-item p:nth-child(5) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* Action Buttons */
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.project-actions button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.project-actions .edit {
+  background: #00b4d8;
+  color: #fff;
+}
+
+.project-actions .delete {
+  background: #ff4d6d;
+  color: #fff;
+}
+
+.project-actions .publish {
+  background: #2a9d8f;
+  color: #fff;
+}
+
+.project-actions .edit:hover {
+  background: #0077b6;
+}
+
+.project-actions .delete:hover {
+  background: #e63946;
+}
+
+.project-actions .publish:hover {
+  background: #21867a;
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+  #project-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #project-container {
+    grid-template-columns: 1fr;
+  }
+
+  .project-item img {
+    max-height: 160px;
+  }
+
+  .project-actions button {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+
+  .project-item p:nth-child(4),
+  .project-item p:nth-child(5) {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .project-item img {
+    max-height: 140px;
+  }
+
+  .project-item p {
+    font-size: 0.85rem;
+  }
+
+  .project-actions button {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+}
