@@ -867,3 +867,35 @@ body {
 }
 
 
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .hero-grid {
+    flex-direction: column; /* stack left and right vertically */
+    align-items: center; /* center everything horizontally */
+    text-align: center;
+  }
+
+  .hero-left {
+    flex: 1 1 auto;
+  }
+
+  .hero-right {
+    margin-top: 1.5rem;
+    flex: 1 1 auto;
+  }
+
+  .hero-cta {
+    justify-content: center; /* center buttons */
+    flex-wrap: nowrap;       /* keep buttons horizontal */
+  }
+
+  .hero-cta .btn {
+    width: auto; /* natural width */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-cta {
+    gap: 0.5rem; /* reduce gap on very small screens */
+  }
+}
