@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const themeToggle = document.getElementById('theme-toggle');
-  const hamburger = document.getElementById('hamburger');
-  const nav = document.getElementById('nav');
+  //const hamburger = document.getElementById('hamburger');
+  //const nav = document.getElementById('nav');
   const yearEl = document.getElementById('year');
   const revealEls = document.querySelectorAll('.reveal');
 
@@ -26,19 +26,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 3) Mobile nav toggle
-  hamburger.addEventListener('click', () => {
-    nav.classList.toggle('show');
-    const expanded = nav.classList.contains('show');
-    hamburger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-  });
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('nav');
+const navLinks = document.querySelectorAll('.nav-link');
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 900) {
-        nav.classList.remove('show');
-      }
-    });
+// Toggle mobile navbar
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  nav.classList.toggle('mobile-active');
+  void nav.offsetWidth; // force reflow
+  nav.classList.toggle('show');
+});
+
+// Close navbar and navigate properly
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    if (nav.classList.contains('mobile-active')) {
+      // Prevent default to handle animation first
+      e.preventDefault();
+      const target = link.href;
+
+      // Close the navbar
+      hamburger.classList.remove('active');
+      nav.classList.remove('show');
+      nav.classList.remove('mobile-active');
+
+      // Wait for transition to finish before navigating
+      setTimeout(() => {
+        window.location.href = target;
+      }, 300); // match your CSS transition time
+    }
   });
+});
+
 
   // 4) Smooth internal scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
