@@ -32,6 +32,8 @@ const navLinks = document.querySelectorAll('.nav-link');
 
 // Toggle mobile navbar
 hamburger.addEventListener('click', () => {
+  const isOpen = nav.classList.contains('mobile-active');
+
   hamburger.classList.toggle('active');
   nav.classList.toggle('mobile-active');
 
@@ -43,6 +45,8 @@ hamburger.addEventListener('click', () => {
   // Prevent background scroll when nav is open
   if (nav.classList.contains('mobile-active')) {
     document.body.classList.add('no-scroll');
+    // Push temporary history state so back button can close navbar
+    history.pushState({ navbarOpen: true }, '');
   } else {
     document.body.classList.remove('no-scroll');
   }
@@ -69,15 +73,19 @@ navLinks.forEach(link => {
   });
 });
 
-// --- ADD: Close navbar on back button press ---
-window.addEventListener('popstate', () => {
+// --- Close navbar on back button press ---
+window.addEventListener('popstate', event => {
   if (nav.classList.contains('mobile-active')) {
     hamburger.classList.remove('active');
     nav.classList.remove('show');
     nav.classList.remove('mobile-active');
     document.body.classList.remove('no-scroll');
+
+    // Push state again so back button closes navbar only
+    history.pushState(null, '');
   }
 });
+
 
 
 
