@@ -871,6 +871,11 @@ body {
 
 }
 
+/* Prevent body scroll when nav is open */
+body.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
 /* ========================= */
 /* Professional & modern button hover */
 /* ========================= */

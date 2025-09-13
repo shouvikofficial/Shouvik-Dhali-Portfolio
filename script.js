@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
   }
 
-  // 3) Mobile nav toggle
+// 3) Mobile nav toggle
 const hamburger = document.getElementById('hamburger');
 const nav = document.getElementById('nav');
 const navLinks = document.querySelectorAll('.nav-link');
@@ -34,30 +34,41 @@ const navLinks = document.querySelectorAll('.nav-link');
 hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('active');
   nav.classList.toggle('mobile-active');
-  void nav.offsetWidth; // force reflow
+
+  // Force reflow to ensure transition works correctly
+  void nav.offsetWidth;
+
   nav.classList.toggle('show');
+
+  // Prevent background scroll when nav is open
+  if (nav.classList.contains('mobile-active')) {
+    document.body.classList.add('no-scroll');
+  } else {
+    document.body.classList.remove('no-scroll');
+  }
 });
 
 // Close navbar and navigate properly
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
     if (nav.classList.contains('mobile-active')) {
-      // Prevent default to handle animation first
-      e.preventDefault();
+      e.preventDefault(); // prevent immediate navigation
       const target = link.href;
 
-      // Close the navbar
+      // Remove classes to close navbar
       hamburger.classList.remove('active');
       nav.classList.remove('show');
       nav.classList.remove('mobile-active');
+      document.body.classList.remove('no-scroll');
 
-      // Wait for transition to finish before navigating
+      // Wait for CSS transition to finish before navigating
       setTimeout(() => {
         window.location.href = target;
-      }, 300); // match your CSS transition time
+      }, 400); // match CSS transition time (0.4s)
     }
   });
 });
+
 
 
   // 4) Smooth internal scroll
