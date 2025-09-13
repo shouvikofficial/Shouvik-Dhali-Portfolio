@@ -69,6 +69,17 @@ navLinks.forEach(link => {
   });
 });
 
+// --- ADD: Close navbar on back button press ---
+window.addEventListener('popstate', () => {
+  if (nav.classList.contains('mobile-active')) {
+    hamburger.classList.remove('active');
+    nav.classList.remove('show');
+    nav.classList.remove('mobile-active');
+    document.body.classList.remove('no-scroll');
+  }
+});
+
+
 
 
   // 4) Smooth internal scroll
