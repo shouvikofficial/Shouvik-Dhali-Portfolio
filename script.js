@@ -253,3 +253,24 @@ form2.addEventListener("submit", async (e) => {
   }
 });
 
+// Scroll Up Button
+document.addEventListener('DOMContentLoaded', function() {
+  const scrollUpBtn = document.getElementById('scrollUpBtn');
+
+  // Show button when scrolling down
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+      scrollUpBtn.classList.add('show');
+    } else {
+      scrollUpBtn.classList.remove('show');
+    }
+  });
+
+  // Scroll smoothly to top when clicked
+  scrollUpBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});
