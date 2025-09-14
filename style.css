@@ -335,7 +335,7 @@ body {
 /* Very small screens: small phones */
 @media (max-width: 480px) {
   .detail-card {
-    padding: 14px 12px;
+    padding: 14px 17px;
   }
 
   .detail-card h3 {
