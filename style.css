@@ -212,107 +212,144 @@ body {
   margin-bottom: 20px;
 }
 
+/* DETAILS GRID */
 .details-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 25px;
   margin-top: 30px;
 }
 
+/* DETAIL CARD STYLING */
 .detail-card {
-  background: var(--glass);
-  padding: 20px;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255,255,255,0.05); /* subtle transparent background */
+  padding: 28px 22px;
+  border-left: 4px solid #00aaff; /* accent colored left border */
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .detail-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transform: translateY(-5px);
+  background: rgba(0,123,170,0.1); /* subtle hover highlight */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .detail-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.35rem;
+  color: #00aaff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-card p {
   margin-bottom: 10px;
-  color: var(--accent);
+  line-height: 1.6;
+  word-wrap: break-word;
 }
 
-.detail-card ul {
-  padding-left: 18px;
+/* Highlight links */
+.highlight-link {
+  background-color: rgba(161,170,172,0.8);
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.3s ease;
 }
 
+.highlight-link:hover {
+  background-color: #0077aa;
+}
+
+/* BACK BUTTON */
 .back-btn {
   margin-top: 40px;
   text-align: center;
 }
-/* DETAILS PAGE RESPONSIVE FIXES */
 
-/* Grid adjustments for small screens */
-@media (max-width: 1024px) {
-  .details-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 18px;
-  }
+.back-btn .btn {
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid #00aaff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
-/* Stack cards on mobile */
-@media (max-width: 768px) {
+.back-btn .btn:hover {
+  background-color: #00aaff;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE FIXES */
+
+/* Medium screens: tablets */
+@media (max-width: 1024px) {
   .details-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
   }
 
   .detail-card {
-    padding: 16px;
+    padding: 22px 18px;
+  }
+
+  .detail-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .detail-card p {
+    font-size: 0.98rem;
+  }
+}
+
+/* Small screens: mobile portrait */
+@media (max-width: 768px) {
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .detail-card {
+    padding: 18px 15px;
   }
 
   .detail-card h3 {
     font-size: 1.1rem;
   }
 
-  .detail-card ul li {
+  .detail-card p {
     font-size: 0.95rem;
+  }
+
+  .back-btn {
+    text-align: center;
   }
 }
 
-/* Very small devices */
+/* Very small screens: small phones */
 @media (max-width: 480px) {
   .detail-card {
-    padding: 14px;
+    padding: 14px 12px;
   }
 
   .detail-card h3 {
     font-size: 1rem;
   }
 
-  .detail-card ul li {
+  .detail-card p {
     font-size: 0.9rem;
   }
 
   .back-btn .btn {
     padding: 10px 16px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
-}
-
-/* Center back button on mobile */
-@media (max-width: 768px) {
-  .back-btn {
-    
-    text-align: center;
-  }
-}
-
-/* Optional: subtle hover effect for detail cards */
-.detail-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-
-/* Ensure text wraps nicely in cards */
-.detail-card p,
-.detail-card li {
-  word-wrap: break-word;
 }
 
 /* Footer adjustments for mobile */
