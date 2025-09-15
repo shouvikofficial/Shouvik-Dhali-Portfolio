@@ -284,7 +284,7 @@ window.addEventListener('scroll', () => {
   let current = '';
 
   sections.forEach(section => {
-    const sectionTop = section.offsetTop - 100; // offset for header height
+    const sectionTop = section.offsetTop - 180; // offset for header height
     if (scrollY >= sectionTop) {
       current = section.getAttribute('id');
     }
