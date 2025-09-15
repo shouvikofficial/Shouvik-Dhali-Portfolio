@@ -8,16 +8,18 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
   <!-- AOS Animation CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
 </head>
 <body>
   <!-- NAV -->
   <header class="site-header" data-aos="fade-down">
     <div class="container nav-row">
+      <div class ="logo-brand">
+      <div id="s-logo"></div>
       <div class="brand">Shouvik</div>
-
+     </div>
       <nav class="nav" id="nav">
         <a href="#about" class="nav-link">About</a>
         <a href="#skills" class="nav-link">Skills</a>
@@ -254,6 +256,16 @@ s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
+</script>
+
+<script>
+  lottie.loadAnimation({
+    container: document.getElementById('s-logo'), // target div
+    renderer: 'svg',       // renders as scalable vector
+    loop: true,            // change to true to loop infinitely
+    autoplay: true,        // starts automatically
+    path: 's-letter.json'  // path to your Lottie JSON file
+  });
 </script>
 <!--End of Tawk.to Script-->
 <!-- Scroll Up Button -->

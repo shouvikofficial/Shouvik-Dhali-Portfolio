@@ -7,14 +7,17 @@
   <link rel="stylesheet" href="blog.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
   
 </head>
 <body>
   <!-- Header -->
   <header class="site-header" data-aos="fade-down">
     <div class="container nav-row">
+      <div class ="logo-brand">
+      <div id="s-logo"></div>
       <div class="brand">Shouvik</div>
+     </div>
       <nav class="nav" id="nav">
         <a href="index.html#home" class="nav-link">Home</a>
         <a href="index.html#about" class="nav-link">About</a>
@@ -132,9 +135,19 @@
   
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>lottie.loadAnimation({
+    container: document.getElementById('s-logo'), // target div
+    renderer: 'svg',       // renders as scalable vector
+    loop: true,            // change to true to loop infinitely
+    autoplay: true,        // starts automatically
+    path: 's-letter.json'  // path to your Lottie JSON file
+  });
+  </script>
+  
 
   <script src="script.js"></script>
   <script src="blog.js"></script>
+ 
 
 
 

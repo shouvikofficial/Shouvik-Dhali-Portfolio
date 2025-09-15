@@ -58,6 +58,37 @@ body {
 .icon-btn { background: transparent; border: 0; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px; border-radius: 8px; }
 .hamburger { display: none; }
 
+
+/* S Logo in Nav */
+#s-logo {
+  width: 50px;                  /* smaller for nav */
+  height: 50px;
+  cursor: pointer;              /* shows it's interactive */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect: slight scale and color glow */
+#s-logo:hover {
+  transform: scale(1.15);
+}
+
+/* Optional: Responsive for mobile nav */
+@media (max-width: 768px) {
+  #s-logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* space between logo and text */
+}
+
 /* ========================= */
 /* Blog Page Styles */
 .blog-container {
