@@ -58,6 +58,11 @@ body {
 .icon-btn { background: transparent; border: 0; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px; border-radius: 8px; }
 .hamburger { display: none; }
 
+.nav-link.active {
+  color: var(--accent);       /* highlighted link color */
+  font-weight: 600;
+}
+
 
 /* S Logo in Nav */
 #s-logo {

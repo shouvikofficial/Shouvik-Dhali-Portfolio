@@ -838,6 +838,10 @@ body {
   .hero-title { font-size: 1.6rem; }
   .hero-sub { font-size: 1rem; }
 }
+.nav-link.active {
+  color: var(--accent);       /* highlighted link color */
+  font-weight: 600;
+}
 
 /* ---------------- MOBILE NAV ---------------- */
 @media (max-width: 768px) {
