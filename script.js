@@ -298,3 +298,48 @@ window.addEventListener('scroll', () => {
   });
 });
 
+//tab effect
+
+document.addEventListener("DOMContentLoaded", function() {
+    const originalTitle = document.title;
+
+    // Messages to scroll
+    const messages = [
+        "🎯 Click back to see my work! ",
+        "✨ Amazing projects await! ",
+        "💻 Explore my portfolio! "
+    ];
+
+    let currentMessage = 0;
+    let offset = 0;
+    let scrollInterval;
+
+    function startScrolling() {
+        scrollInterval = setInterval(() => {
+            const msg = messages[currentMessage];
+            document.title = msg.slice(offset) + msg.slice(0, offset);
+            offset++;
+
+            if (offset >= msg.length) {
+                offset = 0;
+                currentMessage = (currentMessage + 1) % messages.length; // Cycle messages
+            }
+        }, 150); // 150ms for smooth scrolling, lower = faster
+    }
+
+    function stopScrolling() {
+        clearInterval(scrollInterval);
+        document.title = originalTitle;
+        offset = 0;
+        currentMessage = 0;
+    }
+
+    // Detect when user switches tab
+    document.addEventListener("visibilitychange", function() {
+        if (document.hidden) {
+            startScrolling(); // Start ticker when tab inactive
+        } else {
+            stopScrolling();  // Stop ticker when tab active
+        }
+    });
+});
