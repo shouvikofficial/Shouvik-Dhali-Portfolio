@@ -448,7 +448,7 @@ body {
 
 /* Skills Section */
 #skills {
-  padding: 60px 40px;
+  padding: 60px 50px;
   max-width: 1200px;      /* align with main content */
   margin: 0 auto;         /* center horizontally */
   background: var(--bg);
