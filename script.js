@@ -314,9 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //right click off
 
-document.addEventListener("contextmenu", function(e) {
-    e.preventDefault();
-});
+
 
 //background particles
 
@@ -369,3 +367,19 @@ document.addEventListener("DOMContentLoaded", () => {
     window.pJSDom[0].pJS.particles.line_linked.color = newColor;
   });
 });
+
+
+//skill
+
+const cards = document.querySelectorAll('.skill-card');
+
+cards.forEach((card, index) => {
+  let direction = 1;
+  setInterval(() => {
+    const offset = 2 * direction; // move 2px up/down
+    card.style.transform = `translateY(${offset}px) scale(1.05)`;
+    direction *= -1;
+  }, 2000 + index * 100); // stagger by index
+});
+
+
