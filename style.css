@@ -1110,7 +1110,7 @@ body.no-scroll {
 /* Scroll Up Button */
 #scrollUpBtn {
   position: fixed;
-  bottom: 87px;
+  bottom: 25px;
   right: 31px;
   z-index: 9999; /* ensure on top */
   background: #00aaff;
@@ -1150,4 +1150,15 @@ body.no-scroll {
     bottom: 87px;
     right: 34px;
   }
+}
+
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* behind content */
+  pointer-events: none; /* clicks go through */
 }

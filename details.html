@@ -10,8 +10,12 @@
   <!-- AOS CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
+
+  <!-- Particles Background -->
+<div id="particles-js"></div>
   <!-- NAV -->
   <header class="site-header" data-aos="fade-down" data-aos-duration="1000">
     <div class="container nav-row">
@@ -153,6 +157,58 @@
   });</script>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Determine color based on theme
+  const theme = localStorage.getItem("site-theme") || "light";
+  const particleColor = theme === "light" ? "#007BFF" : "#00FFFF";
+
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: particleColor },
+      shape: { type: "circle" },
+      opacity: { value: 0.5, random: true },
+      size: { value: 3, random: true },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: particleColor,
+        opacity: 0.2,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: "none",
+        out_mode: "out",
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: true, mode: "grab" },
+        onclick: { enable: true, mode: "push" }
+      },
+      modes: {
+        grab: { distance: 140, line_linked: { opacity: 0.5 } },
+        push: { particles_nb: 4 }
+      }
+    },
+    retina_detect: true
+  });
+
+  // Update particles color when theme changes
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle.addEventListener("click", () => {
+    const newTheme = document.documentElement.getAttribute("data-theme");
+    const newColor = newTheme === "light" ? "#007BFF" : "#00FFFF";
+    window.pJSDom[0].pJS.particles.color.value = newColor;
+    window.pJSDom[0].pJS.particles.line_linked.color = newColor;
+  });
+});
+
+</script>
   <script src="script.js"></script>
 
 

@@ -29,13 +29,19 @@
   <!-- AOS Animation CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
+
+<!-- Particles Background -->
+<div id="particles-js"></div>
   <!-- NAV -->
   <header class="site-header" data-aos="fade-down">
     <div class="container nav-row">
       <div class ="logo-brand">
-      <div id="s-logo"></div>
+      <a href="#home">
+       <div id="s-logo"></div>
+      </a>
       <div class="brand">Shouvik</div>
      </div>
       <nav class="nav" id="nav">
@@ -277,6 +283,7 @@ s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
+<!--End of Tawk.to Script-->
 
 <script>
   lottie.loadAnimation({

@@ -303,43 +303,69 @@ window.addEventListener('scroll', () => {
 document.addEventListener("DOMContentLoaded", function() {
     const originalTitle = document.title;
 
-    // Messages to scroll
-    const messages = [
-        "🎯 Click back to see my work! ",
-        "✨ Amazing projects await! ",
-        "💻 Explore my portfolio! "
-    ];
-
-    let currentMessage = 0;
-    let offset = 0;
-    let scrollInterval;
-
-    function startScrolling() {
-        scrollInterval = setInterval(() => {
-            const msg = messages[currentMessage];
-            document.title = msg.slice(offset) + msg.slice(0, offset);
-            offset++;
-
-            if (offset >= msg.length) {
-                offset = 0;
-                currentMessage = (currentMessage + 1) % messages.length; // Cycle messages
-            }
-        }, 150); // 150ms for smooth scrolling, lower = faster
-    }
-
-    function stopScrolling() {
-        clearInterval(scrollInterval);
-        document.title = originalTitle;
-        offset = 0;
-        currentMessage = 0;
-    }
-
-    // Detect when user switches tab
     document.addEventListener("visibilitychange", function() {
         if (document.hidden) {
-            startScrolling(); // Start ticker when tab inactive
+            document.title = "🙏 Click back!";
         } else {
-            stopScrolling();  // Stop ticker when tab active
+            document.title = originalTitle;
         }
     });
+});
+
+//right click off
+
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+});
+
+//background particles
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Determine color based on theme
+  const theme = localStorage.getItem("site-theme") || "light";
+  const particleColor = theme === "light" ? "#007BFF" : "#00FFFF";
+
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: particleColor },
+      shape: { type: "circle" },
+      opacity: { value: 0.5, random: true },
+      size: { value: 3, random: true },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: particleColor,
+        opacity: 0.2,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: "none",
+        out_mode: "out",
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: true, mode: "grab" },
+        onclick: { enable: true, mode: "push" }
+      },
+      modes: {
+        grab: { distance: 140, line_linked: { opacity: 0.5 } },
+        push: { particles_nb: 4 }
+      }
+    },
+    retina_detect: true
+  });
+
+  // Update particles color when theme changes
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle.addEventListener("click", () => {
+    const newTheme = document.documentElement.getAttribute("data-theme");
+    const newColor = newTheme === "light" ? "#007BFF" : "#00FFFF";
+    window.pJSDom[0].pJS.particles.color.value = newColor;
+    window.pJSDom[0].pJS.particles.line_linked.color = newColor;
+  });
 });
