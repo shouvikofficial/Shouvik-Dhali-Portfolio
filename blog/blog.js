@@ -3,6 +3,37 @@ document.addEventListener('DOMContentLoaded', () => {
   loadBlogsFromFirestore();
 });
 
+// ----- JSON-LD Function -----
+function addJSONLD(blog) {
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": blog.title,
+    "author": {
+      "@type": "Person",
+      "name": blog.author || "Unknown"
+    },
+    "datePublished": blog.date || new Date().toISOString(),
+    "dateModified": blog.date || new Date().toISOString(),
+    "image": blog.imageURL || "",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Your Website Name",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://example.com/logo.png"
+      }
+    },
+    "description": blog.content ? blog.content.substring(0, 150) : "",
+    "keywords": blog.tags && blog.tags.length ? blog.tags.join(", ") : "",
+    "about": blog.category || ""
+  });
+  document.head.appendChild(script);
+}
+
+
 async function loadBlogsFromFirestore() {
   const postsContainer = document.querySelector('.blog-posts');
   const paginationContainer = document.querySelector('.pagination');
@@ -23,26 +54,47 @@ async function loadBlogsFromFirestore() {
     }
 
     snapshot.forEach((doc, idx) => {
-      const data = doc.data();
-      const article = document.createElement('article');
-      article.className = 'blog-post reveal';
-      article.id = 'post-' + (idx + 1);
-      article.dataset.category = data.category || '';
-      article.dataset.tags = data.tags || '';
-      article.innerHTML = `
-        <img src="${data.imageURL}" alt="${data.title}">
-        <div class="post-content">
-          <h2 class="post-title">${data.title}</h2>
-          <p class="post-excerpt">${data.content.substring(0, 100)}...</p>
-          <a href="#" class="read-more">Read More →</a>
-          <div class="full-content" style="display:none;">
-            ${data.content}
-          </div>
-        </div>
-      `;
-      postsContainer.appendChild(article);
-      allPosts.push(article);
-    });
+  const data = doc.data();
+  const article = document.createElement('article');
+  article.className = 'blog-post reveal';
+  article.id = 'post-' + (idx + 1);
+  article.dataset.category = data.category || '';
+  article.dataset.tags = data.tags || '';
+  article.dataset.author = data.author || 'Unknown';
+  article.dataset.date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : '';
+
+  article.innerHTML = `
+    <img src="${data.imageURL}" alt="${data.title}">
+    <div class="post-content">
+      <h2 class="post-title">${data.title}</h2>
+      <div class="post-meta">
+        <span class="author">Author : ${article.dataset.author}</span>
+        <span class="date">${article.dataset.date}</span>
+      </div>
+      <p class="post-excerpt">${data.content.substring(0, 100)}...</p>
+      <a href="#" class="read-more">Read More →</a>
+      <div class="full-content" style="display:none;">
+        ${data.content}
+      </div>
+    </div>
+  `;
+  postsContainer.appendChild(article);
+  allPosts.push(article);
+
+  // ----- Add JSON-LD for this post -----
+  const blogData = {
+    title: data.title,
+    author: data.author || "Unknown",
+    date: data.createdAt ? new Date(data.createdAt.seconds * 1000).toISOString() : new Date().toISOString(),
+    imageURL: data.imageURL || "",
+    content: data.content || "",
+    category: data.category ? data.category.toString() : "",
+    tags: data.tags 
+      ? (Array.isArray(data.tags) ? data.tags : data.tags.toString().split(',').map(t => t.trim())) 
+      : []
+  };
+  addJSONLD(blogData);
+}); // <-- THIS closes the forEach
 
     // Pagination & filtering
     const postsPerPage = 4;
@@ -186,8 +238,12 @@ async function loadBlogsFromFirestore() {
         imgEl.style.display = 'block';
       }
 
+      const metaNode = post.querySelector('.post-meta');
       const fullNode = post.querySelector('.full-content');
-      bodyEl.innerHTML = fullNode ? fullNode.innerHTML : post.innerHTML;
+      bodyEl.innerHTML = `
+        ${metaNode ? metaNode.outerHTML : ''}
+        ${fullNode ? fullNode.innerHTML : ''}
+      `;
 
       openModal();
     }
@@ -224,32 +280,21 @@ async function loadBlogsFromFirestore() {
   }
 }
 
-
+// Add 'selected' class functionality
 const tags = document.querySelectorAll('.tags a');
-
 tags.forEach(tag => {
   tag.addEventListener('click', (e) => {
-    e.preventDefault(); // prevent default link behavior
-    
-    // Remove 'selected' from all tags
+    e.preventDefault();
     tags.forEach(t => t.classList.remove('selected'));
-    
-    // Add 'selected' to the clicked tag
     tag.classList.add('selected');
   });
 });
 
-
 const categoryLinks = document.querySelectorAll('.sidebar-widget ul li a');
-
 categoryLinks.forEach(cat => {
   cat.addEventListener('click', (e) => {
-    e.preventDefault(); // prevent default link behavior
-
-      // Remove selected from all categories, then select this one
-      categoryLinks.forEach(c => c.classList.remove('selected'));
-      // Add 'selected' to the clicked tag
-      cat.classList.add('selected');
+    e.preventDefault();
+    categoryLinks.forEach(c => c.classList.remove('selected'));
+    cat.classList.add('selected');
   });
 });
-

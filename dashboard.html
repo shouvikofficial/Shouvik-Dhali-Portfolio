@@ -58,59 +58,62 @@
   </section>
 
   <!-- Blog Management -->
-<section class="blog-section">
-  <h3>Blog Posts</h3>
+  <section class="blog-section">
+    <h3>Blog Posts</h3>
 
-  <div class="blog-inputs">
-    <input type="text" id="blog-title" placeholder="Blog Title" />
-    <textarea id="blog-content" placeholder="Blog Content"></textarea>
-    <input type="file" id="blog-image" />
-    <select id="blog-category">
-      <option value="">Select Category</option>
-      <option value="Web Development">Web Development</option>
-      <option value="AI & ML">AI & ML</option>
-      <option value="Programming Tips">Programming Tips</option>
-      <option value="Tech News">Tech News</option>
-    </select>
-    <input type="text" id="blog-tags" placeholder="Tags (comma separated)" />
+    <div class="blog-inputs">
+      <input type="text" id="blog-title" placeholder="Blog Title" />
+      <textarea id="blog-content" placeholder="Blog Content"></textarea>
+      <input type="file" id="blog-image" />
+      <select id="blog-category">
+        <option value="">Select Category</option>
+        <option value="Web Development">Web Development</option>
+        <option value="AI & ML">AI & ML</option>
+        <option value="Programming Tips">Programming Tips</option>
+        <option value="Tech News">Tech News</option>
+      </select>
+      <input type="text" id="blog-tags" placeholder="Tags (comma separated)" />
+      <!-- Added Author Input -->
+      <input type="text" id="blog-author" placeholder="Author Name" />
 
-    <button onclick="addBlog(
-      document.getElementById('blog-title').value,
-      document.getElementById('blog-content').value,
-      document.getElementById('blog-image').files[0],
-      document.getElementById('blog-category').value,
-      document.getElementById('blog-tags').value
-    )">Add Blog</button>
-  </div>
+      <button onclick="addBlog(
+        document.getElementById('blog-title').value,
+        document.getElementById('blog-content').value,
+        document.getElementById('blog-image').files[0],
+        document.getElementById('blog-category').value,
+        document.getElementById('blog-tags').value,
+        document.getElementById('blog-author').value
+      )">Add Blog</button>
+    </div>
 
-  <!-- Blog Container -->
-  <div id="blog-container">
-    <p>Loading blogs...</p>
-  </div>
-</section>
+    <!-- Blog Container -->
+    <div id="blog-container">
+      <p>Loading blogs...</p>
+    </div>
+  </section>
 
-<section class="project-section">
-  <h3>Projects</h3>
-  <div class="project-inputs">
-    <input type="text" id="project-title" placeholder="Project Title" />
-    <textarea id="project-desc" placeholder="Project Description"></textarea>
-    <input type="file" id="project-image" />
-    <input type="text" id="project-live" placeholder="Live URL" />
-    <input type="text" id="project-github" placeholder="GitHub URL" />
-    <input type="text" id="project-tags" placeholder="Tags (comma separated)" />
-    <button onclick="addProject(
-      document.getElementById('project-title').value,
-      document.getElementById('project-desc').value,
-      document.getElementById('project-image').files[0],
-      document.getElementById('project-live').value,
-      document.getElementById('project-github').value,
-      document.getElementById('project-tags').value
-    )">Add Project</button>
-  </div>
+  <!-- Projects -->
+  <section class="project-section">
+    <h3>Projects</h3>
+    <div class="project-inputs">
+      <input type="text" id="project-title" placeholder="Project Title" />
+      <textarea id="project-desc" placeholder="Project Description"></textarea>
+      <input type="file" id="project-image" />
+      <input type="text" id="project-live" placeholder="Live URL" />
+      <input type="text" id="project-github" placeholder="GitHub URL" />
+      <input type="text" id="project-tags" placeholder="Tags (comma separated)" />
+      <button onclick="addProject(
+        document.getElementById('project-title').value,
+        document.getElementById('project-desc').value,
+        document.getElementById('project-image').files[0],
+        document.getElementById('project-live').value,
+        document.getElementById('project-github').value,
+        document.getElementById('project-tags').value
+      )">Add Project</button>
+    </div>
 
-  <div id="project-container"><p>Loading projects...</p></div>
-</section>
-
+    <div id="project-container"><p>Loading projects...</p></div>
+  </section>
 
   <script src="dashboard.js"></script>
 </body>

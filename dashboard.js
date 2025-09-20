@@ -181,6 +181,8 @@ async function loadBlogs() {
 
       // Convert tags array to string
       const tags = Array.isArray(data.tags) ? data.tags.join(', ') : data.tags || '';
+      const author = data.author || 'Unknown';
+      const createdDate = data.createdAt ? data.createdAt.toDate().toLocaleString() : 'Unknown';
 
       const div = document.createElement("div");
       div.classList.add("blog-item");
@@ -188,6 +190,8 @@ async function loadBlogs() {
         <p><strong>${data.title}</strong></p>
         <img src="${data.imageURL}" alt="${data.title}" style="max-width:100px; border-radius:8px; margin-top:5px;">
         <p>${data.content.substring(0, 100)}...</p>
+        <p><strong>Author:</strong> ${author}</p>
+        <p><strong>Date:</strong> ${createdDate}</p>
         <p><strong>Category:</strong> ${data.category || 'Uncategorized'}</p>
         <p><strong>Tags:</strong> ${tags}</p>
         <div class="message-actions">
@@ -207,14 +211,13 @@ async function loadBlogs() {
   }
 }
 
-
 // Add blog
-async function addBlog(title, content, imageFile, category, tags) {
-  if (!title || !content || !imageFile || !category) {
+async function addBlog(title, content, imageFile, category, tags, author) {
+  if (!title || !content || !imageFile || !category || !author) {
     return alert("Fill all blog fields!");
   }
 
-  // Convert tags string to array, trim whitespace
+  // Convert tags string to array
   const tagsArray = tags
     ? tags.split(",").map(tag => tag.trim()).filter(tag => tag.length > 0)
     : [];
@@ -222,14 +225,13 @@ async function addBlog(title, content, imageFile, category, tags) {
   // Upload image to Cloudinary
   const formData = new FormData();
   formData.append("file", imageFile);
-  formData.append("upload_preset", "portfolio_blog"); // replace with your preset
+  formData.append("upload_preset", "portfolio_blog");
 
   try {
-    const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", { // replace with your cloud name
+    const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", {
       method: "POST",
       body: formData
     });
-
     if (!res.ok) throw new Error("Image upload failed");
 
     const data = await res.json();
@@ -243,12 +245,11 @@ async function addBlog(title, content, imageFile, category, tags) {
       category,
       tags: tagsArray,
       published: false,
+      author, // added author
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
     alert("Blog added successfully!");
-
-    // Reload blogs
     loadBlogs();
 
     // Clear input fields
@@ -257,6 +258,7 @@ async function addBlog(title, content, imageFile, category, tags) {
     document.getElementById("blog-image").value = "";
     document.getElementById("blog-category").value = "";
     document.getElementById("blog-tags").value = "";
+    document.getElementById("blog-author").value = ""; // clear author
 
   } catch (err) {
     console.error("Error adding blog:", err);
@@ -264,15 +266,19 @@ async function addBlog(title, content, imageFile, category, tags) {
   }
 }
 
-
 // Edit blog
 async function editBlog(id) {
   const doc = await db.collection("blogs").doc(id).get();
   const data = doc.data();
   const newTitle = prompt("Edit Title", data.title);
   const newContent = prompt("Edit Content", data.content);
-  if(!newTitle || !newContent) return;
-  await db.collection("blogs").doc(id).update({ title: newTitle, content: newContent });
+  const newAuthor = prompt("Edit Author", data.author || '');
+  if(!newTitle || !newContent || !newAuthor) return;
+  await db.collection("blogs").doc(id).update({ 
+    title: newTitle, 
+    content: newContent,
+    author: newAuthor // update author
+  });
   loadBlogs();
 }
 
@@ -290,6 +296,7 @@ async function togglePublish(id, currentState){
   loadBlogs();
 }
 // --- BLOG MANAGEMENT END ---
+
 
 
 

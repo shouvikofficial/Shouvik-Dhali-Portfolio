@@ -856,3 +856,70 @@ body.no-scroll {
   }
 }
 
+.modal-body .post-meta {
+  font-size: 0.9rem;
+  color: #00fff7;
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.modal-body .post-meta .author {
+  position: relative;
+}
+
+.modal-body .post-meta .author::before {
+  content: "👤";
+  margin-right: 0.3rem;
+}
+
+.modal-body .post-meta .date::before {
+  content: "📅";
+  margin-right: 0.3rem;
+}
+
+.modal-body .post-meta .date {
+  color: #ffb74d; /* soft orange accent */
+}
+
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px; /* space between author and date */
+  font-size: 0.875rem; /* slightly bigger than small text */
+  color: #6b7280; /* modern soft gray */
+  margin-bottom: 12px;
+  font-family: 'Inter', sans-serif;
+}
+
+.post-meta .author {
+  font-weight: 600;
+  color: #111827; /* dark color for author */
+  background: #e0f2fe; /* subtle light blue background */
+  padding: 2px 8px;
+  border-radius: 6px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.post-meta .author:hover {
+  background: #3b82f6; /* blue on hover */
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.post-meta .date {
+  font-weight: 400;
+  color: #374151; /* darker gray for date */
+  font-style: italic;
+  position: relative;
+}
+
+.post-meta .date::before {
+  content: "•"; /* modern dot separator */
+  margin-right: 6px;
+  color: #3b82f6; /* blue dot */
+}
