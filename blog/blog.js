@@ -54,16 +54,16 @@ async function loadBlogsFromFirestore() {
     }
 
     snapshot.forEach((doc, idx) => {
-  const data = doc.data();
-  const article = document.createElement('article');
-  article.className = 'blog-post reveal';
-  article.id = 'post-' + (idx + 1);
-  article.dataset.category = data.category || '';
-  article.dataset.tags = data.tags || '';
-  article.dataset.author = data.author || 'Unknown';
-  article.dataset.date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : '';
+      const data = doc.data();
+      const article = document.createElement('article');
+      article.className = 'blog-post reveal';
+      article.id = 'post-' + (idx + 1);
+      article.dataset.category = data.category || '';
+      article.dataset.tags = data.tags || '';
+      article.dataset.author = data.author || 'Unknown';
+      article.dataset.date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : '';
 
-  article.innerHTML = `
+      article.innerHTML = `
     <img src="${data.imageURL}" alt="${data.title}">
     <div class="post-content">
       <h2 class="post-title">${data.title}</h2>
@@ -78,23 +78,23 @@ async function loadBlogsFromFirestore() {
       </div>
     </div>
   `;
-  postsContainer.appendChild(article);
-  allPosts.push(article);
+      postsContainer.appendChild(article);
+      allPosts.push(article);
 
-  // ----- Add JSON-LD for this post -----
-  const blogData = {
-    title: data.title,
-    author: data.author || "Unknown",
-    date: data.createdAt ? new Date(data.createdAt.seconds * 1000).toISOString() : new Date().toISOString(),
-    imageURL: data.imageURL || "",
-    content: data.content || "",
-    category: data.category ? data.category.toString() : "",
-    tags: data.tags 
-      ? (Array.isArray(data.tags) ? data.tags : data.tags.toString().split(',').map(t => t.trim())) 
-      : []
-  };
-  addJSONLD(blogData);
-}); // <-- THIS closes the forEach
+      // ----- Add JSON-LD for this post -----
+      const blogData = {
+        title: data.title,
+        author: data.author || "Unknown",
+        date: data.createdAt ? new Date(data.createdAt.seconds * 1000).toISOString() : new Date().toISOString(),
+        imageURL: data.imageURL || "",
+        content: data.content || "",
+        category: data.category ? data.category.toString() : "",
+        tags: data.tags
+          ? (Array.isArray(data.tags) ? data.tags : data.tags.toString().split(',').map(t => t.trim()))
+          : []
+      };
+      addJSONLD(blogData);
+    }); // <-- THIS closes the forEach
 
     // Pagination & filtering
     const postsPerPage = 4;

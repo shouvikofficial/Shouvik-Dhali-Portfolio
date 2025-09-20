@@ -25,66 +25,66 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
   }
 
-// 3) Mobile nav toggle
-const hamburger = document.getElementById('hamburger');
-const nav = document.getElementById('nav');
-const navLinks = document.querySelectorAll('.nav-link');
+  // 3) Mobile nav toggle
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('nav');
+  const navLinks = document.querySelectorAll('.nav-link');
 
-// Toggle mobile navbar
-hamburger.addEventListener('click', () => {
-  const isOpen = nav.classList.contains('mobile-active');
+  // Toggle mobile navbar
+  hamburger.addEventListener('click', () => {
+    const isOpen = nav.classList.contains('mobile-active');
 
-  hamburger.classList.toggle('active');
-  nav.classList.toggle('mobile-active');
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('mobile-active');
 
-  // Force reflow to ensure transition works correctly
-  void nav.offsetWidth;
+    // Force reflow to ensure transition works correctly
+    void nav.offsetWidth;
 
-  nav.classList.toggle('show');
+    nav.classList.toggle('show');
 
-  // Prevent background scroll when nav is open
-  if (nav.classList.contains('mobile-active')) {
-    document.body.classList.add('no-scroll');
-    // Push temporary history state so back button can close navbar
-    history.pushState({ navbarOpen: true }, '');
-  } else {
-    document.body.classList.remove('no-scroll');
-  }
-});
-
-// Close navbar and navigate properly
-navLinks.forEach(link => {
-  link.addEventListener('click', e => {
+    // Prevent background scroll when nav is open
     if (nav.classList.contains('mobile-active')) {
-      e.preventDefault(); // prevent immediate navigation
-      const target = link.href;
+      document.body.classList.add('no-scroll');
+      // Push temporary history state so back button can close navbar
+      history.pushState({ navbarOpen: true }, '');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  });
 
-      // Remove classes to close navbar
+  // Close navbar and navigate properly
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      if (nav.classList.contains('mobile-active')) {
+        e.preventDefault(); // prevent immediate navigation
+        const target = link.href;
+
+        // Remove classes to close navbar
+        hamburger.classList.remove('active');
+        nav.classList.remove('show');
+        nav.classList.remove('mobile-active');
+        document.body.classList.remove('no-scroll');
+
+        // Wait for CSS transition to finish before navigating
+        setTimeout(() => {
+          window.location.href = target;
+        }, 400); // match CSS transition time (0.4s)
+      }
+    });
+  });
+
+  // --- Close navbar on back button press ---
+  window.addEventListener('popstate', event => {
+    if (nav.classList.contains('mobile-active')) {
       hamburger.classList.remove('active');
       nav.classList.remove('show');
       nav.classList.remove('mobile-active');
       document.body.classList.remove('no-scroll');
 
-      // Wait for CSS transition to finish before navigating
-      setTimeout(() => {
-        window.location.href = target;
-      }, 400); // match CSS transition time (0.4s)
+      // Push state again so back button closes navbar only
+      history.pushState(null, '');
     }
   });
-});
-
-// --- Close navbar on back button press ---
-window.addEventListener('popstate', event => {
-  if (nav.classList.contains('mobile-active')) {
-    hamburger.classList.remove('active');
-    nav.classList.remove('show');
-    nav.classList.remove('mobile-active');
-    document.body.classList.remove('no-scroll');
-
-    // Push state again so back button closes navbar only
-    history.pushState(null, '');
-  }
-});
 
 
 
@@ -158,7 +158,7 @@ window.addEventListener('popstate', event => {
 const projectCards = document.querySelectorAll('.project-card');
 const observerProjects = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if(entry.isIntersecting){
+    if (entry.isIntersecting) {
       entry.target.classList.add('fade-in');
       observerProjects.unobserve(entry.target);
     }
@@ -207,7 +207,7 @@ async function trackActiveUser(userId) {
 
 // Generate unique visitor ID and track active user
 let visitorId = localStorage.getItem("visitorId");
-if(!visitorId){
+if (!visitorId) {
   visitorId = "visitor_" + Date.now();
   localStorage.setItem("visitorId", visitorId);
 }
@@ -228,7 +228,7 @@ form2.addEventListener("submit", async (e) => {
   const email = document.getElementById("email").value.trim();
   const message = document.getElementById("message").value.trim();
 
-  if(!name || !email || !message){
+  if (!name || !email || !message) {
     formMsg2.textContent = "Please fill all fields.";
     formMsg2.style.color = "red";
     return;
@@ -254,11 +254,11 @@ form2.addEventListener("submit", async (e) => {
 });
 
 // Scroll Up Button
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const scrollUpBtn = document.getElementById('scrollUpBtn');
 
   // Show button when scrolling down
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', function () {
     if (window.scrollY > 300) {
       scrollUpBtn.classList.add('show');
     } else {
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Scroll smoothly to top when clicked
-  scrollUpBtn.addEventListener('click', function() {
+  scrollUpBtn.addEventListener('click', function () {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -300,16 +300,16 @@ window.addEventListener('scroll', () => {
 
 //tab effect
 
-document.addEventListener("DOMContentLoaded", function() {
-    const originalTitle = document.title;
+document.addEventListener("DOMContentLoaded", function () {
+  const originalTitle = document.title;
 
-    document.addEventListener("visibilitychange", function() {
-        if (document.hidden) {
-            document.title = "🙏 Click back!";
-        } else {
-            document.title = originalTitle;
-        }
-    });
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      document.title = "🙏 Click back!";
+    } else {
+      document.title = originalTitle;
+    }
+  });
 });
 
 //right click off

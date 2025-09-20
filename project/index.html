@@ -1,41 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All Projects</title>
   <link rel="stylesheet" href="project.css">
-    <meta name="description" content="Shouvik Dhali — FullStack Developer, AI Enthusiast and CSE Student Explore projects, skills and contact information." />
- <meta name="google-site-verification" content="qCsPgMaTB6wIkOA_YmnoUzfvt_o5NoCEgvQP7pfNA6Q" />
+  <meta name="description"
+    content="Shouvik Dhali — FullStack Developer, AI Enthusiast and CSE Student Explore projects, skills and contact information." />
+  <meta name="google-site-verification" content="qCsPgMaTB6wIkOA_YmnoUzfvt_o5NoCEgvQP7pfNA6Q" />
   <!-- Open Graph / Facebook / LinkedIn / whatsApp -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://shouvikdhali.netlify.app/">
-<meta property="og:title" content="Shouvik Dhali | Portfolio">
-<meta property="og:description" content="Shouvik Dhali — FullStack Developer, AI Enthusiast and CSE Student Explore projects, skills and contact information.">
-<meta property="og:image" content="https://shouvikdhali.netlify.app/profile.png">
-<meta property="og:site_name" content="Shouvik Dhali Portfolio">
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://shouvikdhali.netlify.app/">
-<meta name="twitter:title" content="Shouvik Dhali | Portfolio">
-<meta name="twitter:description" content="Shouvik Dhali — FullStack Developer, AI Enthusiast and CSE Student Explore projects, skills and contact information.">
-<meta name="twitter:image" content="https://shouvikdhali.netlify.app/profile.png">
-<meta name="twitter:site" content="@mehshouvik420">
-<!-- Canonical URL -->
-<link rel="canonical" href="https://shouvikdhali.netlify.app/">
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="https://shouvikdhali.netlify.app/profile.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shouvikdhali.netlify.app/">
+  <meta property="og:title" content="Shouvik Dhali | Portfolio">
+  <meta property="og:description"
+    content="Shouvik Dhali — FullStack Developer, AI Enthusiast and CSE Student Explore projects, skills and contact information.">
+  <meta property="og:image" content="https://shouvikdhali.netlify.app/profile.png">
+  <meta property="og:site_name" content="Shouvik Dhali Portfolio">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://shouvikdhali.netlify.app/">
+  <meta name="twitter:title" content="Shouvik Dhali | Portfolio">
+  <meta name="twitter:description"
+    content="Shouvik Dhali — FullStack Developer, AI Enthusiast and CSE Student Explore projects, skills and contact information.">
+  <meta name="twitter:image" content="https://shouvikdhali.netlify.app/profile.png">
+  <meta name="twitter:site" content="@mehshouvik420">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://shouvikdhali.netlify.app/">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/img/profile.png">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
+
+  <!-- Header -->
+  <header class="site-header" data-aos="fade-down">
+    <div class="container nav-row">
+      <div class="logo-brand">
+        <a href="/index.html">
+          <div id="s-logo"></div>
+        </a>
+        <div class="brand">Shouvik</div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="/index.html#home" class="nav-link">Home</a>
+        <a href="/index.html#about" class="nav-link">About</a>
+        <a href="/index.html#skills" class="nav-link">Skills</a>
+        <a href="/index.html#projects" class="nav-link">Projects</a>
+        <a href="/index.html#contact" class="nav-link">Contact</a>
+        <a href="/blog" class="nav-link">Blog</a>
+      </nav>
+      <div class="controls">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <button id="hamburger" class="icon-btn hamburger" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
 
   <header class="hero">
     <h1>My Projects</h1>
@@ -66,8 +98,56 @@
     </div>
   </div>
 
+  <div class="back-btn">
+      <a href="/index.html" class="btn">← Back to Home</a>
+    </div>
+
+  <!-- Footer -->
+  <footer class="site-footer" data-aos="fade-up">
+    <div class="footer-container">
+      <div class="footer-card">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/index.html#home">Home</a></li>
+          <li><a href="/index.html#about">About Me</a></li>
+          <li><a href="/index.html#skills">Skills</a></li>
+          <li><a href="/index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-card">
+        <h4>Contact</h4>
+        <p>Email: <a href="mailto:shouvikdhali@gmail.com">shouvikdhali@gmail.com</a></p>
+        <p>Phone: <a href="tel:+8801676965293">+8801676965293</a></p>
+        <p>Location: Dhaka, Bangladesh</p>
+      </div>
+      <div class="footer-card">
+        <h4>Follow Me</h4>
+        <div class="social-icons">
+          <a href="https://github.com/shouvikofficial" target="_blank" aria-label="GitHub"><i
+              class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/shouvik-dhali-67458b238/" target="_blank" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://x.com/mehshouvik420" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Shouvik | All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>lottie.loadAnimation({
+      container: document.getElementById('s-logo'), // target div
+      renderer: 'svg',       // renders as scalable vector
+      loop: true,            // change to true to loop infinitely
+      autoplay: true,        // starts automatically
+      path: '/s-letter.json'  // path to your Lottie JSON file
+    });
+  </script>
+
   <!-- JS -->
   <script src="/script.js"></script> <!-- root -->
   <script src="projects-all.js"></script>
 </body>
+
 </html>

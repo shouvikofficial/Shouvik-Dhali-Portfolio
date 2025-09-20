@@ -45,7 +45,7 @@ header button:hover {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
@@ -62,7 +62,7 @@ header button:hover {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .messages-section {
@@ -71,12 +71,14 @@ header button:hover {
 
 .messages-section input {
   width: 100%;
-  max-width: 100%; /* Ensures it doesn’t overflow */
+  max-width: 100%;
+  /* Ensures it doesn’t overflow */
   padding: 10px 12px;
   margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  box-sizing: border-box; /* Includes padding and border in width */
+  box-sizing: border-box;
+  /* Includes padding and border in width */
 }
 
 .message-item {
@@ -84,7 +86,7 @@ header button:hover {
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -131,6 +133,7 @@ header button:hover {
   font-family: 'Poppins', sans-serif;
   color: #333;
 }
+
 .blog-section h3 {
   text-align: center;
   color: #0077b6;
@@ -146,6 +149,7 @@ header button:hover {
   gap: 15px;
   margin-bottom: 35px;
 }
+
 .blog-inputs input[type="text"],
 .blog-inputs textarea,
 .blog-inputs input[type="file"],
@@ -160,13 +164,15 @@ header button:hover {
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
+
 .blog-inputs input[type="text"]:focus,
 .blog-inputs textarea:focus,
 .blog-inputs select:focus {
   border-color: #0077b6;
-  box-shadow: 0 0 8px rgba(0,119,182,0.3);
+  box-shadow: 0 0 8px rgba(0, 119, 182, 0.3);
   outline: none;
 }
+
 .blog-inputs select {
   appearance: none;
   -webkit-appearance: none;
@@ -174,6 +180,7 @@ header button:hover {
   background: #f4f7f9 url('data:image/svg+xml;utf8,<svg fill="%23777" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
   background-size: 18px;
 }
+
 .blog-inputs textarea {
   min-height: 100px;
   resize: vertical;
@@ -191,9 +198,10 @@ header button:hover {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .blog-inputs button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,119,182,0.3);
+  box-shadow: 0 6px 15px rgba(0, 119, 182, 0.3);
 }
 
 /* Blog List Container */
@@ -210,16 +218,17 @@ header button:hover {
   background: #fff;
   border-radius: 12px;
   padding: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   gap: 10px;
   transition: transform 0.3s, box-shadow 0.3s;
   overflow: hidden;
 }
+
 .blog-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 /* Blog Image */
@@ -238,14 +247,17 @@ header button:hover {
   color: #333;
   word-wrap: break-word;
 }
+
 .blog-item strong {
   color: #0077b6;
 }
+
 .blog-item p:nth-child(4),
 .blog-item p:nth-child(5) {
   font-size: 0.85rem;
   color: #555;
 }
+
 .blog-item p:nth-child(5) {
   display: flex;
   flex-wrap: wrap;
@@ -260,6 +272,7 @@ header button:hover {
   gap: 8px;
   margin-top: 10px;
 }
+
 .blog-actions button {
   padding: 6px 12px;
   border-radius: 8px;
@@ -270,27 +283,70 @@ header button:hover {
   transition: all 0.3s ease;
   white-space: nowrap;
 }
-.blog-actions .reply { background: #00b4d8; color: #fff; }
-.blog-actions .delete { background: #ff4d6d; color: #fff; }
-.blog-actions .publish { background: #2a9d8f; color: #fff; }
-.blog-actions .reply:hover { background: #0077b6; }
-.blog-actions .delete:hover { background: #e63946; }
-.blog-actions .publish:hover { background: #21867a; }
+
+.blog-actions .reply {
+  background: #00b4d8;
+  color: #fff;
+}
+
+.blog-actions .delete {
+  background: #ff4d6d;
+  color: #fff;
+}
+
+.blog-actions .publish {
+  background: #2a9d8f;
+  color: #fff;
+}
+
+.blog-actions .reply:hover {
+  background: #0077b6;
+}
+
+.blog-actions .delete:hover {
+  background: #e63946;
+}
+
+.blog-actions .publish:hover {
+  background: #21867a;
+}
 
 /* Responsive */
 @media screen and (max-width: 992px) {
-  #blog-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  #blog-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 }
+
 @media screen and (max-width: 768px) {
-  #blog-container { grid-template-columns: 1fr; }
-  .blog-item img { max-height: 160px; }
-  .blog-actions button { font-size: 0.75rem; padding: 5px 10px; }
+  #blog-container {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-item img {
+    max-height: 160px;
+  }
+
+  .blog-actions button {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+
   .blog-item p:nth-child(4),
-  .blog-item p:nth-child(5) { font-size: 0.8rem; }
+  .blog-item p:nth-child(5) {
+    font-size: 0.8rem;
+  }
 }
+
 @media screen and (max-width: 480px) {
-  .blog-item img { max-height: 140px; }
-  .blog-actions button { font-size: 0.7rem; padding: 4px 8px; }
+  .blog-item img {
+    max-height: 140px;
+  }
+
+  .blog-actions button {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
 }
 
 
@@ -338,7 +394,7 @@ header button:hover {
 .project-inputs textarea:focus,
 .project-inputs select:focus {
   border-color: #0077b6;
-  box-shadow: 0 0 8px rgba(0,119,182,0.3);
+  box-shadow: 0 0 8px rgba(0, 119, 182, 0.3);
   outline: none;
 }
 
@@ -370,7 +426,7 @@ header button:hover {
 
 .project-inputs button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,119,182,0.3);
+  box-shadow: 0 6px 15px rgba(0, 119, 182, 0.3);
 }
 
 /* Project List Container */
@@ -387,7 +443,7 @@ header button:hover {
   background: #fff;
   border-radius: 12px;
   padding: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -397,7 +453,7 @@ header button:hover {
 
 .project-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .project-item p {

@@ -57,7 +57,7 @@ const totalVisitors = document.getElementById("total-visitors");
 // Load messages
 async function loadMessages() {
   messagesContainer.innerHTML = '';
-  const snapshot = await db.collection("messages").orderBy("createdAt","desc").get();
+  const snapshot = await db.collection("messages").orderBy("createdAt", "desc").get();
   totalMessages.textContent = snapshot.size;
 
   snapshot.forEach(doc => {
@@ -76,26 +76,26 @@ async function loadMessages() {
 }
 
 // Delete a message
-async function deleteMessage(id){
-  if(confirm("Are you sure you want to delete this message?")){
+async function deleteMessage(id) {
+  if (confirm("Are you sure you want to delete this message?")) {
     await db.collection("messages").doc(id).delete();
     loadMessages();
   }
 }
 
 // Reply to a message
-function replyMessage(email){
+function replyMessage(email) {
   window.open(`https://mail.google.com/mail/?view=cm&to=${email}`, "_blank");
 }
 
 // Search messages
-document.getElementById("search-msg").addEventListener("input", async (e)=>{
+document.getElementById("search-msg").addEventListener("input", async (e) => {
   const search = e.target.value.toLowerCase();
-  const snapshot = await db.collection("messages").orderBy("createdAt","desc").get();
+  const snapshot = await db.collection("messages").orderBy("createdAt", "desc").get();
   messagesContainer.innerHTML = '';
-  snapshot.forEach(doc=>{
+  snapshot.forEach(doc => {
     const data = doc.data();
-    if(data.name.toLowerCase().includes(search) || data.message.toLowerCase().includes(search)){
+    if (data.name.toLowerCase().includes(search) || data.message.toLowerCase().includes(search)) {
       const div = document.createElement("div");
       div.classList.add("message-item");
       div.innerHTML = `
@@ -111,11 +111,11 @@ document.getElementById("search-msg").addEventListener("input", async (e)=>{
 });
 
 // Charts
-async function loadCharts(){
+async function loadCharts() {
   // Messages chart
   const msgSnapshot = await db.collection("messages").get();
   const msgDates = {};
-  msgSnapshot.forEach(doc=>{
+  msgSnapshot.forEach(doc => {
     const date = doc.data().createdAt?.toDate().toLocaleDateString() || 'Unknown';
     msgDates[date] = (msgDates[date] || 0) + 1;
   });
@@ -138,7 +138,7 @@ async function loadCharts(){
   // Visitors chart
   const visSnapshot = await db.collection("visitors").get();
   const visDates = {};
-  visSnapshot.forEach(doc=>{
+  visSnapshot.forEach(doc => {
     const date = doc.data().timestamp?.toDate().toLocaleDateString() || 'Unknown';
     visDates[date] = (visDates[date] || 0) + 1;
   });
@@ -273,9 +273,9 @@ async function editBlog(id) {
   const newTitle = prompt("Edit Title", data.title);
   const newContent = prompt("Edit Content", data.content);
   const newAuthor = prompt("Edit Author", data.author || '');
-  if(!newTitle || !newContent || !newAuthor) return;
-  await db.collection("blogs").doc(id).update({ 
-    title: newTitle, 
+  if (!newTitle || !newContent || !newAuthor) return;
+  await db.collection("blogs").doc(id).update({
+    title: newTitle,
     content: newContent,
     author: newAuthor // update author
   });
@@ -283,15 +283,15 @@ async function editBlog(id) {
 }
 
 // Delete blog
-async function deleteBlog(id){
-  if(confirm("Are you sure you want to delete this blog?")){
+async function deleteBlog(id) {
+  if (confirm("Are you sure you want to delete this blog?")) {
     await db.collection("blogs").doc(id).delete();
     loadBlogs();
   }
 }
 
 // Publish/unpublish
-async function togglePublish(id, currentState){
+async function togglePublish(id, currentState) {
   await db.collection("blogs").doc(id).update({ published: !currentState });
   loadBlogs();
 }
@@ -325,7 +325,7 @@ async function loadProjects() {
       div.innerHTML = `
         <p><strong>${data.title}</strong></p>
         <img src="${data.imageURL}" alt="${data.title}" style="max-width:100%; border-radius:8px; margin-top:5px;">
-        <p>${data.description.substring(0,100)}...</p>
+        <p>${data.description.substring(0, 100)}...</p>
         <p><strong>Tags:</strong> ${tags.join(', ')}</p>
         <div class="project-links">
           ${data.liveURL ? `<a href="${data.liveURL}" target="_blank" class="btn-small">Live Demo</a>` : ''}
