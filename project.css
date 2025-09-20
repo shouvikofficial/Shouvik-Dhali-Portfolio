@@ -1,0 +1,247 @@
+/* ===== Google Fonts ===== */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--bg, #f5f5f5);
+  color: var(--text, #333);
+  scroll-behavior: smooth;
+}
+
+/* ===== Hero Section ===== */
+header.hero {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+header.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+header.hero p {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+}
+
+/* ===== Filters ===== */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 30px 20px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  margin: -40px auto 40px;
+  max-width: 1200px;
+  border-radius: 12px;
+}
+
+.filters-container input,
+.filters-container select {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.filters-container input:focus,
+.filters-container select:focus {
+  border-color: #2575fc;
+  box-shadow: 0 0 8px rgba(37, 117, 252, 0.3);
+}
+
+/* ===== Projects Grid ===== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+/* ===== Project Card ===== */
+.project-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* Project Image */
+.project-card .project-img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card .project-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.05);
+}
+
+/* Overlay for buttons */
+.project-card .project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(37, 117, 252, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-card .project-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.project-card .btn-small {
+  padding: 8px 12px;
+  background: #fff;
+  color: #2575fc;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.project-card .btn-small:hover {
+  background: #2575fc;
+  color: #fff;
+}
+
+/* Project Content */
+.project-card .project-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2575fc;
+  padding: 12px 16px 5px 16px;
+}
+
+.project-card .project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 16px 12px 16px;
+}
+
+.project-card .project-meta span {
+  font-size: 0.8rem;
+  background: #e0e0e0;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* ===== Modal ===== */
+#screenshotModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+}
+
+#modalContent {
+  position: relative;
+  max-width: 900px;
+  width: 90%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#modalImg {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+#modalClose {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#modalClose:hover {
+  color: #ff4d4d;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  header.hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .filters-container {
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px auto 30px;
+  }
+
+  .projects-grid {
+    gap: 15px;
+  }
+
+  .project-card .project-img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  header.hero h1 {
+    font-size: 1.8rem;
+  }
+
+  header.hero p {
+    font-size: 1rem;
+  }
+
+  .filters-container input,
+  .filters-container select {
+    width: 100%;
+  }
+
+  .project-card .project-img {
+    height: 150px;
+  }
+}

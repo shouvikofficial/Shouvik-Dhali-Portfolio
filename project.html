@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Projects</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="project.css">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>My Projects</h1>
+    <p>Explore my all projects with live demos, categories, and tags.</p>
+  </header>
+
+  <!-- Filters -->
+  <section class="filters-container">
+    <input type="text" id="searchInput" placeholder="Search projects...">
+    <select id="categoryFilter">
+      <option value="">All Categories</option>
+    </select>
+    <select id="tagFilter">
+      <option value="">All Tags</option>
+    </select>
+  </section>
+
+  <!-- Projects Grid -->
+  <main>
+    <div id="projectsContainer" class="projects-grid"></div>
+  </main>
+
+  <!-- Modal -->
+  <div id="screenshotModal">
+    <div id="modalContent">
+      <span id="modalClose">&times;</span>
+      <img id="modalImg" src="" alt="Live Demo">
+    </div>
+  </div>
+
+  <!-- JS -->
+   <script src="script.js"></script>
+  <script src="projects-all.js"></script>
+</body>
+</html>
