@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shouvikdhali.vercel.app/sitemap.xml
