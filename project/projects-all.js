@@ -1,26 +1,25 @@
-// ===== DOM ELEMENTS =====
+// DOM Elements
 const projectsContainer = document.getElementById("projectsContainer");
 const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
 const tagFilter = document.getElementById("tagFilter");
-
-let allProjects = [];
-
-// ===== MODAL SETUP =====
 const modal = document.getElementById("screenshotModal");
 const modalImg = document.getElementById("modalImg");
 const modalClose = document.getElementById("modalClose");
+
+let allProjects = [];
 
 // Open modal
 function openModal(imgSrc) {
   modalImg.src = imgSrc;
   modal.style.display = "flex";
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow = "hidden"; // prevent background scroll
 }
 
 // Close modal
 function closeModal() {
   modal.style.display = "none";
+  modalImg.src = "";
   document.body.style.overflow = "";
 }
 
@@ -30,7 +29,7 @@ modal.addEventListener("click", e => {
   if (e.target === modal) closeModal();
 });
 
-// ===== LOAD PROJECTS =====
+// Load projects from Firebase
 async function loadProjects() {
   projectsContainer.innerHTML = '<p style="text-align:center;">Loading projects...</p>';
   try {
@@ -51,9 +50,10 @@ async function loadProjects() {
   }
 }
 
-// ===== POPULATE FILTERS =====
+// Populate filters
 function populateFilters() {
   const categories = [...new Set(allProjects.map(p => p.category))];
+  categoryFilter.innerHTML = '<option value="">All Categories</option>';
   categories.forEach(cat => {
     const option = document.createElement("option");
     option.value = cat;
@@ -62,6 +62,7 @@ function populateFilters() {
   });
 
   const tags = [...new Set(allProjects.flatMap(p => p.tags || []))];
+  tagFilter.innerHTML = '<option value="">All Tags</option>';
   tags.forEach(tag => {
     const option = document.createElement("option");
     option.value = tag;
@@ -70,7 +71,7 @@ function populateFilters() {
   });
 }
 
-// ===== RENDER PROJECTS =====
+// Render projects
 function renderProjects(projects) {
   projectsContainer.innerHTML = '';
 
@@ -80,7 +81,6 @@ function renderProjects(projects) {
   }
 
   projects.forEach(data => {
-    const techStack = Array.isArray(data.techStack) ? data.techStack.join(', ') : '';
     const card = document.createElement("div");
     card.classList.add("project-card");
 
@@ -92,7 +92,7 @@ function renderProjects(projects) {
             <a href="${data.githubURL}" target="_blank" class="btn-small">
               <i class="fa-solid fa-code"></i> Details
             </a>
-            <button class="btn-small live-demo-btn" data-screenshot="${data.imageURL}">
+            <button type="button" class="btn-small live-demo-btn" data-screenshot="${data.imageURL}">
               <i class="fa-solid fa-play"></i> Live Demo
             </button>
           </div>
@@ -108,15 +108,16 @@ function renderProjects(projects) {
   });
 
   // Add click events for live demo buttons
-  document.querySelectorAll(".live-demo-btn").forEach(button => {
+  projectsContainer.querySelectorAll(".live-demo-btn").forEach(button => {
     button.addEventListener("click", e => {
+      e.preventDefault();
       const imgSrc = e.currentTarget.getAttribute("data-screenshot");
       openModal(imgSrc);
     });
   });
 }
 
-// ===== SEARCH & FILTER =====
+// Search & filter
 function filterProjects() {
   const searchTerm = searchInput.value.toLowerCase();
   const selectedCategory = categoryFilter.value;
@@ -134,10 +135,10 @@ function filterProjects() {
   renderProjects(filtered);
 }
 
-// ===== EVENT LISTENERS =====
+// Event listeners
 searchInput.addEventListener('input', filterProjects);
 categoryFilter.addEventListener('change', filterProjects);
 tagFilter.addEventListener('change', filterProjects);
 
-// Load projects after Firebase is initialized
+// Load projects
 loadProjects();
