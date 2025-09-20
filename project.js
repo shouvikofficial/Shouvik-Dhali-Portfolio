@@ -84,8 +84,8 @@ async function loadProjects() {
           <img src="${data.imageURL}" alt="${data.title}" class="project-img">
           <div class="project-overlay">
             <div class="project-actions">
-              <a href="${data.githubURL}" target="_blank" class="btn-small">Details</a>
-              <button class="btn-small live-demo-btn" data-screenshot="${data.imageURL}">Live Demo</button>
+              <a href="${data.githubURL}" target="_blank" class="btn-small"><i class="fa-solid fa-code"></i> Details</a>
+              <button class="btn-small live-demo-btn" data-screenshot="${data.imageURL}"><i class="fa-solid fa-play"></i> Live Demo</button>
             </div>
           </div>
         </div>
