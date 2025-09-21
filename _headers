@@ -3,15 +3,3 @@
 
 /robots.txt
   Content-Type: text/plain
-
-/admin.html
-  X-Robots-Tag: noindex, nofollow
-
-/images/*
-  Cache-Control: max-age=86400
-
-/css/*
-  Cache-Control: max-age=86400
-
-/js/*
-  Cache-Control: max-age=86400
