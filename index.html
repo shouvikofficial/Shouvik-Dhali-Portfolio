@@ -31,6 +31,8 @@
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Preload critical Google Fonts -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2" as="font" type="font/woff2" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <!-- AOS Animation CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -351,8 +353,8 @@
   <!--End of Tawk.to Script-->
   <!-- Scroll Up Button -->
   <button id="scrollUpBtn" title="Go to top">⬆</button>
-  <script src="script.js"></script>
-  <script src="project.js"></script>
+  <script src="script.js" defer></script>
+  <script src="project.js" defer></script>
 </body>
 
 </html>

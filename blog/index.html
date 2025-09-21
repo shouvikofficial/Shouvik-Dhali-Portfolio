@@ -39,6 +39,8 @@
 
   <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Preload critical Google Fonts -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2" as="font" type="font/woff2" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Blog Page CSS -->
@@ -65,7 +67,7 @@
         <a href="/index.html#skills" class="nav-link">Skills</a>
         <a href="/index.html#projects" class="nav-link">Projects</a>
         <a href="/index.html#contact" class="nav-link">Contact</a>
-        <a href="/blog.html#blog" class="nav-link">Blog</a>
+        <a href="/blog" class="nav-link">Blog</a>
       </nav>
       <div class="controls">
         <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
@@ -191,8 +193,8 @@
   </script>
 
 
-  <script src="/script.js"></script>
-  <script src="blog.js"></script>
+  <script src="/script.js" defer></script>
+  <script src="blog.js" defer></script>
 
 </body>
 
