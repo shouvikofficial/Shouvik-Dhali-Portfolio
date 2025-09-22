@@ -71,6 +71,7 @@
         <option value="">Select Category</option>
         <option value="Web Development">Web Development</option>
         <option value="AI & ML">AI & ML</option>
+        <option value="Blockchain">Blockchain</option>
         <option value="Programming Tips">Programming Tips</option>
         <option value="Tech News">Tech News</option>
       </select>
@@ -103,6 +104,15 @@
       <input type="file" id="project-image" />
       <input type="text" id="project-live" placeholder="Live URL" />
       <input type="text" id="project-github" placeholder="GitHub URL" />
+      <select id="project-category">
+        <option value="">Select Category</option>
+        <option value="Web Development">Web Development</option>
+        <option value="AI & ML">AI & ML</option>
+        <option value="Mobile App Development">Mobile App Development</option>
+        <option value="Blockchain">Blockchain</option>
+        <option value="UI/UX Design">UI/UX Design</option>
+      </select>
+
       <input type="text" id="project-tags" placeholder="Tags (comma separated)" />
       <button onclick="addProject(
         document.getElementById('project-title').value,
@@ -110,6 +120,7 @@
         document.getElementById('project-image').files[0],
         document.getElementById('project-live').value,
         document.getElementById('project-github').value,
+        document.getElementById('project-category').value,
         document.getElementById('project-tags').value
       )">Add Project</button>
     </div>

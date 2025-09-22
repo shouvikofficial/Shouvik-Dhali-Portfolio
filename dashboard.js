@@ -326,6 +326,7 @@ async function loadProjects() {
         <p><strong>${data.title}</strong></p>
         <img src="${data.imageURL}" alt="${data.title}" style="max-width:100%; border-radius:8px; margin-top:5px;">
         <p>${data.description.substring(0, 100)}...</p>
+        <p><strong>Category:</strong> ${data.category || 'Uncategorized'}</p>
         <p><strong>Tags:</strong> ${tags.join(', ')}</p>
         <div class="project-links">
           ${data.liveURL ? `<a href="${data.liveURL}" target="_blank" class="btn-small">Live Demo</a>` : ''}
@@ -349,8 +350,8 @@ async function loadProjects() {
 }
 
 // --- ADD PROJECT ---
-async function addProject(title, description, imageFile, liveURL, githubURL, tags) {
-  if (!title || !description || !imageFile || !liveURL || !githubURL) {
+async function addProject(title, description, imageFile, liveURL, githubURL, category, tags) {
+  if (!title || !description || !imageFile || !liveURL || !githubURL || !category || !tags) {
     return alert("Please fill all project fields, including Live URL and GitHub URL!");
   }
 
@@ -375,6 +376,7 @@ async function addProject(title, description, imageFile, liveURL, githubURL, tag
       imageURL,
       liveURL,
       githubURL,
+      category,
       tags: tagsArray,
       published: false,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -389,6 +391,7 @@ async function addProject(title, description, imageFile, liveURL, githubURL, tag
     document.getElementById("project-image").value = "";
     document.getElementById("project-live").value = "";
     document.getElementById("project-github").value = "";
+    document.getElementById("project-category").value = "";
     document.getElementById("project-tags").value = "";
 
   } catch (err) {
