@@ -13,7 +13,7 @@
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://shouvikdhali.vercel.app/blog</loc>
+  <loc>https://shouvikdhali.vercel.app/blog/</loc>
   <lastmod>2025-09-21T18:22:51+00:00</lastmod>
   <priority>0.80</priority>
 </url>
@@ -23,12 +23,12 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://shouvikdhali.vercel.app/about</loc>
+  <loc>https://shouvikdhali.vercel.app/about/</loc>
   <lastmod>2025-09-21T18:22:51+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://shouvikdhali.vercel.app/project</loc>
+  <loc>https://shouvikdhali.vercel.app/project/</loc>
   <lastmod>2025-09-21T18:22:52+00:00</lastmod>
   <priority>0.80</priority>
 </url>
