@@ -33,7 +33,6 @@ function addJSONLD(blog) {
   document.head.appendChild(script);
 }
 
-
 async function loadBlogsFromFirestore() {
   const postsContainer = document.querySelector('.blog-posts');
   const paginationContainer = document.querySelector('.pagination');
@@ -94,7 +93,7 @@ async function loadBlogsFromFirestore() {
           : []
       };
       addJSONLD(blogData);
-    }); // <-- THIS closes the forEach
+    }); // <-- forEach ends
 
     // Pagination & filtering
     const postsPerPage = 4;
@@ -150,13 +149,23 @@ async function loadBlogsFromFirestore() {
     }
 
     function filterPosts(type, value) {
-      filteredPosts = allPosts.filter(post => {
-        const cats = post.dataset.category ? post.dataset.category.split(',').map(s => s.trim()) : [];
-        const tags = post.dataset.tags ? post.dataset.tags.split(',').map(s => s.trim()) : [];
-        if (type === 'category') return cats.includes(value);
-        if (type === 'tag') return tags.includes(value);
-        return true;
-      });
+      const val = value.toLowerCase(); // ✅ normalize to lowercase
+
+      if (val === 'all') {
+        filteredPosts = allPosts.slice();
+      } else {
+        filteredPosts = allPosts.filter(post => {
+          const cats = post.dataset.category
+            ? post.dataset.category.split(',').map(s => s.trim().toLowerCase())
+            : [];
+          const tags = post.dataset.tags
+            ? post.dataset.tags.split(',').map(s => s.trim().toLowerCase())
+            : [];
+          if (type === 'category') return cats.includes(val);
+          if (type === 'tag') return tags.includes(val);
+          return true;
+        });
+      }
       showPage(1);
     }
 
@@ -263,12 +272,28 @@ async function loadBlogsFromFirestore() {
     // Filter events
     categoryLinks.forEach(link => link.addEventListener('click', e => {
       e.preventDefault();
+      categoryLinks.forEach(c => c.classList.remove('selected'));
+      link.classList.add('selected');
       filterPosts('category', link.textContent.trim());
     }));
+
     tagLinks.forEach(link => link.addEventListener('click', e => {
       e.preventDefault();
+      tagLinks.forEach(t => t.classList.remove('selected'));
+      link.classList.add('selected');
       filterPosts('tag', link.textContent.trim());
     }));
+
+    // If you added an "All" tag manually in HTML, handle it here:
+    const allTagLink = Array.from(tagLinks).find(l => l.textContent.trim().toLowerCase() === 'all');
+    if (allTagLink) {
+      allTagLink.addEventListener('click', e => {
+        e.preventDefault();
+        tagLinks.forEach(t => t.classList.remove('selected'));
+        allTagLink.classList.add('selected');
+        filterPosts('tag', 'all'); // ✅ now lowercase
+      });
+    }
 
     // Start blog with first page and modal enabled
     showPage(1);
@@ -279,22 +304,3 @@ async function loadBlogsFromFirestore() {
     postsContainer.innerHTML = "<p>Error loading blogs.</p>";
   }
 }
-
-// Add 'selected' class functionality
-const tags = document.querySelectorAll('.tags a');
-tags.forEach(tag => {
-  tag.addEventListener('click', (e) => {
-    e.preventDefault();
-    tags.forEach(t => t.classList.remove('selected'));
-    tag.classList.add('selected');
-  });
-});
-
-const categoryLinks = document.querySelectorAll('.sidebar-widget ul li a');
-categoryLinks.forEach(cat => {
-  cat.addEventListener('click', (e) => {
-    e.preventDefault();
-    categoryLinks.forEach(c => c.classList.remove('selected'));
-    cat.classList.add('selected');
-  });
-});
