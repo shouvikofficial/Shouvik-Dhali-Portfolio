@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Shouvik Dhali</title>
+  <link rel="stylesheet" href="/blog/blog-single.css">
+  <meta name="description" content="">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <!-- Lottie Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
+    <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Preload critical Google Fonts -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2" as="font" type="font/woff2" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" data-aos="fade-down">
+    <div class="container nav-row">
+      <div class="logo-brand">
+        <a href="/index.html">
+          <div id="s-logo"></div>
+        </a>
+        <div class="brand">Shouvik</div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="/index.html#home" class="nav-link">Home</a>
+        <a href="/index.html#about" class="nav-link">About</a>
+        <a href="/index.html#skills" class="nav-link">Skills</a>
+        <a href="/project" class="nav-link">Projects</a>
+        <a href="/index.html#contact" class="nav-link">Contact</a>
+        <a href="/blog" class="nav-link">Blog</a>
+      </nav>
+      <div class="controls">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <button id="hamburger" class="icon-btn hamburger" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="blog-container">
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" data-aos="fade-up">
+    <div class="footer-container">
+      <div class="footer-card">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/index.html#about">About Me</a></li>
+          <li><a href="/index.html#skills">Skills</a></li>
+          <li><a href="/project">Projects</a></li>
+          <li><a href="/index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-card">
+        <h4>Contact</h4>
+        <p>Email: <a href="mailto:shouvikdhali@gmail.com">shouvikdhali@gmail.com</a></p>
+        <p>Phone: <a href="tel:+8801676965293">+8801676965293</a></p>
+        <p>Location: Dhaka, Bangladesh</p>
+      </div>
+      <div class="footer-card">
+        <h4>Follow Me</h4>
+        <div class="social-icons">
+          <a href="https://github.com/shouvikofficial" target="_blank" aria-label="GitHub"><i
+              class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/shouvik-dhali-67458b238/" target="_blank" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://x.com/mehshouvik420" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Shouvik | All Rights Reserved.</p>
+    </div>
+
+  <script>lottie.loadAnimation({
+      container: document.getElementById('s-logo'), // target div
+      renderer: 'svg',       // renders as scalable vector
+      loop: true,            // change to true to loop infinitely
+      autoplay: true,        // starts automatically
+      path: '/s-letter.json'  // path to your Lottie JSON file
+    });
+  </script>
+
+  <script src="/script.js"></script>
+  <script src="/blog/blog-single.js"></script>
+
+</body>
+</html>

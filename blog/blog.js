@@ -62,21 +62,19 @@ async function loadBlogsFromFirestore() {
       article.dataset.author = data.author || 'Unknown';
       article.dataset.date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : '';
 
+      // Updated "Read More" to link to separate page
       article.innerHTML = `
-    <img src="${data.imageURL}" alt="${data.title}">
-    <div class="post-content">
-      <h2 class="post-title">${data.title}</h2>
-      <div class="post-meta">
-        <span class="author">Author : ${article.dataset.author}</span>
-        <span class="date">${article.dataset.date}</span>
-      </div>
-      <p class="post-excerpt">${data.content.substring(0, 100)}...</p>
-      <a href="#" class="read-more">Read More →</a>
-      <div class="full-content" style="display:none;">
-        ${data.content}
-      </div>
-    </div>
-  `;
+        <img src="${data.imageURL}" alt="${data.title}">
+        <div class="post-content">
+          <h2 class="post-title">${data.title}</h2>
+          <div class="post-meta">
+            <span class="author">Author : ${article.dataset.author}</span>
+            <span class="date">${article.dataset.date}</span>
+          </div>
+          <p class="post-excerpt">${data.content.substring(0, 100)}...</p>
+          <a href="blog.html?id=${doc.id}" class="read-more">Read More →</a>
+        </div>
+      `;
       postsContainer.appendChild(article);
       allPosts.push(article);
 
@@ -149,7 +147,7 @@ async function loadBlogsFromFirestore() {
     }
 
     function filterPosts(type, value) {
-      const val = value.toLowerCase(); // ✅ normalize to lowercase
+      const val = value.toLowerCase();
 
       if (val === 'all') {
         filteredPosts = allPosts.slice();
@@ -192,83 +190,6 @@ async function loadBlogsFromFirestore() {
       });
     }
 
-    // Modal functionality
-    function createModal() {
-      if (document.querySelector('.blog-modal')) return;
-      const modal = document.createElement('div');
-      modal.className = 'blog-modal';
-      modal.setAttribute('aria-hidden', 'true');
-      modal.innerHTML = `
-        <div class="modal-wrap" role="dialog" aria-modal="true">
-          <div class="modal-header">
-            <div class="modal-title"></div>
-            <button class="modal-close" aria-label="Close">✕</button>
-          </div>
-          <div class="modal-content-wrapper">
-            <img class="modal-image" src="" alt="" style="display:none;">
-            <div class="modal-body"></div>
-          </div>
-        </div>`;
-      document.body.appendChild(modal);
-
-      modal.querySelector('.modal-close').addEventListener('click', closeModal);
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-    }
-
-    function openModal() {
-      const modal = document.querySelector('.blog-modal');
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      const modal = document.querySelector('.blog-modal');
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    function populateModalFromPost(post) {
-      createModal();
-      const modal = document.querySelector('.blog-modal');
-      const titleEl = modal.querySelector('.modal-title');
-      const bodyEl = modal.querySelector('.modal-body');
-      const imgEl = modal.querySelector('.modal-image');
-
-      const titleNode = post.querySelector('.post-title') || post.querySelector('.featured-title');
-      titleEl.textContent = titleNode ? titleNode.textContent : '';
-
-      const imgNode = post.querySelector('img');
-      if (imgNode) {
-        imgEl.src = imgNode.src;
-        imgEl.alt = imgNode.alt || titleEl.textContent;
-        imgEl.style.display = 'block';
-      }
-
-      const metaNode = post.querySelector('.post-meta');
-      const fullNode = post.querySelector('.full-content');
-      bodyEl.innerHTML = `
-        ${metaNode ? metaNode.outerHTML : ''}
-        ${fullNode ? fullNode.innerHTML : ''}
-      `;
-
-      openModal();
-    }
-
-    function initBlogModals() {
-      document.body.addEventListener('click', e => {
-        const rm = e.target.closest('.read-more');
-        if (!rm) return;
-        e.preventDefault();
-        const post = rm.closest('.blog-post') || rm.closest('.featured-post');
-        if (post) {
-          populateModalFromPost(post);
-        }
-      });
-    }
-
     // Filter events
     categoryLinks.forEach(link => link.addEventListener('click', e => {
       e.preventDefault();
@@ -284,20 +205,19 @@ async function loadBlogsFromFirestore() {
       filterPosts('tag', link.textContent.trim());
     }));
 
-    // If you added an "All" tag manually in HTML, handle it here:
+    // Handle "All" tag
     const allTagLink = Array.from(tagLinks).find(l => l.textContent.trim().toLowerCase() === 'all');
     if (allTagLink) {
       allTagLink.addEventListener('click', e => {
         e.preventDefault();
         tagLinks.forEach(t => t.classList.remove('selected'));
         allTagLink.classList.add('selected');
-        filterPosts('tag', 'all'); // ✅ now lowercase
+        filterPosts('tag', 'all');
       });
     }
 
-    // Start blog with first page and modal enabled
+    // Start blog with first page
     showPage(1);
-    initBlogModals();
 
   } catch (err) {
     console.error("Error fetching blogs:", err);
