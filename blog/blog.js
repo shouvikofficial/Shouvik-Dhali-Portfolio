@@ -72,7 +72,7 @@ async function loadBlogsFromFirestore() {
             <span class="date">${article.dataset.date}</span>
           </div>
           <p class="post-excerpt">${data.content.substring(0, 100)}...</p>
-          <a href="blog.html?id=${doc.id}" class="read-more">Read More →</a>
+          <a href="/blog/blog.html?id=${doc.id}" class="read-more">Read More →</a>
         </div>
       `;
       postsContainer.appendChild(article);
