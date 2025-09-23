@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = doc.data();
 
       // Update page title and meta description dynamically
-      document.title = data.title + " - Shouvik";
+      document.title = data.title + " | Shouvik Dhali";
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
         metaDescription.setAttribute("content", data.content.substring(0, 150));
