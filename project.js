@@ -1,12 +1,6 @@
 const projectsGrid = document.getElementById("projects-grid");
-const projectsScroll = document.getElementById("projects-scroll");
 
-// Scroll helper for arrow buttons
-function scrollProjects(distance) {
-  projectsScroll.scrollBy({ left: distance, behavior: 'smooth' });
-}
-
-// ----- CREATE ATTRACTIVE SCROLLABLE MODAL FOR LIVE DEMO -----
+// ----- CREATE ATTRACTIVE MODAL FOR LIVE DEMO -----
 let modal = document.createElement("div");
 modal.id = "screenshotModal";
 modal.style.display = "none";
@@ -19,9 +13,9 @@ modal.style.background = "rgba(0,0,0,0.7)";
 modal.style.zIndex = "1000";
 modal.style.justifyContent = "center";
 modal.style.alignItems = "center";
-modal.style.overflow = "auto"; // allow scrolling inside modal
+modal.style.overflow = "auto";
 modal.style.animation = "fadeInModal 0.4s ease";
-modal.style.cursor = "pointer"; // click outside to close
+modal.style.cursor = "pointer";
 modal.innerHTML = `
   <div id="modalContent" style="position: relative; max-width: 90%; max-height: 90%; cursor: auto; animation: zoomIn 0.4s ease; overflow: auto;">
     <span id="modalClose" style="position:absolute; top:10px; right:20px; font-size:30px; color:red; cursor:pointer;">&times;</span>
@@ -30,52 +24,40 @@ modal.innerHTML = `
 `;
 document.body.appendChild(modal);
 
-// Close modal by clicking ×
+// Close modal
 document.getElementById("modalClose").addEventListener("click", () => {
   modal.style.display = "none";
-  document.body.style.overflow = ""; // enable main page scroll
+  document.body.style.overflow = "";
 });
-
-// Close modal by clicking outside content
 modal.addEventListener("click", (e) => {
   if (e.target.id === "screenshotModal") {
     modal.style.display = "none";
-    document.body.style.overflow = ""; // enable main page scroll
+    document.body.style.overflow = "";
   }
 });
 
-// Add CSS Animations
+// CSS Animations
 const style = document.createElement('style');
 style.innerHTML = `
-@keyframes fadeInModal {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-@keyframes zoomIn {
-  from {transform: scale(0.8); opacity: 0;}
-  to {transform: scale(1); opacity: 1;}
-}
-
-/* Make modal content scrollable */
-#modalContent {
-  overflow: auto;
-}
+@keyframes fadeInModal { from {opacity: 0;} to {opacity: 1;} }
+@keyframes zoomIn { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+#modalContent { overflow: auto; }
 `;
 document.head.appendChild(style);
 
-// ----- LOAD PROJECTS -----
+// ----- LOAD ONLY 3 RECENT PROJECTS -----
 async function loadProjects() {
   projectsGrid.innerHTML = '';
-  projectsScroll.innerHTML = '';
+
   try {
-    const snapshot = await db.collection("projects").orderBy("createdAt", "desc").get();
+    const snapshot = await db.collection("projects").orderBy("createdAt", "desc").limit(3).get();
     if (snapshot.empty) {
       projectsGrid.innerHTML = "<p>No projects found.</p>";
       return;
     }
-    snapshot.forEach((doc, index) => {
+
+    snapshot.forEach(doc => {
       const data = doc.data();
-      const techStack = Array.isArray(data.techStack) ? data.techStack.join(', ') : '';
       const div = document.createElement("div");
       div.classList.add("project-card");
       div.setAttribute("data-aos", "zoom-in");
@@ -94,26 +76,15 @@ async function loadProjects() {
           ${Array.isArray(data.tags) ? data.tags.map(tag => `<span>${tag}</span>`).join('') : ''}
         </div>
       `;
-
-      // First 3 projects go to main grid
-      if (index < 3) {
-        projectsGrid.appendChild(div);
-      } else {
-        // Rest go to horizontal scroll section
-        projectsScroll.appendChild(div);
-      }
+      projectsGrid.appendChild(div);
     });
 
-    // Add click event for all Live Demo buttons
-    const liveDemoButtons = document.querySelectorAll(".live-demo-btn");
-    liveDemoButtons.forEach(button => {
+    // Live demo buttons
+    document.querySelectorAll(".live-demo-btn").forEach(button => {
       button.addEventListener("click", (e) => {
         const screenshotURL = e.currentTarget.getAttribute("data-screenshot");
-        const modalImg = document.getElementById("modalImg");
-        modalImg.src = screenshotURL;
-        modal.style.display = "flex"; // show modal
-
-        // Disable main page scroll
+        document.getElementById("modalImg").src = screenshotURL;
+        modal.style.display = "flex";
         document.body.style.overflow = "hidden";
       });
     });
@@ -124,5 +95,5 @@ async function loadProjects() {
   }
 }
 
-// Call this after Firebase initialized
+// Call after Firebase initialized
 loadProjects();

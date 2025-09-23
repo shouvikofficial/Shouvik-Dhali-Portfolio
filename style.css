@@ -873,74 +873,7 @@ body {
   }
 }
 
-/* Scrollable Projects Container for extra projects */
-.projects-scroll-container {
-  position: relative;
-  margin-top: 20px;
-}
 
-.projects-scroll {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 15px 0;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  /* Firefox hide scrollbar */
-  -ms-overflow-style: none;
-  /* IE hide scrollbar */
-}
-
-.projects-scroll::-webkit-scrollbar {
-  display: none;
-  /* Chrome/Safari/Opera hide scrollbar */
-}
-
-/* Project Card inside scroll */
-.projects-scroll .project-card {
-  min-width: 280px;
-  flex: 0 0 auto;
-}
-
-/* Arrow buttons */
-.projects-scroll-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 13px;
-  border-radius: 17%;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.projects-scroll-arrow:hover {
-  transform: translateY(-50%) scale(1.1);
-  background: var(--accent-2);
-}
-
-.projects-scroll-arrow-left {
-  left: 0;
-}
-
-.projects-scroll-arrow-right {
-  right: 0;
-}
-
-/* Responsive */
-@media(max-width:700px) {
-  .projects-scroll {
-    gap: 15px;
-  }
-
-  .projects-scroll-arrow {
-    padding: 8px;
-  }
-}
 
 .view-all-container {
   text-align: center;
