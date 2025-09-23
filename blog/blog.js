@@ -27,11 +27,11 @@ function addJSONLD(blog) {
     "dateModified": blog.date || new Date().toISOString(),
     "image": blog.imageURL || "",
     "publisher": {
-      "@type": "Organization",
-      "name": "Your Website Name",
+      "@type": "Person",
+      "name": "Shouvik Dhali",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://example.com/logo.png"
+        "url": "https://shouvikdhali.vercel.app/img/profile.png"
       }
     },
     "description": blog.content ? blog.content.substring(0, 150) : "",
@@ -41,6 +41,23 @@ function addJSONLD(blog) {
   document.head.appendChild(script);
 }
 
+/* ---------- SKELETON HELPERS ---------- */
+function renderSkeletons(count = 4) {
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    html += `
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-image"></div>
+        <div class="skeleton skeleton-title"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text short"></div>
+      </div>
+    `;
+  }
+  return html;
+}
+
+/* ---------- MAIN: loadBlogsFromFirestore ---------- */
 async function loadBlogsFromFirestore() {
   const postsContainer = document.querySelector('.blog-posts');
   const paginationContainer = document.querySelector('.pagination');
@@ -50,8 +67,13 @@ async function loadBlogsFromFirestore() {
 
   if (!postsContainer) return;
 
+  // show skeletons while fetching (4 by default)
+  postsContainer.innerHTML = renderSkeletons(4);
+
   try {
     const snapshot = await db.collection('blogs').orderBy('createdAt', 'desc').get();
+
+    // clear skeletons before rendering actual posts
     postsContainer.innerHTML = '';
     const allPosts = [];
 
@@ -73,9 +95,8 @@ async function loadBlogsFromFirestore() {
       // Generate slug from title
       const slug = generateSlug(data.title);
       const id = doc.id;
-      
 
-      // Updated "Read More" link with slug + id
+      // Updated "Read More" to link to separate page
       article.innerHTML = `
         <img src="${data.imageURL}" alt="${data.title}">
         <div class="post-content">
@@ -234,6 +255,7 @@ async function loadBlogsFromFirestore() {
 
   } catch (err) {
     console.error("Error fetching blogs:", err);
+    // replace skeletons with error text
     postsContainer.innerHTML = "<p>Error loading blogs.</p>";
   }
 }
