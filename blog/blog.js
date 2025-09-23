@@ -3,6 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
   loadBlogsFromFirestore();
 });
 
+// ----- Slug generator -----
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')   // replace spaces & symbols with -
+    .replace(/^-+|-+$/g, '');      // remove leading/trailing dashes
+}
+
 // ----- JSON-LD Function -----
 function addJSONLD(blog) {
   const script = document.createElement('script');
@@ -62,7 +70,10 @@ async function loadBlogsFromFirestore() {
       article.dataset.author = data.author || 'Unknown';
       article.dataset.date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : '';
 
-      // Updated "Read More" to link to separate page
+      // Generate slug from title
+      const slug = generateSlug(data.title);
+
+      // Updated "Read More" link with slug + id
       article.innerHTML = `
         <img src="${data.imageURL}" alt="${data.title}">
         <div class="post-content">
@@ -72,7 +83,7 @@ async function loadBlogsFromFirestore() {
             <span class="date">${article.dataset.date}</span>
           </div>
           <p class="post-excerpt">${data.content.substring(0, 100)}...</p>
-          <a href="/blog/blog.html?id=${doc.id}" class="read-more">Read More →</a>
+          <a href="/blog/blog.html?slug=${slug}&id=${doc.id}" class="read-more">Read More →</a>
         </div>
       `;
       postsContainer.appendChild(article);
