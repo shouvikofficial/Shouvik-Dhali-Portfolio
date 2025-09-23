@@ -72,10 +72,8 @@ async function loadBlogsFromFirestore() {
 
       // Generate slug from title
       const slug = generateSlug(data.title);
-      const id = doc.id;                       
-      const combined = `${slug}-${id}`;        
-      const blogLink = `/blog/blog.html?${combined}`;
-
+      const id = doc.id;
+      
 
       // Updated "Read More" link with slug + id
       article.innerHTML = `
@@ -87,7 +85,7 @@ async function loadBlogsFromFirestore() {
             <span class="date">${article.dataset.date}</span>
           </div>
           <p class="post-excerpt">${data.content.substring(0, 100)}...</p>
-          <a href="${blogLink}" class="read-more">Read More →</a>
+          <a href="/blog/blog.html?slug=${slug}&id=${doc.id}" class="read-more">Read More →</a>
         </div>
       `;
       postsContainer.appendChild(article);
