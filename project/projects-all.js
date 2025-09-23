@@ -6,12 +6,14 @@ const tagFilter = document.getElementById("tagFilter");
 const modal = document.getElementById("screenshotModal");
 const modalImg = document.getElementById("modalImg");
 const modalClose = document.getElementById("modalClose");
+
 let allProjects = [];
 
 // ✅ Ensure modal is hidden on page load
 window.addEventListener('DOMContentLoaded', () => {
-  modal.style.display = "none";
-  modalImg.src = "";
+  modal.style.display = "none"; // hidden initially
+  modalImg.src = "";            // clear image
+  document.body.classList.remove("no-scroll"); // ensure scroll enabled
 });
 
 // Open modal
@@ -19,8 +21,7 @@ function openModal(imgSrc) {
   if (!imgSrc) return; // safeguard if no image
   modalImg.src = imgSrc;
   modal.style.display = "flex";
-  document.body.style.overflow = "hidden"; // prevent background scroll
-  // Reset scroll to top for mobile devices
+  document.body.classList.add("no-scroll"); // prevent background scroll
   modal.scrollTop = 0;
 }
 
@@ -28,7 +29,7 @@ function openModal(imgSrc) {
 function closeModal() {
   modal.style.display = "none";
   modalImg.src = "";
-  document.body.style.overflow = "";
+  document.body.classList.remove("no-scroll");
 }
 
 // Close events
@@ -61,9 +62,11 @@ async function loadProjects() {
       projectsContainer.innerHTML = "<p style='text-align:center;'>No projects found.</p>";
       return;
     }
+
     allProjects = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     populateFilters();
     renderProjects(allProjects);
+
   } catch (err) {
     console.error("Error loading projects:", err);
     projectsContainer.innerHTML = "<p style='text-align:center;'>Error loading projects.</p>";
@@ -80,6 +83,7 @@ function populateFilters() {
     option.textContent = cat;
     categoryFilter.appendChild(option);
   });
+
   const tags = [...new Set(allProjects.flatMap(p => p.tags || []))];
   tagFilter.innerHTML = '<option value="">All Tags</option>';
   tags.forEach(tag => {
@@ -97,6 +101,7 @@ function renderProjects(projects) {
     projectsContainer.innerHTML = "<p style='text-align:center;'>No projects found.</p>";
     return;
   }
+
   projects.forEach(data => {
     const card = document.createElement("div");
     card.classList.add("project-card");
