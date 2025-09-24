@@ -61,9 +61,11 @@ function openModal(imgSrc) {
   if (!imgSrc) return;
   modalImg.src = imgSrc;
   modal.style.display = "flex";
+  modal.classList.add("show"); // add animation class
   document.body.style.overflow = "hidden";
 }
 function closeModal() {
+  modal.classList.remove("show"); // remove animation class
   modal.style.display = "none";
   modalImg.src = "";
   document.body.style.overflow = "";
@@ -79,6 +81,11 @@ style.innerHTML = `
 @keyframes fadeInModal { from {opacity: 0;} to {opacity: 1;} }
 @keyframes zoomIn { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 #modalContent { overflow: auto; }
+
+/* Smooth modal animation */
+#screenshotModal.show {
+  animation: zoomIn 0.3s ease forwards;
+}
 
 /* Author overlay */
 .project-overlay {
@@ -207,7 +214,7 @@ function renderProjects(projects) {
     `;
     projectsGrid.appendChild(card);
 
-    // ✅ JSON-LD for SEO
+    // JSON-LD for SEO
     const script = document.createElement("script");
     script.type = "application/ld+json";
     script.textContent = JSON.stringify({
