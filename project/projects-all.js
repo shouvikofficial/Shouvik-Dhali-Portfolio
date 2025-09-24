@@ -122,6 +122,18 @@ style.innerHTML = `
   font-size: 0.85rem;
   opacity: 1; /* always visible once overlay shows */
 }
+
+
+/* Hidden author for SEO indexing */
+  .project-author-seo {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
 `;
 document.head.appendChild(style);
 
@@ -211,6 +223,8 @@ function renderProjects(projects) {
       <div class="project-meta">
         ${Array.isArray(data.tags) ? data.tags.map(tag => `<span>${tag}</span>`).join('') : ''}
       </div>
+      <!-- ADD THIS LINE BELOW FOR SEO -->
+      <span class="project-author-seo">Created by Shouvik Dhali</span>
     `;
     projectsGrid.appendChild(card);
 

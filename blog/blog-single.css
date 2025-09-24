@@ -578,3 +578,40 @@ body.no-scroll {
     font-size: 0.85rem;
   }
 }
+
+.blog-skeleton {
+  animation: pulse 1.5s infinite;
+}
+.skeleton-title {
+  width: 60%;
+  height: 28px;
+  background: #e0e0e0;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+.skeleton-meta {
+  width: 40%;
+  height: 16px;
+  background: #e0e0e0;
+  margin-bottom: 16px;
+  border-radius: 6px;
+}
+.skeleton-image {
+  width: 100%;
+  height: 200px;
+  background: #e0e0e0;
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+.skeleton-content .skeleton-line {
+  width: 100%;
+  height: 14px;
+  background: #e0e0e0;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}

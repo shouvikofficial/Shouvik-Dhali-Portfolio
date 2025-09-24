@@ -9,6 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // ----- Show skeleton while loading -----
+  function showBlogSkeleton() {
+    blogContainer.innerHTML = `
+      <div class="blog-skeleton">
+        <div class="skeleton-title"></div>
+        <div class="skeleton-meta"></div>
+        <div class="skeleton-image"></div>
+        <div class="skeleton-content">
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+        </div>
+      </div>
+    `;
+  }
+  showBlogSkeleton();
+
   // Fetch blog from Firestore
   db.collection('blogs').doc(blogId).get()
     .then(doc => {
