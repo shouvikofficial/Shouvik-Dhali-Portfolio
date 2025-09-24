@@ -436,20 +436,80 @@ body {
   word-wrap: break-word;
 }
 
-/* Highlight links */
-.highlight-link {
-  background-color: rgba(161, 170, 172, 0.8);
-  padding: 4px 8px;
-  border-radius: 6px;
-  color: #fff;
+/* Common button style for all contact links */
+.detail-card p a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* space between icon and text */
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 20px; /* pill shape */
   text-decoration: none;
-  transition: background 0.3s ease;
+  color: #fff !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
 }
 
-.highlight-link:hover {
-  background-color: #0077aa;
+/* Email button */
+.detail-card p a[href^="mailto:"] {
+  background-color: #0052cc; /* professional deep blue */
+}
+.detail-card p a[href^="mailto:"]:hover {
+  background-color: #003d99;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.detail-card p a[href^="mailto:"]::before {
+  content: "\f0e0"; /* envelope icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
 }
 
+/* Phone button */
+.detail-card p a[href^="tel:"] {
+  background-color: #4a4a4a; /* professional gray */
+}
+.detail-card p a[href^="tel:"]:hover {
+  background-color: #2c2c2c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.detail-card p a[href^="tel:"]::before {
+  content: "\f095"; /* phone icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+/* LinkedIn button */
+.detail-card p a[href*="linkedin"] {
+  background-color: #0077b5; /* LinkedIn blue */
+}
+.detail-card p a[href*="linkedin"]:hover {
+  background-color: #005582;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.detail-card p a[href*="linkedin"]::before {
+  content: "\f08c"; /* LinkedIn icon */
+  font-family: "Font Awesome 5 Brands";
+  font-weight: 400;
+}
+
+/* GitHub button */
+.detail-card p a[href*="github"] {
+  background-color: #24292e; /* GitHub dark gray */
+}
+.detail-card p a[href*="github"]:hover {
+  background-color: #0d1117;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.detail-card p a[href*="github"]::before {
+  content: "\f09b"; /* GitHub icon */
+  font-family: "Font Awesome 5 Brands";
+  font-weight: 400;
+}
 /* BACK BUTTON */
 .back-btn {
   margin-top: 40px;
