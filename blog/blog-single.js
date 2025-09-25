@@ -27,6 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   showBlogSkeleton();
 
+  // ----- Linkify function (NEW) -----
+  function linkify(text) {
+    if (!text) return "";
+    const urlPattern = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)/g;
+    return text.replace(urlPattern, function(url) {
+      let href = url;
+      if (!href.startsWith("http")) {
+        href = "https://" + href; // add https if missing
+      }
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    });
+  }
+
   // Fetch blog from Firestore
   db.collection('blogs').doc(blogId).get()
     .then(doc => {
@@ -47,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // ----- JSON-LD for SEO -----
       const script = document.createElement('script');
       script.type = 'application/ld+json';
-
       const jsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -75,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "keywords": data.tags ? data.tags.join(", ") : "blog, articles, web",
         "about": data.category || "General"
       };
-
       script.textContent = JSON.stringify(jsonLd, null, 2);
       document.head.appendChild(script);
 
@@ -88,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>Date: ${data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : ''}</span>
           </div>
           ${data.imageURL ? `<img src="${data.imageURL}" alt="${data.title}" class="blog-image">` : ''}
-          <div class="blog-content">${data.content}</div>
+          <div class="blog-content">${linkify(data.content)}</div>
         </article>
       `;
 
@@ -98,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
       backButton.textContent = '← Go Back';
       backButton.addEventListener('click', () => window.history.back());
       blogContainer.appendChild(backButton);
-
     })
     .catch(err => {
       console.error("Error loading blog:", err);

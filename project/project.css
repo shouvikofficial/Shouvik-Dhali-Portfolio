@@ -849,3 +849,128 @@ body.no-scroll {
   text-align: center;
 }
 
+/* ======================= */
+/* Modern Project Cards     */
+/* ======================= */
+.project-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.project-card .project-img-wrapper {
+  overflow: hidden;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+.project-card .project-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.05);
+}
+
+
+/* Project meta badges */
+.project-meta span {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--glass);
+  color: var(--text);
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s;
+}
+
+.project-meta span:hover {
+  transform: scale(1.05);
+}
+
+/* Filters refined */
+.filters-container {
+  background: var(--card);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  padding: 25px 20px;
+  border-radius: var(--radius);
+  margin: -60px auto 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.filters-container input,
+.filters-container select {
+  background: var(--glass);
+  color: var(--text);
+  border: 1px solid rgba(0,0,0,0.1);
+  transition: all 0.25s;
+}
+
+.filters-container input:focus,
+.filters-container select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* Back Button modern */
+.back-btn .btn {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+.back-btn .btn:hover {
+  transform: translateY(-3px);
+  background: var(--accent-2);
+  box-shadow: 0 6px 18px rgba(0,212,255,0.3);
+}
+
+/* Dark Mode adjustments for overlays & text */
+:root[data-theme="dark"] .project-overlay {
+  background: linear-gradient(180deg, rgba(15,23,36,0) 0%, rgba(15,23,36,0.85) 100%);
+}
+
+:root[data-theme="dark"] .project-meta span {
+  background: rgba(255,255,255,0.06);
+  color: #e6eef8;
+}
+
+
+/* Dark mode select styles */
+:root[data-theme="dark"] .filters-container select,
+:root[data-theme="dark"] .filters-container input {
+    background-color: var(--card);  /* card color for input/select */
+    color: var(--text);             /* text readable in dark mode */
+    border: 1px solid #555;         /* slightly lighter border */
+}
+
+/* Dropdown options */
+:root[data-theme="dark"] .filters-container select option {
+    background-color: var(--card);
+    color: var(--text);
+}
+
+/* Focus state for dark mode */
+:root[data-theme="dark"] .filters-container select:focus,
+:root[data-theme="dark"] .filters-container input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}

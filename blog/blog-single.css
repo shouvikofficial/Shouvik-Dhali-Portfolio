@@ -615,3 +615,74 @@ body.no-scroll {
   50% { opacity: 0.4; }
   100% { opacity: 1; }
 }
+
+
+/* Blog page light mode (default) */
+.blog-post {
+  background: #fff;
+  color: #222; /* dark text on light bg */
+  border-radius: 10px;
+  padding: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.blog-content {
+  color: #222; /* normal text */
+  line-height: 1.7;
+}
+
+.blog-content a {
+  color: #0077ff;
+  text-decoration: underline;
+}
+
+.blog-content a:hover {
+  color: #ff6600;
+}
+
+.post-meta {
+  color: #555;
+}
+
+.back-button {
+  background: #0077ff;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background: #005ecc;
+}
+
+/* Blog page dark mode */
+[data-theme="dark"] .blog-post {
+  background: #121212; /* dark background */
+  color: #e0e0e0; /* readable light text */
+}
+
+[data-theme="dark"] .blog-content {
+  color: #e0e0e0; /* main text readable */
+}
+
+[data-theme="dark"] .blog-content a {
+  color: #4da3ff;
+}
+
+[data-theme="dark"] .blog-content a:hover {
+  color: #ffa366;
+}
+
+[data-theme="dark"] .post-meta {
+  color: #aaa;
+}
+
+[data-theme="dark"] .back-button {
+  background: #333;
+  color: #eee;
+}
+
+[data-theme="dark"] .back-button:hover {
+  background: #555;
+}

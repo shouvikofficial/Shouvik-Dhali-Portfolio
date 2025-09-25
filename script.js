@@ -88,8 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
   // 4) Smooth internal scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
