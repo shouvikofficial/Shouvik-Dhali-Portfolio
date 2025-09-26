@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   showBlogSkeleton();
 
-  // ----- Linkify function (NEW) -----
+  // ----- Linkify function -----
   function linkify(text) {
     if (!text) return "";
     const urlPattern = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)/g;
@@ -40,7 +40,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Fetch blog from Firestore
+  // ----- Auto format blog content -----
+  function formatContent(text) {
+    if (!text) return "";
+
+    // Escape HTML to avoid script injection
+    text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    // Headings: ## Heading → <h2>
+    text = text.replace(/^## (.+)$/gm, "<h2>$1</h2>");
+    text = text.replace(/^# (.+)$/gm, "<h1>$1</h1>");
+
+    // Blockquotes: > text → <blockquote>
+    text = text.replace(/^> (.+)$/gm, "<blockquote>$1</blockquote>");
+
+    // Lists: - item → <ul><li>item</li></ul>
+    text = text.replace(/^- (.+)$/gm, "<li>$1</li>");
+    text = text.replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>");
+
+    // Paragraphs: double new line → <p>
+    text = text.replace(/\n\s*\n/g, "</p><p>");
+
+    // Wrap in paragraph if not already formatted
+    if (!text.startsWith("<")) {
+      text = "<p>" + text + "</p>";
+    }
+
+    // Finally, linkify
+    return linkify(text);
+  }
+
+  // ----- Fetch blog from Firestore -----
   db.collection('blogs').doc(blogId).get()
     .then(doc => {
       if (!doc.exists) {
@@ -99,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>Date: ${data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : ''}</span>
           </div>
           ${data.imageURL ? `<img src="${data.imageURL}" alt="${data.title}" class="blog-image">` : ''}
-          <div class="blog-content">${linkify(data.content)}</div>
+          <div class="blog-content">${formatContent(data.content)}</div>
         </article>
       `;
 
