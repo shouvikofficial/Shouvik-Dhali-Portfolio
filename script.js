@@ -215,23 +215,76 @@ setInterval(() => trackActiveUser(visitorId), 60000);
 // Call trackVisitor on page load
 window.addEventListener("load", trackVisitor);
 
-// Form handling
+// DOM Elements
 const form2 = document.getElementById("contact-form");
 const formMsg2 = document.getElementById("form-msg");
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const messageInput = document.getElementById("message");
 
+// --- Utility Functions ---
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function showError(input, message) {
+  input.classList.add("invalid");
+  input.classList.remove("valid");
+  formMsg2.textContent = message;
+  formMsg2.style.color = "red";
+}
+
+function showValid(input) {
+  input.classList.add("valid");
+  input.classList.remove("invalid");
+  formMsg2.textContent = "";
+}
+
+// --- Real-time Validation ---
+nameInput.addEventListener("input", () => {
+  if (!nameInput.value.trim()) {
+    showError(nameInput, "Name is required.");
+  } else {
+    showValid(nameInput);
+  }
+});
+
+emailInput.addEventListener("input", () => {
+  const email = emailInput.value.trim();
+  if (!email) {
+    showError(emailInput, "Email is required.");
+  } else if (!emailPattern.test(email)) {
+    showError(emailInput, "Invalid email address.");
+  } else {
+    showValid(emailInput);
+  }
+});
+
+messageInput.addEventListener("input", () => {
+  const msg = messageInput.value.trim();
+  if (!msg) {
+    showError(messageInput, "Message is required.");
+  } else if (msg.length < 10) {
+    showError(messageInput, "Message must be at least 10 characters.");
+  } else {
+    showValid(messageInput);
+  }
+});
+
+// --- Form Submission ---
 form2.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const message = messageInput.value.trim();
 
-  if (!name || !email || !message) {
-    formMsg2.textContent = "Please fill all fields.";
-    formMsg2.style.color = "red";
-    return;
-  }
+  // Final validation before submit
+  if (!name) return showError(nameInput, "Name is required.");
+  if (!email) return showError(emailInput, "Email is required.");
+  if (!emailPattern.test(email)) return showError(emailInput, "Invalid email.");
+  if (!message) return showError(messageInput, "Message is required.");
+  if (message.length < 10) return showError(messageInput, "Message must be at least 10 characters.");
 
+  // Send message
   try {
     await db.collection("messages").add({
       name,
@@ -239,11 +292,12 @@ form2.addEventListener("submit", async (e) => {
       message,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
-
     formMsg2.textContent = "Message sent successfully!";
     formMsg2.style.color = "green";
-
     form2.reset();
+    nameInput.classList.remove("valid");
+    emailInput.classList.remove("valid");
+    messageInput.classList.remove("valid");
   } catch (err) {
     formMsg2.textContent = "Error sending message. Try again.";
     formMsg2.style.color = "red";
@@ -380,4 +434,6 @@ cards.forEach((card, index) => {
   }, 2000 + index * 100); // stagger by index
 });
 
+
+//contact validation
 

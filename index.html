@@ -326,25 +326,6 @@
     </div>
   </footer>
 
-  <!-- EmailJS -->
-  <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
-  <script type="text/javascript">
-    (function () {
-      emailjs.init("yeyPN_iez0Mz4bPTY");
-    })();
-  </script>
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', function (event) {
-      event.preventDefault();
-      emailjs.sendForm('service_72erv0t', 'template_hwy7igl', this)
-        .then(function () {
-          alert('Message sent successfully!');
-        }, function (error) {
-          alert('Failed to send message: ' + JSON.stringify(error));
-        });
-    });
-  </script>
-
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
