@@ -266,21 +266,77 @@ async function addBlog(title, content, imageFile, category, tags, author) {
   }
 }
 
-// Edit blog
+//edit
+// --- Blog Modal Elements ---
+const editBlogModal = document.getElementById("editBlogModal");
+const closeBlogModalBtn = document.getElementById("closeBlogModal");
+const editBlogForm = document.getElementById("editBlogForm");
+let currentBlogId = null;
+
+// --- Close Modal ---
+closeBlogModalBtn.addEventListener("click", () => {
+  editBlogModal.classList.remove("show");
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === editBlogModal) {
+    editBlogModal.classList.remove("show");
+  }
+});
+
+// --- Open Blog Modal & Prefill ---
 async function editBlog(id) {
+  currentBlogId = id;
   const doc = await db.collection("blogs").doc(id).get();
   const data = doc.data();
-  const newTitle = prompt("Edit Title", data.title);
-  const newContent = prompt("Edit Content", data.content);
-  const newAuthor = prompt("Edit Author", data.author || '');
-  if (!newTitle || !newContent || !newAuthor) return;
-  await db.collection("blogs").doc(id).update({
-    title: newTitle,
-    content: newContent,
-    author: newAuthor // update author
-  });
-  loadBlogs();
+
+  document.getElementById("edit-blog-title").value = data.title;
+  document.getElementById("edit-blog-content").value = data.content;
+  document.getElementById("edit-blog-author").value = data.author || '';
+  document.getElementById("edit-blog-category").value = data.category || '';
+  document.getElementById("edit-blog-tags").value = Array.isArray(data.tags) ? data.tags.join(', ') : data.tags || '';
+
+  editBlogModal.classList.add("show");
 }
+
+// --- Save Blog Edits ---
+editBlogForm.addEventListener("submit", async (e) => {
+  e.preventDefault(); // prevent default form submit
+
+  if (!currentBlogId) return;
+
+  const updatedTitle = document.getElementById("edit-blog-title").value;
+  const updatedContent = document.getElementById("edit-blog-content").value;
+  const updatedAuthor = document.getElementById("edit-blog-author").value;
+  const updatedCategory = document.getElementById("edit-blog-category").value;
+  const updatedTags = document.getElementById("edit-blog-tags").value
+    ? document.getElementById("edit-blog-tags").value.split(",").map(tag => tag.trim())
+    : [];
+
+  try {
+    await db.collection("blogs").doc(currentBlogId).update({
+      title: updatedTitle,
+      content: updatedContent,
+      author: updatedAuthor,
+      category: updatedCategory,
+      tags: updatedTags
+    });
+
+    // Close modal
+    editBlogModal.classList.remove("show");
+
+    // Reload blogs
+    loadBlogs();
+
+    // Show success message
+    alert("Blog changes saved successfully!");
+
+  } catch (err) {
+    console.error("Error updating blog:", err);
+    alert("Failed to save blog changes.");
+  }
+});
+
 
 // Delete blog
 async function deleteBlog(id) {
@@ -400,29 +456,86 @@ async function addProject(title, description, imageFile, liveURL, githubURL, cat
   }
 }
 
-// --- EDIT PROJECT ---
-async function editProject(id) {
-  const doc = await db.collection("projects").doc(id).get();
-  const data = doc.data();
+// --- PROJECT EDIT MODAL ---
+// --- Project Modal Elements ---
+const editProjectModal = document.getElementById("editModal");
+const closeProjectModalBtn = document.getElementById("closeProjectModal");
+const editProjectForm = document.getElementById("edit-form");
+let currentProjectId = null;
 
-  const newTitle = prompt("Edit Title", data.title);
-  const newDesc = prompt("Edit Description", data.description);
-  const newLiveURL = prompt("Edit Live URL", data.liveURL || "");
-  const newGithubURL = prompt("Edit Details URL", data.githubURL || "");
-  const newTags = prompt("Edit Tags (comma separated)", Array.isArray(data.tags) ? data.tags.join(", ") : data.tags || "");
+// --- Close Modal ---
+closeProjectModalBtn.addEventListener("click", () => {
+  editProjectModal.classList.remove("show");
+});
 
-  if (!newTitle || !newDesc || !newLiveURL || !newGithubURL || !newTags) return;
+window.addEventListener("click", (e) => {
+  if (e.target === editProjectModal) {
+    editProjectModal.classList.remove("show");
+  }
+});
 
-  await db.collection("projects").doc(id).update({
-    title: newTitle,
-    description: newDesc,
-    liveURL: newLiveURL,
-    githubURL: newGithubURL,
-    tags: newTags.split(",").map(t => t.trim())
+// --- Open Project Modal & Prefill ---
+function editProject(id) {
+  currentProjectId = id;
+
+  db.collection("projects").doc(id).get().then(doc => {
+    const data = doc.data();
+
+    document.getElementById("edit-title").value = data.title || '';
+    document.getElementById("edit-desc").value = data.description || '';
+    document.getElementById("edit-live").value = data.liveURL || '';
+    document.getElementById("edit-github").value = data.githubURL || '';
+    document.getElementById("edit-category").value = data.category || '';
+    document.getElementById("edit-tags").value = Array.isArray(data.tags) ? data.tags.join(", ") : '';
+
+    editProjectModal.classList.add("show");
+  }).catch(err => {
+    console.error("Error fetching project:", err);
+    alert("Failed to load project data.");
   });
-
-  loadProjects();
 }
+
+// --- Save Project Edits ---
+editProjectForm.addEventListener("submit", async (e) => {
+  e.preventDefault(); // prevent default form submit
+
+  if (!currentProjectId) return;
+
+  const updatedTitle = document.getElementById("edit-title").value;
+  const updatedDesc = document.getElementById("edit-desc").value;
+  const updatedLive = document.getElementById("edit-live").value;
+  const updatedGithub = document.getElementById("edit-github").value;
+  const updatedCategory = document.getElementById("edit-category").value;
+  const updatedTags = document.getElementById("edit-tags").value
+    ? document.getElementById("edit-tags").value.split(",").map(tag => tag.trim())
+    : [];
+
+  try {
+    await db.collection("projects").doc(currentProjectId).update({
+      title: updatedTitle,
+      description: updatedDesc,
+      liveURL: updatedLive,
+      githubURL: updatedGithub,
+      category: updatedCategory,
+      tags: updatedTags
+    });
+
+    // Close modal
+    editProjectModal.classList.remove("show");
+
+    // Reload projects
+    loadProjects();
+
+    // Show success message
+    alert("Project changes saved successfully!");
+
+  } catch (err) {
+    console.error("Error updating project:", err);
+    alert("Failed to save project changes.");
+  }
+});
+
+
 
 // --- DELETE PROJECT ---
 async function deleteProject(id) {

@@ -95,6 +95,8 @@
     </div>
   </section>
 
+  
+
   <!-- Projects -->
   <section class="project-section">
     <h3>Projects</h3>
@@ -129,6 +131,76 @@
       <p>Loading projects...</p>
     </div>
   </section>
+<!-- Edit Blog Modal -->
+<div id="editBlogModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeBlogModal">&times;</span>
+    <h2>Edit Blog</h2>
+    <form id="editBlogForm">
+      <label for="edit-blog-title">Blog Title</label>
+      <input type="text" id="edit-blog-title" placeholder="Enter blog title" required>
+
+      <label for="edit-blog-content">Blog Content</label>
+      <textarea id="edit-blog-content" placeholder="Enter blog content" required></textarea>
+
+      <label for="edit-blog-author">Author Name</label>
+      <input type="text" id="edit-blog-author" placeholder="Enter author name" required>
+
+      <label for="edit-blog-category">Category</label>
+      <select id="edit-blog-category" required>
+        <option value="">Select Category</option>
+        <option value="Web Development">Web Development</option>
+        <option value="AI & ML">AI & ML</option>
+        <option value="Blockchain">Blockchain</option>
+        <option value="Programming Tips">Programming Tips</option>
+        <option value="Tech News">Tech News</option>
+      </select>
+
+      <label for="edit-blog-tags">Tags (comma separated)</label>
+      <input type="text" id="edit-blog-tags" placeholder="Enter tags">
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Project Modal -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeProjectModal">&times;</span>
+    <h2>Edit Project</h2>
+    <form id="edit-form">
+      <label for="edit-title">Project Title</label>
+      <input type="text" id="edit-title" placeholder="Enter project title">
+
+      <label for="edit-desc">Project Description</label>
+      <textarea id="edit-desc" placeholder="Enter project description"></textarea>
+
+      <label for="edit-live">Live URL</label>
+      <input type="text" id="edit-live" placeholder="Enter live demo URL">
+
+      <label for="edit-github">GitHub URL</label>
+      <input type="text" id="edit-github" placeholder="Enter GitHub URL">
+
+      <label for="edit-category">Category</label>
+      <select id="edit-category" required>
+        <option value="">Select Category</option>
+        <option value="Web Development">Web Development</option>
+        <option value="AI & ML">AI & ML</option>
+        <option value="Mobile App Development">Mobile App Development</option>
+        <option value="Blockchain">Blockchain</option>
+        <option value="UI/UX Design">UI/UX Design</option>
+      </select>
+
+      <label for="edit-tags">Tags (comma separated)</label>
+      <input type="text" id="edit-tags" placeholder="Enter tags">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+
 
   <script src="dashboard.js"></script>
 </body>
