@@ -105,22 +105,32 @@
   <main class="blog-container">
 
     <!-- Featured Post -->
-    <section class="featured-post reveal">
-      <img src="/img/feature.jpg" alt="Featured Blog Post">
-      <div class="featured-content">
-        <h2 class="featured-title">The Future of AI in Web Development</h2>
-        <p class="featured-excerpt">AI is transforming how developers build websites, from smart code generation to
-          automated testing...</p>
-        <a href="#" class="read-more">Read More →</a>
-        <!-- full content hidden -->
-        <div class="full-content" style="display:none;">
-          <p>Artificial Intelligence is changing the way we design and develop websites. From automated code suggestions
-            to predictive analytics, AI helps streamline workflows and improve user experiences.</p>
-          <p>In the future, AI-driven platforms may even handle complex UI/UX design automatically, letting developers
-            focus on creativity and innovation.</p>
-        </div>
-      </div>
-    </section>
+<section class="featured-post reveal" id="featured-post-section">
+
+ <!-- FEATURED POST SKELETON -->
+<div class="fp-skeleton">
+  <div class="fp-skeleton-img"></div>
+
+  <div class="fp-skeleton-content">
+    <div class="fp-skeleton-title"></div>
+    <div class="fp-skeleton-text"></div>
+    <div class="fp-skeleton-btn"></div>
+  </div>
+</div>
+
+
+
+  <!-- Real Featured Content -->
+  <img src="/img/placeholder.jpg" alt="Featured Blog Image" class="featured-image" style="display:none;">
+  <div class="featured-content" style="display:none;">
+    <h2 class="featured-title">Loading...</h2>
+    <p class="featured-excerpt">Please wait...</p>
+    <a href="/blog/blog.html?slug=${slug}&id=${doc.id}" class="read-more">Read More →</a>
+  </div>
+
+</section>
+
+
 
     <div class="blog-layout">
 

@@ -1,6 +1,7 @@
 // blog.js
 document.addEventListener('DOMContentLoaded', () => {
-  loadBlogsFromFirestore();
+  loadFeaturedPost();          // ⭐ Load Featured Post First
+  loadBlogsFromFirestore();    // Load other blogs
 });
 
 // ----- Slug generator -----
@@ -41,6 +42,56 @@ function addJSONLD(blog) {
   document.head.appendChild(script);
 }
 
+/* ---------- NEW: Load Featured Post ---------- */
+/* ---------- NEW: Load Featured Post ---------- */
+async function loadFeaturedPost() {
+  const section = document.getElementById("featured-post-section");
+  if (!section) return;
+
+  const skeleton = section.querySelector(".fp-skeleton");   // FIXED
+  const img = section.querySelector(".featured-image");
+  const contentBox = section.querySelector(".featured-content");
+  const titleEl = section.querySelector(".featured-title");
+  const excerptEl = section.querySelector(".featured-excerpt");
+  const readMoreBtn = section.querySelector(".read-more");
+
+  // Show skeleton, hide content
+  skeleton.style.display = "block";
+  img.style.display = "none";
+  contentBox.style.display = "none";
+
+  try {
+    const snap = await db.collection("blogs")
+      .where("featured", "==", true)
+      .limit(1)
+      .get();
+
+    if (snap.empty) {
+      section.style.display = "none";
+      return;
+    }
+
+    const doc = snap.docs[0];
+    const data = doc.data();
+    const slug = generateSlug(data.title);
+
+    img.src = data.imageURL || "/img/placeholder.jpg";
+    titleEl.textContent = data.title;
+    excerptEl.textContent = (data.content || "").substring(0, 150) + "...";
+    readMoreBtn.href = `/blog/blog.html?slug=${slug}&id=${doc.id}`;
+
+    // Hide skeleton, show real content
+    skeleton.style.display = "none";
+    img.style.display = "block";
+    contentBox.style.display = "block";
+
+  } catch (error) {
+    console.error("Error loading featured post:", error);
+    skeleton.style.display = "none";
+  }
+}
+
+
 /* ---------- SKELETON HELPERS ---------- */
 function renderSkeletons(count = 4) {
   let html = '';
@@ -67,13 +118,14 @@ async function loadBlogsFromFirestore() {
 
   if (!postsContainer) return;
 
-  // show skeletons while fetching (4 by default)
+  // show skeletons while fetching
   postsContainer.innerHTML = renderSkeletons(4);
 
   try {
-    const snapshot = await db.collection('blogs').orderBy('createdAt', 'desc').get();
+    const snapshot = await db.collection('blogs')
+      .orderBy('createdAt', 'desc')
+      .get();
 
-    // clear skeletons before rendering actual posts
     postsContainer.innerHTML = '';
     const allPosts = [];
 
@@ -84,6 +136,7 @@ async function loadBlogsFromFirestore() {
 
     snapshot.forEach((doc, idx) => {
       const data = doc.data();
+
       const article = document.createElement('article');
       article.className = 'blog-post reveal';
       article.id = 'post-' + (idx + 1);
@@ -92,11 +145,8 @@ async function loadBlogsFromFirestore() {
       article.dataset.author = data.author || 'Unknown';
       article.dataset.date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : '';
 
-      // Generate slug from title
       const slug = generateSlug(data.title);
-      const id = doc.id;
 
-      // Updated "Read More" to link to separate page
       article.innerHTML = `
         <img src="${data.imageURL}" alt="${data.title}">
         <div class="post-content">
@@ -109,10 +159,11 @@ async function loadBlogsFromFirestore() {
           <a href="/blog/blog.html?slug=${slug}&id=${doc.id}" class="read-more">Read More →</a>
         </div>
       `;
+
       postsContainer.appendChild(article);
       allPosts.push(article);
 
-      // ----- Add JSON-LD for this post -----
+      // Add JSON-LD
       const blogData = {
         title: data.title,
         author: data.author || "Unknown",
@@ -125,7 +176,7 @@ async function loadBlogsFromFirestore() {
           : []
       };
       addJSONLD(blogData);
-    }); // <-- forEach ends
+    });
 
     // Pagination & filtering
     const postsPerPage = 4;
@@ -145,7 +196,6 @@ async function loadBlogsFromFirestore() {
     }
 
     function updatePagination() {
-      if (!paginationContainer) return;
       paginationContainer.innerHTML = '';
       const totalPages = Math.max(1, Math.ceil(filteredPosts.length / postsPerPage));
 
@@ -210,6 +260,7 @@ async function loadBlogsFromFirestore() {
         const a = document.createElement('a');
         a.href = '#' + post.id;
         a.textContent = post.querySelector('.post-title')?.textContent;
+
         a.addEventListener('click', e => {
           e.preventDefault();
           const idx = filteredPosts.indexOf(post);
@@ -224,7 +275,6 @@ async function loadBlogsFromFirestore() {
       });
     }
 
-    // Filter events
     categoryLinks.forEach(link => link.addEventListener('click', e => {
       e.preventDefault();
       categoryLinks.forEach(c => c.classList.remove('selected'));
@@ -239,7 +289,6 @@ async function loadBlogsFromFirestore() {
       filterPosts('tag', link.textContent.trim());
     }));
 
-    // Handle "All" tag
     const allTagLink = Array.from(tagLinks).find(l => l.textContent.trim().toLowerCase() === 'all');
     if (allTagLink) {
       allTagLink.addEventListener('click', e => {
@@ -250,12 +299,10 @@ async function loadBlogsFromFirestore() {
       });
     }
 
-    // Start blog with first page
     showPage(1);
 
   } catch (err) {
     console.error("Error fetching blogs:", err);
-    // replace skeletons with error text
     postsContainer.innerHTML = "<p>Error loading blogs.</p>";
   }
 }

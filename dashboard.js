@@ -195,11 +195,21 @@ async function loadBlogs() {
         <p><strong>Date:</strong> ${createdDate}</p>
         <p><strong>Category:</strong> ${data.category || 'Uncategorized'}</p>
         <p><strong>Tags:</strong> ${tags}</p>
+
+        <!-- ⭐ FEATURED LABEL -->
+        <p><strong>Featured:</strong> ${data.featured ? "Yes ⭐" : "No"}</p>
+
         <div class="message-actions">
           <button class="reply" onclick="editBlog('${doc.id}')">Edit</button>
           <button class="delete" onclick="deleteBlog('${doc.id}')">Delete</button>
+
           <button class="publish" onclick="togglePublish('${doc.id}', ${data.published})">
             ${data.published ? "Unpublish" : "Publish"}
+          </button>
+
+          <!-- ⭐ FEATURED TOGGLE BUTTON -->
+          <button class="publish" onclick="toggleFeatured('${doc.id}', ${data.featured})">
+            ${data.featured ? "Remove Featured" : "Set Featured"}
           </button>
         </div>
       `;
@@ -212,8 +222,8 @@ async function loadBlogs() {
   }
 }
 
-// Add blog
-async function addBlog(title, content, imageFile, category, tags, author) {
+// ⭐ ADD BLOG — FEATURED INCLUDED
+async function addBlog(title, content, imageFile, category, tags, author, featured) {
   if (!title || !content || !imageFile || !category || !author) {
     return alert("Fill all blog fields!");
   }
@@ -238,6 +248,12 @@ async function addBlog(title, content, imageFile, category, tags, author) {
     const data = await res.json();
     const imageURL = data.secure_url;
 
+    // ⭐ If user set this blog as featured → remove previous featured
+    if (featured === true) {
+      const oldFeatured = await db.collection("blogs").where("featured", "==", true).get();
+      oldFeatured.forEach(doc => doc.ref.update({ featured: false }));
+    }
+
     // Add blog to Firestore
     await db.collection("blogs").add({
       title,
@@ -246,7 +262,8 @@ async function addBlog(title, content, imageFile, category, tags, author) {
       category,
       tags: tagsArray,
       published: false,
-      author, // added author
+      author,
+      featured: featured === true, // ⭐ NEW FIELD
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
@@ -259,7 +276,8 @@ async function addBlog(title, content, imageFile, category, tags, author) {
     document.getElementById("blog-image").value = "";
     document.getElementById("blog-category").value = "";
     document.getElementById("blog-tags").value = "";
-    document.getElementById("blog-author").value = ""; // clear author
+    document.getElementById("blog-author").value = "";
+    document.getElementById("blog-featured").checked = false; // ⭐ reset
 
   } catch (err) {
     console.error("Error adding blog:", err);
@@ -267,7 +285,6 @@ async function addBlog(title, content, imageFile, category, tags, author) {
   }
 }
 
-//edit
 // --- Blog Modal Elements ---
 const editBlogModal = document.getElementById("editBlogModal");
 const closeBlogModalBtn = document.getElementById("closeBlogModal");
@@ -302,7 +319,7 @@ async function editBlog(id) {
 
 // --- Save Blog Edits ---
 editBlogForm.addEventListener("submit", async (e) => {
-  e.preventDefault(); // prevent default form submit
+  e.preventDefault();
 
   if (!currentBlogId) return;
 
@@ -323,13 +340,8 @@ editBlogForm.addEventListener("submit", async (e) => {
       tags: updatedTags
     });
 
-    // Close modal
     editBlogModal.classList.remove("show");
-
-    // Reload blogs
     loadBlogs();
-
-    // Show success message
     alert("Blog changes saved successfully!");
 
   } catch (err) {
@@ -337,7 +349,6 @@ editBlogForm.addEventListener("submit", async (e) => {
     alert("Failed to save blog changes.");
   }
 });
-
 
 // Delete blog
 async function deleteBlog(id) {
@@ -350,6 +361,22 @@ async function deleteBlog(id) {
 // Publish/unpublish
 async function togglePublish(id, currentState) {
   await db.collection("blogs").doc(id).update({ published: !currentState });
+  loadBlogs();
+}
+
+// ⭐ FEATURED: toggle existing blog
+async function toggleFeatured(id, currentState) {
+  // If setting as featured → remove old featured blog
+  if (!currentState) {
+    const oldFeatured = await db.collection("blogs").where("featured", "==", true).get();
+    oldFeatured.forEach(doc => doc.ref.update({ featured: false }));
+  }
+
+  // Toggle current blog
+  await db.collection("blogs").doc(id).update({
+    featured: !currentState
+  });
+
   loadBlogs();
 }
 // --- BLOG MANAGEMENT END ---

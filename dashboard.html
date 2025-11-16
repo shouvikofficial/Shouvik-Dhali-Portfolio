@@ -60,40 +60,52 @@
   </section>
 
   <!-- Blog Management -->
-  <section class="blog-section">
-    <h3>Blog Posts</h3>
+<section class="blog-section">
+  <h3>Blog Posts</h3>
 
-    <div class="blog-inputs">
-      <input type="text" id="blog-title" placeholder="Blog Title" />
-      <textarea id="blog-content" placeholder="Blog Content"></textarea>
-      <input type="file" id="blog-image" />
-      <select id="blog-category">
-        <option value="">Select Category</option>
-        <option value="Web Development">Web Development</option>
-        <option value="AI & ML">AI & ML</option>
-        <option value="Blockchain">Blockchain</option>
-        <option value="Programming Tips">Programming Tips</option>
-        <option value="Tech News">Tech News</option>
-      </select>
-      <input type="text" id="blog-tags" placeholder="Tags (comma separated)" />
-      <!-- Added Author Input -->
-      <input type="text" id="blog-author" placeholder="Author Name" />
+  <div class="blog-inputs">
+    <input type="text" id="blog-title" placeholder="Blog Title" />
+    <textarea id="blog-content" placeholder="Blog Content"></textarea>
+    <input type="file" id="blog-image" />
 
-      <button onclick="addBlog(
-        document.getElementById('blog-title').value,
-        document.getElementById('blog-content').value,
-        document.getElementById('blog-image').files[0],
-        document.getElementById('blog-category').value,
-        document.getElementById('blog-tags').value,
-        document.getElementById('blog-author').value
-      )">Add Blog</button>
-    </div>
+    <select id="blog-category">
+      <option value="">Select Category</option>
+      <option value="Web Development">Web Development</option>
+      <option value="AI & ML">AI & ML</option>
+      <option value="Blockchain">Blockchain</option>
+      <option value="Programming Tips">Programming Tips</option>
+      <option value="Tech News">Tech News</option>
+    </select>
 
-    <!-- Blog Container -->
-    <div id="blog-container">
-      <p>Loading blogs...</p>
-    </div>
-  </section>
+    <input type="text" id="blog-tags" placeholder="Tags (comma separated)" />
+
+    <!-- Added Author Input -->
+    <input type="text" id="blog-author" placeholder="Author Name" />
+
+    <!-- ⭐ ADDED: Featured Checkbox (No other text changed) -->
+    <label style="display:flex; align-items:center; gap:8px; margin:8px 0;">
+      <input type="checkbox" id="blog-featured" />
+      <span>Set as Featured Blog</span>
+    </label>
+
+    <!-- Updated button function call to include featured -->
+    <button onclick="addBlog(
+      document.getElementById('blog-title').value,
+      document.getElementById('blog-content').value,
+      document.getElementById('blog-image').files[0],
+      document.getElementById('blog-category').value,
+      document.getElementById('blog-tags').value,
+      document.getElementById('blog-author').value,
+      document.getElementById('blog-featured').checked
+    )">Add Blog</button>
+  </div>
+
+  <!-- Blog Container -->
+  <div id="blog-container">
+    <p>Loading blogs...</p>
+  </div>
+</section>
+
 
   
 
