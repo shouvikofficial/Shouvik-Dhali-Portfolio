@@ -88,7 +88,9 @@ function generateVisitorId() {
 
 // Logout
 document.getElementById("logout-btn").addEventListener("click", () => {
-  auth.signOut().then(() => window.location.href = "admin.html");
+  auth.signOut().then(() => {
+    window.location.replace("admin.html"); // ❗ replace() prevents back navigation
+  });
 });
 
 

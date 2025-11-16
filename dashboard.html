@@ -238,6 +238,16 @@
 
 <div id="toast" class="toast"></div>
 
+<script>
+  // Prevent the page from using cached version after logout
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+</script>
+
+
 
   <script src="dashboard.js"></script>
 </body>
