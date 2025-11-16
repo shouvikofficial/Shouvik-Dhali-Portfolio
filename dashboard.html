@@ -155,6 +155,10 @@
       <label for="edit-blog-content">Blog Content</label>
       <textarea id="edit-blog-content" placeholder="Enter blog content" required></textarea>
 
+      <label for="edit-blog-image">Change Image (optional)</label>
+      <input type="file" id="edit-blog-image">
+
+
       <label for="edit-blog-author">Author Name</label>
       <input type="text" id="edit-blog-author" placeholder="Enter author name" required>
 
@@ -188,6 +192,9 @@
       <label for="edit-desc">Project Description</label>
       <textarea id="edit-desc" placeholder="Enter project description"></textarea>
 
+      <label for="edit-image">Update Project Image</label>
+      <input type="file" id="edit-image">
+
       <label for="edit-live">Live URL</label>
       <input type="text" id="edit-live" placeholder="Enter live demo URL">
 
@@ -212,6 +219,19 @@
   </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="delete-modal">
+  <div class="delete-modal-content">
+    <p id="deleteMessage"></p>
+
+    <div class="delete-modal-actions">
+      <button id="cancelDelete" class="cancel-btn">Cancel</button>
+      <button id="confirmDelete" class="confirm-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
 
 
   <script src="dashboard.js"></script>

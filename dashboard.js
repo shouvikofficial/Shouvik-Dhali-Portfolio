@@ -14,6 +14,47 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
+
+
+let deleteCallback = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const deleteModal = document.getElementById("deleteModal");
+  const deleteMessage = document.getElementById("deleteMessage");
+  const cancelDelete = document.getElementById("cancelDelete");
+  const confirmDelete = document.getElementById("confirmDelete");
+
+  // Open modal
+  window.showDeleteModal = function(message, callback) {
+    deleteMessage.textContent = message;
+    deleteCallback = callback;
+    deleteModal.classList.add("show");
+  };
+
+  // Close modal
+  window.closeDeleteModal = function() {
+    deleteModal.classList.remove("show");
+  };
+
+  cancelDelete.onclick = closeDeleteModal;
+
+  confirmDelete.onclick = () => {
+    if (deleteCallback) deleteCallback();
+    closeDeleteModal();
+  };
+});
+
+
+
 // Track active user
 function trackActiveUser(userId) {
   db.collection("activeUsers").doc(userId).set({
@@ -50,10 +91,15 @@ document.getElementById("logout-btn").addEventListener("click", () => {
   auth.signOut().then(() => window.location.href = "admin.html");
 });
 
+
+
 // Messages
 const messagesContainer = document.getElementById("messages-container");
 const totalMessages = document.getElementById("total-messages");
 const totalVisitors = document.getElementById("total-visitors");
+
+
+
 
 // Load messages
 async function loadMessages() {
@@ -80,12 +126,14 @@ async function loadMessages() {
 
 
 // Delete a message
-async function deleteMessage(id) {
-  if (confirm("Are you sure you want to delete this message?")) {
+
+function deleteMessage(id) {
+  showDeleteModal("Are you sure you want to delete this message?", async () => {
     await db.collection("messages").doc(id).delete();
     loadMessages();
-  }
+  });
 }
+
 
 // Reply to a message
 function replyMessage(email) {
@@ -279,7 +327,7 @@ async function addBlog(title, content, imageFile, category, tags, author, featur
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
-    alert("Blog added successfully!");
+    showToast("Blog added successfully!");
     loadBlogs();
 
     // Clear input fields
@@ -326,8 +374,13 @@ async function editBlog(id) {
   document.getElementById("edit-blog-category").value = data.category || '';
   document.getElementById("edit-blog-tags").value = Array.isArray(data.tags) ? data.tags.join(', ') : data.tags || '';
 
+  // Reset Image Input
+  document.getElementById("edit-blog-image").value = "";
+
   editBlogModal.classList.add("show");
 }
+
+
 
 // --- Save Blog Edits ---
 editBlogForm.addEventListener("submit", async (e) => {
@@ -343,18 +396,45 @@ editBlogForm.addEventListener("submit", async (e) => {
     ? document.getElementById("edit-blog-tags").value.split(",").map(tag => tag.trim())
     : [];
 
+  const newImageFile = document.getElementById("edit-blog-image").files[0];
+  let imageURL = null;
+
   try {
-    await db.collection("blogs").doc(currentBlogId).update({
+    // --- If user selected a NEW IMAGE ---
+    if (newImageFile) {
+      const formData = new FormData();
+      formData.append("file", newImageFile);
+      formData.append("upload_preset", "portfolio_blog");
+
+      const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!res.ok) throw new Error("Image upload failed");
+
+      const imgData = await res.json();
+      imageURL = imgData.secure_url;
+    }
+
+    // --- UPDATE DATABASE (with or without new image) ---
+    const updateData = {
       title: updatedTitle,
       content: updatedContent,
       author: updatedAuthor,
       category: updatedCategory,
       tags: updatedTags
-    });
+    };
+
+    if (imageURL) {
+      updateData.imageURL = imageURL; // only if changed
+    }
+
+    await db.collection("blogs").doc(currentBlogId).update(updateData);
 
     editBlogModal.classList.remove("show");
     loadBlogs();
-    alert("Blog changes saved successfully!");
+    showToast("Blog changes saved successfully!");
 
   } catch (err) {
     console.error("Error updating blog:", err);
@@ -362,19 +442,15 @@ editBlogForm.addEventListener("submit", async (e) => {
   }
 });
 
+
 // Delete blog
-async function deleteBlog(id) {
-  if (confirm("Are you sure you want to delete this blog?")) {
+function deleteBlog(id) {
+  showDeleteModal("Are you sure you want to delete this blog?", async () => {
     await db.collection("blogs").doc(id).delete();
     loadBlogs();
-  }
+  });
 }
 
-// Publish/unpublish
-async function togglePublish(id, currentState) {
-  await db.collection("blogs").doc(id).update({ published: !currentState });
-  loadBlogs();
-}
 
 // ⭐ FEATURED: toggle existing blog
 async function toggleFeatured(id, currentState) {
@@ -475,7 +551,7 @@ async function addProject(title, description, imageFile, liveURL, githubURL, cat
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
-    alert("Project added successfully!");
+    showToast("Project added successfully!");
     loadProjects();
 
     // Clear input fields
@@ -525,6 +601,9 @@ function editProject(id) {
     document.getElementById("edit-category").value = data.category || '';
     document.getElementById("edit-tags").value = Array.isArray(data.tags) ? data.tags.join(", ") : '';
 
+    // Store current image URL so we can keep it if user does not upload new one
+    document.getElementById("edit-image").dataset.currentImage = data.imageURL;
+
     editProjectModal.classList.add("show");
   }).catch(err => {
     console.error("Error fetching project:", err);
@@ -532,9 +611,10 @@ function editProject(id) {
   });
 }
 
+
 // --- Save Project Edits ---
 editProjectForm.addEventListener("submit", async (e) => {
-  e.preventDefault(); // prevent default form submit
+  e.preventDefault();
 
   if (!currentProjectId) return;
 
@@ -547,24 +627,43 @@ editProjectForm.addEventListener("submit", async (e) => {
     ? document.getElementById("edit-tags").value.split(",").map(tag => tag.trim())
     : [];
 
+  const newImageFile = document.getElementById("edit-image").files[0];
+  let finalImageURL = document.getElementById("edit-image").dataset.currentImage;
+
   try {
+    // --- If user selected a NEW image → upload it ---
+    if (newImageFile) {
+      const formData = new FormData();
+      formData.append("file", newImageFile);
+      formData.append("upload_preset", "portfolio_projects");
+
+      const res = await fetch("https://api.cloudinary.com/v1_1/dppdoca6n/image/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!res.ok) throw new Error("Image upload failed");
+
+      const imgData = await res.json();
+      finalImageURL = imgData.secure_url;
+    }
+
+    // --- Update Firestore ---
     await db.collection("projects").doc(currentProjectId).update({
       title: updatedTitle,
       description: updatedDesc,
       liveURL: updatedLive,
       githubURL: updatedGithub,
       category: updatedCategory,
-      tags: updatedTags
+      tags: updatedTags,
+      imageURL: finalImageURL
     });
 
-    // Close modal
     editProjectModal.classList.remove("show");
 
-    // Reload projects
     loadProjects();
 
-    // Show success message
-    alert("Project changes saved successfully!");
+    showToast("Project changes saved successfully!");
 
   } catch (err) {
     console.error("Error updating project:", err);
@@ -575,18 +674,15 @@ editProjectForm.addEventListener("submit", async (e) => {
 
 
 // --- DELETE PROJECT ---
-async function deleteProject(id) {
-  if (confirm("Are you sure you want to delete this project?")) {
+function deleteProject(id) {
+  showDeleteModal("Are you sure you want to delete this project?", async () => {
     await db.collection("projects").doc(id).delete();
     loadProjects();
-  }
+  });
 }
 
-// --- PUBLISH / UNPUBLISH PROJECT ---
-async function toggleProjectPublish(id, currentState) {
-  await db.collection("projects").doc(id).update({ published: !currentState });
-  loadProjects();
-}
+
+
 
 // Call after Firebase initialized
 auth.onAuthStateChanged(user => {
