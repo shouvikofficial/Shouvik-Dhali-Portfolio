@@ -697,5 +697,30 @@ auth.onAuthStateChanged(user => {
     trackVisitor();
     loadBlogs();
     loadProjects();
+    startInactivityLogout();
   }
 });
+
+/* AUTO LOGOUT AFTER INACTIVITY */
+let logoutTimer;
+
+// Set inactivity time (example: 10 minutes)
+const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 minutes
+
+function resetInactivityTimer() {
+  clearTimeout(logoutTimer);
+
+  logoutTimer = setTimeout(() => {
+    auth.signOut().then(() => {
+      alert("You were logged out due to inactivity.");
+      window.location.href = "admin.html";
+    });
+  }, INACTIVITY_LIMIT);
+}
+
+// Detect user activity
+window.onload = resetInactivityTimer;
+document.onmousemove = resetInactivityTimer;
+document.onkeydown = resetInactivityTimer;
+document.onclick = resetInactivityTimer;
+document.onscroll = resetInactivityTimer;
