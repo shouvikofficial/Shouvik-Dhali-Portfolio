@@ -697,30 +697,33 @@ auth.onAuthStateChanged(user => {
     trackVisitor();
     loadBlogs();
     loadProjects();
-    startInactivityLogout();
   }
 });
 
-/* AUTO LOGOUT AFTER INACTIVITY */
-let logoutTimer;
-
-// Set inactivity time (example: 10 minutes)
+/* ---------------------------
+   AUTO LOGOUT AFTER INACTIVITY
+-----------------------------*/
 const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 minutes
+let lastActiveTime = Date.now();
 
-function resetInactivityTimer() {
-  clearTimeout(logoutTimer);
-
-  logoutTimer = setTimeout(() => {
-    auth.signOut().then(() => {
-      alert("You were logged out due to inactivity.");
-      window.location.href = "admin.html";
-    });
-  }, INACTIVITY_LIMIT);
+// Update last active time on activity
+function resetInactivity() {
+  lastActiveTime = Date.now();
 }
+document.onmousemove = resetInactivity;
+document.onkeydown = resetInactivity;
+document.onclick = resetInactivity;
+document.onscroll = resetInactivity;
 
-// Detect user activity
-window.onload = resetInactivityTimer;
-document.onmousemove = resetInactivityTimer;
-document.onkeydown = resetInactivityTimer;
-document.onclick = resetInactivityTimer;
-document.onscroll = resetInactivityTimer;
+// Check inactivity when user returns to tab
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    const now = Date.now();
+    if (now - lastActiveTime > INACTIVITY_LIMIT) {
+      auth.signOut().then(() => {
+        alert("You were logged out due to inactivity.");
+        window.location.href = "admin.html";
+      });
+    }
+  }
+});
