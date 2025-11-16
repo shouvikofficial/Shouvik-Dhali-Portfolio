@@ -43,7 +43,6 @@ function addJSONLD(blog) {
 }
 
 /* ---------- NEW: Load Featured Post ---------- */
-/* ---------- NEW: Load Featured Post ---------- */
 async function loadFeaturedPost() {
   const section = document.getElementById("featured-post-section");
   if (!section) return;

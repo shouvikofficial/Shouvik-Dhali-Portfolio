@@ -66,7 +66,9 @@ async function loadMessages() {
     const div = document.createElement("div");
     div.classList.add("message-item");
     div.innerHTML = `
-      <p><strong>${data.name}</strong>: ${data.message}</p>
+      <p><strong>${data.name}</strong> (${data.email})</p>
+      <p>${data.message}</p>
+
       <div class="message-actions">
         <button class="reply" onclick="replyMessage('${data.email}')">Reply</button>
         <button class="delete" onclick="deleteMessage('${doc.id}')">Delete</button>
@@ -75,6 +77,7 @@ async function loadMessages() {
     messagesContainer.appendChild(div);
   });
 }
+
 
 // Delete a message
 async function deleteMessage(id) {
@@ -93,23 +96,36 @@ function replyMessage(email) {
 document.getElementById("search-msg").addEventListener("input", async (e) => {
   const search = e.target.value.toLowerCase();
   const snapshot = await db.collection("messages").orderBy("createdAt", "desc").get();
+
   messagesContainer.innerHTML = '';
+
   snapshot.forEach(doc => {
     const data = doc.data();
-    if (data.name.toLowerCase().includes(search) || data.message.toLowerCase().includes(search)) {
+
+    // ✅ SEARCH IN: Name + Message + Email
+    if (
+      data.name.toLowerCase().includes(search) ||
+      data.message.toLowerCase().includes(search) ||
+      (data.email && data.email.toLowerCase().includes(search))
+    ) {
       const div = document.createElement("div");
       div.classList.add("message-item");
+
       div.innerHTML = `
-        <p><strong>${data.name}</strong>: ${data.message}</p>
+        <p><strong>${data.name}</strong> <span style="color:#666;">(${data.email})</span></p>
+        <p>${data.message}</p>
+
         <div class="message-actions">
           <button class="reply" onclick="replyMessage('${data.email}')">Reply</button>
           <button class="delete" onclick="deleteMessage('${doc.id}')">Delete</button>
         </div>
       `;
+
       messagesContainer.appendChild(div);
     }
   });
 });
+
 
 // Charts
 async function loadCharts() {
@@ -202,10 +218,6 @@ async function loadBlogs() {
         <div class="message-actions">
           <button class="reply" onclick="editBlog('${doc.id}')">Edit</button>
           <button class="delete" onclick="deleteBlog('${doc.id}')">Delete</button>
-
-          <button class="publish" onclick="togglePublish('${doc.id}', ${data.published})">
-            ${data.published ? "Unpublish" : "Publish"}
-          </button>
 
           <!-- ⭐ FEATURED TOGGLE BUTTON -->
           <button class="publish" onclick="toggleFeatured('${doc.id}', ${data.featured})">
@@ -419,9 +431,6 @@ async function loadProjects() {
         <div class="message-actions">
           <button class="reply" onclick="editProject('${doc.id}')">Edit</button>
           <button class="delete" onclick="deleteProject('${doc.id}')">Delete</button>
-          <button class="publish" onclick="toggleProjectPublish('${doc.id}', ${data.published})">
-            ${data.published ? "Unpublish" : "Publish"}
-          </button>
         </div>
       `;
       projectContainer.appendChild(div);
