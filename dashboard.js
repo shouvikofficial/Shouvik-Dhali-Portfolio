@@ -697,6 +697,7 @@ auth.onAuthStateChanged(user => {
     trackVisitor();
     loadBlogs();
     loadProjects();
+    startInactivityLogout();
   }
 });
 
@@ -706,16 +707,30 @@ auth.onAuthStateChanged(user => {
 const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 minutes
 let lastActiveTime = Date.now();
 
-// Update last active time on activity
 function resetInactivity() {
   lastActiveTime = Date.now();
 }
-document.onmousemove = resetInactivity;
-document.onkeydown = resetInactivity;
-document.onclick = resetInactivity;
-document.onscroll = resetInactivity;
 
-// Check inactivity when user returns to tab
+// Attach listeners
+function startInactivityLogout() {
+  document.onmousemove = resetInactivity;
+  document.onkeydown = resetInactivity;
+  document.onclick = resetInactivity;
+  document.onscroll = resetInactivity;
+
+  // Check inactivity every 30 seconds
+  setInterval(() => {
+    const now = Date.now();
+    if (now - lastActiveTime > INACTIVITY_LIMIT) {
+      auth.signOut().then(() => {
+        alert("You were logged out due to inactivity.");
+        window.location.href = "admin.html";
+      });
+    }
+  }, 30000);
+}
+
+// Also check when coming back to tab
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden) {
     const now = Date.now();
